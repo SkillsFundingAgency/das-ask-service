@@ -35,6 +35,8 @@ namespace SFA.DAS.ASK.Web
             services.AddNLogLogging(Configuration);
 
             services.AddHealthChecks();
+
+            services.AddApplicationInsightsTelemetry();
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
