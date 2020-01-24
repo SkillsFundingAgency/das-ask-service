@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SFA.DAS.Boilerplate.Logging;
 
 namespace SFA.DAS.ASK.Web
 {
@@ -31,7 +32,10 @@ namespace SFA.DAS.ASK.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddNLogLogging(Configuration);
 
+            services.AddHealthChecks();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

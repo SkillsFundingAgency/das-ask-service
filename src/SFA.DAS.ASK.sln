@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ASK.Web", "SFA.DAS.ASK.Web\SFA.DAS.ASK.Web.csproj", "{AD2B8ABF-1559-40AE-818B-B2EADCFF266B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Boilerplate", "SFA.DAS.Boilerplate\SFA.DAS.Boilerplate.csproj", "{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{AD2B8ABF-1559-40AE-818B-B2EADCFF266B}.Release|x64.Build.0 = Release|Any CPU
 		{AD2B8ABF-1559-40AE-818B-B2EADCFF266B}.Release|x86.ActiveCfg = Release|Any CPU
 		{AD2B8ABF-1559-40AE-818B-B2EADCFF266B}.Release|x86.Build.0 = Release|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Debug|x64.Build.0 = Debug|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Debug|x86.Build.0 = Debug|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Release|x64.ActiveCfg = Release|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Release|x64.Build.0 = Release|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Release|x86.ActiveCfg = Release|Any CPU
+		{4D7EFCB5-BF4C-4163-99B0-B939BA7A71C1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
