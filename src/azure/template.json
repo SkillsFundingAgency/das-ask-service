@@ -41,13 +41,10 @@
         "sharedFrontEndAppServicePlan": {
             "type": "string"
         },
-        "sharedFrontEndAppServicePlanResourceGroupName": {
+        "sharedEnvResourceGroup": {
             "type": "string"
         },
         "sharedSQLServerName": {
-            "type": "string"
-        },
-        "sharedEnvResourceGroup": {
             "type": "string"
         },
         "databaseSkuName": {
@@ -92,9 +89,6 @@
             "type": "string"
         },
         "sharedBackEndAppServicePlan": {
-            "type": "string"
-        },
-        "sharedBackEndAppServicePlanResourceGroupName": {
             "type": "string"
         }
     },
@@ -221,7 +215,7 @@
             "condition": "[greater(length(parameters('uiCustomHostName')), 0)]",
             "apiVersion": "2017-05-10",
             "name": "ui-app-service-certificate",
-            "resourceGroup": "[parameters('sharedFrontEndAppServicePlanResourceGroupName')]",
+            "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -280,7 +274,7 @@
                         "value": "[parameters('sharedFrontEndAppServicePlan')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[parameters('sharedFrontEndAppServicePlanResourceGroupName')]"
+                        "value": "[parameters('sharedEnvResourceGroup')]"
                     },
                     "appServiceAppSettings": {
                         "value": [
@@ -325,7 +319,7 @@
             "condition": "[greater(length(parameters('apiCustomHostName')), 0)]",
             "apiVersion": "2017-05-10",
             "name": "api-app-service-certificate",
-            "resourceGroup": "[parameters('sharedFrontEndAppServicePlanResourceGroupName')]",
+            "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -384,7 +378,7 @@
                         "value": "[parameters('sharedBackEndAppServicePlan')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[parameters('sharedBackEndAppServicePlanResourceGroupName')]"
+                        "value": "[parameters('sharedEnvResourceGroup')]"
                     },
                     "appServiceAppSettings": {
                         "value": [
@@ -427,7 +421,7 @@
         },
         {
             "apiVersion": "2017-05-10",
-            "name": "preg-sql-database",
+            "name": "sql-database",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
             "properties": {
