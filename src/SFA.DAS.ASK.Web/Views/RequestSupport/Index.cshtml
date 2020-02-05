@@ -1,0 +1,25 @@
+@model SFA.DAS.ASK.Web.ViewModels.RequestSupport.RequestSupportViewModel
+
+@{
+    ViewBag.Title = "TODO: Title - Request Support";
+}
+
+<a asp-action="Index" asp-controller="Home">Back</a>
+
+<h1>Request support</h1>
+<h2>Teachers and careers advisers</h2>
+
+<form method="post">
+    <p>Do you have access to a DfE Sign-in account?</p>
+
+
+    <label for="hasSignInAccount_Yes">Yes</label>
+    <input type="radio" asp-for="HasSignInAccount" id="hasSignInAccount_Yes" value="true"/>
+
+    <label for="hasSignInAccount_No">No</label>
+    <input type="radio" asp-for="HasSignInAccount" id="hasSignInAccount_No" value="false"/>
+    
+    <button type="submit">Next</button>
+</form>
+
+<p>If you experience any difficulties in completing the form, please call for assistance on <a href="#">01462 341191</a>.</p>

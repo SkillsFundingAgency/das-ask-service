@@ -1,0 +1,39 @@
+@model SFA.DAS.ASK.Web.ViewModels.RequestSupport.YourDetailsViewModel
+
+@{
+    ViewBag.Title = "TODO: TITLE YOUR DETAILS";
+}
+
+<a asp-action="Index" asp-controller="RequestSupport">Back</a>
+
+
+<h1>Your details</h1>
+<h2>Section 1 of 4</h2>
+
+<div asp-validation-summary="All"></div>
+
+<form method="post">
+    
+    <label asp-for="FirstName">First name</label>
+    <input type="text" asp-for="FirstName"/>
+    
+    <label asp-for="LastName">Last name</label>
+    <input type="text" asp-for="LastName"/>
+    
+    <label asp-for="JobRole">Your job role</label>
+    <input type="text" asp-for="JobRole"/>
+    
+    <label asp-for="PhoneNumber">Phone number</label>
+    <input type="text" asp-for="PhoneNumber"/>
+    
+    <label asp-for="Email">Email address</label>
+    <input type="text" asp-for="Email"/>
+    
+    <label asp-for="ConfirmEmail">Confirm email address</label>
+    <input type="text" asp-for="ConfirmEmail"/>
+    
+    <button type="submit">Next</button>
+</form>
+
+
+<p>If you experience any difficulties in completing the form, please call for assistance on <a href="#">01462 341191</a>.</p>

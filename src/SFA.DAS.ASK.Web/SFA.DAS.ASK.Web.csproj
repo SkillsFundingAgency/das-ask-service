@@ -7,12 +7,15 @@
 
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.ASK.Application\SFA.DAS.ASK.Application.csproj" />
     <ProjectReference Include="..\SFA.DAS.Boilerplate\SFA.DAS.Boilerplate.csproj" />
   </ItemGroup>
 

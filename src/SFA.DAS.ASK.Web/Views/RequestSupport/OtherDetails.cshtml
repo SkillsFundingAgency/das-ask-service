@@ -1,0 +1,26 @@
+@model SFA.DAS.ASK.Web.ViewModels.RequestSupport.OtherDetailsViewModel
+
+@{
+    ViewBag.Title = "TODO: OTHER DETAILS";
+}
+
+
+<a asp-action="Index" asp-controller="OrganisationDetails">Back</a>
+
+
+<h1>Other details</h1>
+<h2>Section 4 of 4</h2>
+
+<div asp-validation-summary="All"></div>
+
+<form method="post">
+    <label asp-for="AdditionalComments">Additional comments</label>
+    <textarea asp-for="AdditionalComments"></textarea>
+    <input type="checkbox" asp-for="Agree"/>
+    <label asp-for="Agree">I have read and understand the Privacy and Cookies Policy and agree to receive communications from Amazing Apprenticeships, funded by the Department for Education, by email.</label>
+    
+    
+    <button type="submit">Request support visit</button>
+    
+    <p>Your school will be required to have a planning meeting so that we can explain the full range of support available through the ASK programme, funded by the Department for Education. This will be arranged by your local ASK partner.</p>
+</form>

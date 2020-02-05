@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest;
+using SFA.DAS.ASK.Data;
 using SFA.DAS.Boilerplate.Logging;
 
 namespace SFA.DAS.ASK.Web
@@ -37,6 +38,10 @@ namespace SFA.DAS.ASK.Web
             services.AddHealthChecks();
 
             services.AddApplicationInsightsTelemetry();
+
+            services.AddMediatR(typeof(StartRequestHandler));
+
+            services.AddDbContext<RequestSupportContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
