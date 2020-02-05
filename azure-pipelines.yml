@@ -67,7 +67,7 @@ steps:
   inputs:
     command: publish
     publishWebProjects: false
-    projects: '/src/SFA.DAS.ASK.Web/SFA.DAS.ASK.FunctionApp.csproj'
+    projects: '/src/SFA.DAS.ASK.Functions/SFA.DAS.ASK.Functions.csproj'
     arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)/publish --no-restore  --no-build'
     
 - task: VSBuild@1

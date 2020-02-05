@@ -44,10 +44,10 @@
         "sharedFrontEndAppServicePlanResourceGroupName": {
             "type": "string"
         },
-        "sharedSqlServerName": {
+        "sharedSQLServerName": {
             "type": "string"
         },
-        "sharedResourceGroup": {
+        "sharedEnvResourceGroup": {
             "type": "string"
         },
         "databaseSkuName": {
@@ -89,6 +89,12 @@
             "type": "string"
         },
         "logAnalyticsWorkspaceName": {
+            "type": "string"
+        },
+        "sharedBackEndAppServicePlan": {
+            "type": "string"
+        },
+        "sharedBackEndAppServicePlanResourceGroupName": {
             "type": "string"
         }
     },
@@ -375,10 +381,10 @@
                         "value": "[variables('apiAppServiceName')]"
                     },
                     "appServicePlanName": {
-                        "value": "[parameters('sharedFrontEndAppServicePlan')]"
+                        "value": "[parameters('sharedBackEndAppServicePlan')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[parameters('sharedFrontEndAppServicePlanResourceGroupName')]"
+                        "value": "[parameters('sharedBackEndAppServicePlanResourceGroupName')]"
                     },
                     "appServiceAppSettings": {
                         "value": [
@@ -423,7 +429,7 @@
             "apiVersion": "2017-05-10",
             "name": "preg-sql-database",
             "type": "Microsoft.Resources/deployments",
-            "resourceGroup": "[parameters('sharedResourceGroup')]",
+            "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
