@@ -1,27 +1,46 @@
+using System;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.SaveSupportRequest;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers
 {
     public class OtherDetailsController : Controller
     {
-        [HttpGet("other-details")]
-        public IActionResult Index()
+        private readonly IMediator _mediator;
+
+        public OtherDetailsController(IMediator mediator)
         {
-            var vm = new OtherDetailsViewModel();
+            _mediator = mediator;
+        }
+        
+        [HttpGet("other-details/{requestId}")]
+        public async Task<IActionResult> Index(Guid requestId)
+        {
+            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            
+            var vm = new OtherDetailsViewModel(supportRequest);
             
             return View("~/Views/RequestSupport/OtherDetails.cshtml", vm);
         }
 
-        [HttpPost("other-details")]
-        public IActionResult Index(OtherDetailsViewModel viewModel)
+        [HttpPost("other-details/{requestId}")]
+        public async Task<IActionResult> Index(Guid requestId, OtherDetailsViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View("~/Views/RequestSupport/OtherDetails.cshtml", viewModel);
             }
 
-            return RedirectToAction("Index", "ApplicationComplete");
+            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            
+            await _mediator.Send(new SubmitSupportRequest(viewModel.ToSupportRequest(supportRequest)));
+            
+            return RedirectToAction("Index", "ApplicationComplete", new{requestId});
         }
         
         

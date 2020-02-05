@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.SaveSupportRequest;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers
@@ -26,8 +27,8 @@ namespace SFA.DAS.ASK.Web.Controllers
             return View("~/Views/RequestSupport/OrganisationDetails.cshtml", vm);
         }
 
-        [HttpPost("organisation-details")]
-        public IActionResult Index(OrganisationDetailsViewModel viewModel)
+        [HttpPost("organisation-details/{requestId}")]
+        public async Task<IActionResult> Index(Guid requestId, OrganisationDetailsViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -40,7 +41,11 @@ namespace SFA.DAS.ASK.Web.Controllers
                 return View("~/Views/RequestSupport/OrganisationDetails.cshtml", viewModel);
             }
 
-            return RedirectToAction("Index", "OrganisationAddress");
+            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            
+            await _mediator.Send(new SaveSupportRequest(viewModel.ToSupportRequest(supportRequest)));
+            
+            return RedirectToAction("Index", "OrganisationAddress", new {requestId = requestId});
         }
     }
 }

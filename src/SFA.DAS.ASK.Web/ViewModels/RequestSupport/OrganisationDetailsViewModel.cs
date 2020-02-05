@@ -19,5 +19,13 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         [Required(ErrorMessage = "Please select an Organisation Type")]
         public int? SelectedOrganisationType { get; set; }
         public string Other { get; set; }
+
+        public SupportRequest ToSupportRequest(SupportRequest supportRequest)
+        {
+            supportRequest.OrganisationType = SelectedOrganisationType;
+            supportRequest.OtherOrganisationType = Other;
+            
+            return supportRequest;
+        }
     }
 }

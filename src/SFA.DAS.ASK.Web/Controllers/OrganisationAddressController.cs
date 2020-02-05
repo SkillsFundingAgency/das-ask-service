@@ -1,41 +1,45 @@
-using System.ComponentModel.DataAnnotations;
+using System;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.SaveSupportRequest;
+using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers
 {
     public class OrganisationAddressController : Controller
     {
-        [HttpGet("organisation-address")]
-        public IActionResult Index()
+        private readonly IMediator _mediator;
+
+        public OrganisationAddressController(IMediator mediator)
         {
-            var vm = new OrganisationAddressViewModel();
+            _mediator = mediator;
+        }
+        
+        [HttpGet("organisation-address/{requestId}")]
+        public async Task<IActionResult> Index(Guid requestId)
+        {
+            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            
+            var vm = new OrganisationAddressViewModel(supportRequest);
 
             return View("~/Views/RequestSupport/OrganisationAddress.cshtml", vm);
         }
 
-        [HttpPost("organisation-address")]
-        public IActionResult Index(OrganisationAddressViewModel viewModel)
+        [HttpPost("organisation-address/{requestId}")]
+        public async Task<IActionResult> Index(Guid requestId, OrganisationAddressViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View("~/Views/RequestSupport/OrganisationAddress.cshtml", viewModel);    
             }
+            
+            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            
+            await _mediator.Send(new SaveSupportRequest(viewModel.ToSupportRequest(supportRequest)));
 
-            return RedirectToAction("Index", "OtherDetails");
+            return RedirectToAction("Index", "OtherDetails", new {requestId});
         }
-    }
-
-    public class OrganisationAddressViewModel
-    {
-        [Required]
-        public string BuildingAndStreet1 { get; set; }
-        [Required]
-        public string BuildingAndStreet2 { get; set; }
-        [Required]
-        public string TownOrCity { get; set; }
-        [Required]
-        public string County { get; set; }
-        [Required]
-        public string Postcode { get; set; }
     }
 }
