@@ -7,84 +7,91 @@ trigger:
 
 pr: none
 
-workspace:
-    clean: all
-
 variables:
   buildConfiguration: 'release'
   buildPlatform: 'anycpu'
 
-pool:
-  name: 'DAS - Continuous Integration'
-
-steps:
-- task: gittools.gitversion.gitversion-task.GitVersion@5
-  displayName: GitVersion
-  inputs:
-    updateAssemblyInfo: true
-
-- task: DotNetCoreCLI@2
-  displayName: dot restore
-  inputs:
-    command: restore
-    projects: 'src/SFA.DAS.ASK.sln'
-    noCache: true
-
-- task: DotNetCoreCLI@2
-  displayName: dotnet build
-  inputs:
-    projects: 'src/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)  --no-restore'
-    
-- task: DotNetCoreCLI@2
-  displayName: dotnet test
-  inputs:
-    command: test
-    projects: '**/*.UnitTests.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-build'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Publish External API'
-  inputs:
-    command: publish
-    publishWebProjects: false
-    projects: 'src/SFA.DAS.ASK.Api/SFA.DAS.ASK.Api.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)/publish --no-restore  --no-build'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Publish Web UI'
-  inputs:
-    command: publish
-    publishWebProjects: false
-    projects: '/src/SFA.DAS.ASK.Web/SFA.DAS.ASK.Web.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)/publish --no-restore  --no-build'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Publish Function App'
-  inputs:
-    command: publish
-    publishWebProjects: false
-    projects: '/src/SFA.DAS.ASK.Functions/SFA.DAS.ASK.Functions.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)/publish --no-restore  --no-build'
-    
-- task: VSBuild@1
-  displayName: 'Build DACPAC'
-  inputs:
-    solution: 'src/SFA.DAS.ASK.Database/SFA.DAS.ASK.Database.sqlproj'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:PackageLocation="$(build.artifactstagingdirectory)/publish"'
-
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-  inputs:
-    Contents: |
-     azure\**
-     src\**\*.dacpac
-    TargetFolder: '$(build.artifactstagingdirectory)/'
-    OverWrite: true
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact'
-  inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)/'
+jobs:
+  - job: 'CodeBuild'
+    pool:
+      name: 'DAS - Continuous Integration'
+      workspace:
+        clean: all
+    steps:
+    - task: gittools.gitversion.gitversion-task.GitVersion@5
+      displayName: GitVersion
+      inputs:
+        updateAssemblyInfo: true
+    - task: DotNetCoreCLI@2
+      displayName: dot restore
+      inputs:
+        command: restore
+        projects: 'src/SFA.DAS.ASK.sln'
+        noCache: true
+    - task: DotNetCoreCLI@2
+      displayName: dotnet build
+      inputs:
+        projects: 'src/**/*.csproj'
+        arguments: '--configuration $(buildConfiguration)  --no-restore'   
+    - task: DotNetCoreCLI@2
+      displayName: dotnet test
+      inputs:
+        command: test
+        projects: '**/*.UnitTests.csproj'
+        arguments: '--configuration $(buildConfiguration) --no-build'
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish External API'
+      inputs:
+        command: publish
+        publishWebProjects: false
+        projects: 'src/SFA.DAS.ASK.Api/SFA.DAS.ASK.Api.csproj'
+        arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)/publish --no-restore  --no-build'
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish Web UI'
+      inputs:
+        command: publish
+        publishWebProjects: false
+        projects: 'src/SFA.DAS.ASK.Web/SFA.DAS.ASK.Web.csproj'
+        arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)/publish --no-restore  --no-build'
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish Function App'
+      inputs:
+        command: publish
+        publishWebProjects: false
+        projects: 'src/SFA.DAS.ASK.Functions/SFA.DAS.ASK.Functions.csproj'
+        arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)/publish --no-restore  --no-build'
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+      inputs:
+        Contents: |
+          azure/**
+        TargetFolder: '$(build.artifactstagingdirectory)/'
+        OverWrite: true
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)/'
+  
+  - job: 'DACPACBuild'
+    pool: 
+      vmImage: 'windows-2019'
+    workspace:
+      clean: all
+    steps:
+      - task: VSBuild@1
+        displayName: 'Build DACPAC'
+        inputs:
+          solution: 'src/SFA.DAS.ASK.Database/SFA.DAS.ASK.Database.sqlproj'
+          platform: '$(buildPlatform)'
+          configuration: '$(buildConfiguration)'
+          msbuildArgs: '/p:PackageLocation="$(build.artifactstagingdirectory)/publish"' 
+      - task: CopyFiles@2
+        displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+        inputs:
+          contents: |
+            src/**/*.dacpac
+          targetFolder: '$(build.artifactstagingdirectory)/publish'
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact'
+        inputs:
+          pathtoPublish: '$(build.artifactstagingdirectory)/publish'
