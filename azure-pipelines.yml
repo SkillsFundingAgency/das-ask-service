@@ -51,7 +51,7 @@ jobs:
       inputs:
         command: publish
         publishWebProjects: false
-        projects: '/src/SFA.DAS.ASK.Web/SFA.DAS.ASK.Web.csproj'
+        projects: 'src/SFA.DAS.ASK.Web/SFA.DAS.ASK.Web.csproj'
         arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)/publish --no-restore  --no-build'
     - task: DotNetCoreCLI@2
       displayName: 'Publish Function App'
