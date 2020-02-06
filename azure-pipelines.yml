@@ -81,7 +81,7 @@ jobs:
       - task: VSBuild@1
         displayName: 'Build DACPAC'
         inputs:
-          solution: '/src/SFA.DAS.ASK.Functions/SFA.DAS.ASK.Functions.csproj'
+          solution: 'src/SFA.DAS.ASK.Database/SFA.DAS.ASK.Database.sqlpro'
           platform: '$(buildPlatform)'
           configuration: '$(buildConfiguration)'
           msbuildArgs: '/p:PackageLocation="$(build.artifactstagingdirectory)/publish"' 
