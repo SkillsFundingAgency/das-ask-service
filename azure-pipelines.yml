@@ -65,19 +65,19 @@ jobs:
       inputs:
         Contents: |
           azure/**
-      TargetFolder: '$(build.artifactstagingdirectory)/'
-      OverWrite: true
+        TargetFolder: '$(build.artifactstagingdirectory)/'
+        OverWrite: true
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact'
       inputs:
-      PathtoPublish: '$(build.artifactstagingdirectory)/'
-
-    - job: 'DACPACBuild'
-      pool: 
-        vmImage: 'windows-2019'
-      workspace:
-        clean: all
-      steps:
+        PathtoPublish: '$(build.artifactstagingdirectory)/'
+  
+  - job: 'DACPACBuild'
+    pool: 
+      vmImage: 'windows-2019'
+    workspace:
+      clean: all
+    steps:
       - task: VSBuild@1
         displayName: 'Build DACPAC'
         inputs:
