@@ -23,7 +23,7 @@ namespace SFA.DAS.ASK.Web.Controllers
         {
             var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
             
-            var vm = new OtherDetailsViewModel(supportRequest);
+            var vm = new OtherDetailsViewModel(supportRequest){NonSignedIn = true};
             
             return View("~/Views/RequestSupport/OtherDetails.cshtml", vm);
         }
@@ -42,7 +42,16 @@ namespace SFA.DAS.ASK.Web.Controllers
             
             return RedirectToAction("Index", "ApplicationComplete", new{requestId});
         }
+
         
-        
+        [HttpGet("other-details-signed-in/{requestId}")]
+        public async Task<IActionResult> SignedIn(Guid requestId)
+        {
+            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            
+            var vm = new OtherDetailsViewModel(supportRequest){NonSignedIn = false};
+            
+            return View("~/Views/RequestSupport/OtherDetails.cshtml", vm);
+        }
     }
 }

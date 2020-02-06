@@ -13,6 +13,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
             RequestId = supportRequest.Id;
             AdditionalComments = supportRequest.AdditionalComments;
             Agree = supportRequest.Agree;
+            Email = supportRequest.Email;
         }
 
         public string AdditionalComments { get; set; }
@@ -29,5 +30,8 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
             
             return supportRequest;
         }
+
+        public bool NonSignedIn { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -22,5 +22,6 @@ namespace SFA.DAS.ASK.Data.Entities
         public bool Agree { get; set; }
         public bool Submitted { get; set; }
         public DateTime? SubmittedDate { get; set; }
+        public string SchoolName { get; set; }
     }
 }

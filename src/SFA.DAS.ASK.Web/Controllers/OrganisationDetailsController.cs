@@ -40,10 +40,15 @@ namespace SFA.DAS.ASK.Web.Controllers
                 ModelState.AddModelError("organisationType_other_details", "Please enter something for Other");
                 return View("~/Views/RequestSupport/OrganisationDetails.cshtml", viewModel);
             }
-
+            
             var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
             
             await _mediator.Send(new SaveSupportRequest(viewModel.ToSupportRequest(supportRequest)));
+
+            if (viewModel.SelectedOrganisationType == 1) // School
+            {
+                return RedirectToAction("Index", "SchoolDetails", new {requestId = requestId});
+            }
             
             return RedirectToAction("Index", "OrganisationAddress", new {requestId = requestId});
         }

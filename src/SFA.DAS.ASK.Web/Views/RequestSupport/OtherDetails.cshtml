@@ -9,16 +9,30 @@
 
 
 <h1>Other details</h1>
-<h2>Section 4 of 4</h2>
-
+@if (Model.NonSignedIn)
+{
+    <h2>Section 4 of 4</h2>
+}
+else
+{
+    <h2>Thank you @Model.Email</h2>
+}
 <div asp-validation-summary="All"></div>
 
-<form method="post">
+<form method="post" asp-action="Index" asp-controller="OtherDetails" asp-route-requestId="@Model.RequestId">
     <label asp-for="AdditionalComments">Additional comments</label>
     <textarea asp-for="AdditionalComments"></textarea>
-    <input type="checkbox" asp-for="Agree"/>
-    <label asp-for="Agree">I have read and understand the Privacy and Cookies Policy and agree to receive communications from Amazing Apprenticeships, funded by the Department for Education, by email.</label>
+    <input type="hidden" asp-for="NonSignedIn"/>
     
+    @if (Model.NonSignedIn)
+    {
+        <input type="checkbox" asp-for="Agree"/>
+        <label asp-for="Agree">I have read and understand the Privacy and Cookies Policy and agree to receive communications from Amazing Apprenticeships, funded by the Department for Education, by email.</label>
+    }
+    else
+    {
+        <input type="hidden" asp-for="Agree"/>
+    }
     
     <button type="submit">Request support visit</button>
     
