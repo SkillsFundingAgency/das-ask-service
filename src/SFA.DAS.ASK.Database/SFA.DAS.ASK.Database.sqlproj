@@ -58,4 +58,12 @@
     <Folder Include="Properties" />
     <Folder Include="Tables" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\DeliveryArea.sql" />
+    <Build Include="Tables\PostCodeRegions.sql" />
+    <Build Include="Tables\EmailTemplates.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment1.sql" />
+  </ItemGroup>
 </Project>
