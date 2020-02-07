@@ -24,7 +24,12 @@ namespace SFA.DAS.ASK.Web.Controllers
         [HttpPost("request-support")]
         public async Task<IActionResult> Index(RequestSupportViewModel viewModel)
         {
-            if (viewModel.HasSignInAccount)
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            
+            if (viewModel.HasSignInAccount.GetValueOrDefault())
             {
                 return RedirectToAction("SignIn", "SignIn");
             }
