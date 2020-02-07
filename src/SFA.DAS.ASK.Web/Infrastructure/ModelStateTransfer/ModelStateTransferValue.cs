@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SFA.DAS.ASK.Web.Infrastructure
+namespace SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer
 {
     public class ModelStateTransferValue
     {

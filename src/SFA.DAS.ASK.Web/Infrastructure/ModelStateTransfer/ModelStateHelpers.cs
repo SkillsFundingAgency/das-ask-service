@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 
-namespace SFA.DAS.ASK.Web.Infrastructure
+namespace SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer
 {
     public static class ModelStateHelpers
     {

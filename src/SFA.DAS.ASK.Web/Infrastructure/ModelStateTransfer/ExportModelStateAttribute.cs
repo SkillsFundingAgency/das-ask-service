@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace SFA.DAS.ASK.Web.Infrastructure
+namespace SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer
 {
     public class ExportModelStateAttribute : ModelStateTransfer
     {

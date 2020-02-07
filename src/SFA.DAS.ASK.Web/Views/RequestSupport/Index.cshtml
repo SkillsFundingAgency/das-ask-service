@@ -14,15 +14,17 @@
     </div>
 </div>
 
-@Html.Partial("_ErrorSummary")
+<partial name="_ErrorSummary"/>
 
 <form method="post">
-    <div class="govuk-form-group">
+    <div class="govuk-form-group" sfa-gds-error-class-for="HasSignInAccount">
         <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                 Do you have access to a DfE Sign-in account?
             </legend>
 
+            <span sfa-gds-error-message-for="HasSignInAccount"></span>
+            
             <div class="govuk-radios">
                 <div class="govuk-radios__item">
                     <input class="govuk-radios__input" type="radio" asp-for="HasSignInAccount" id="HasSignInAccount" value="true">
