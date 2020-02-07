@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest;
+using SFA.DAS.ASK.Web.Infrastructure;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers
@@ -16,17 +17,19 @@ namespace SFA.DAS.ASK.Web.Controllers
         }
         
         [HttpGet("request-support")]
+        [ImportModelState]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost("request-support")]
+        [ExportModelState]
         public async Task<IActionResult> Index(RequestSupportViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return RedirectToAction("Index");
             }
             
             if (viewModel.HasSignInAccount.GetValueOrDefault())

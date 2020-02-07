@@ -1,3 +1,4 @@
+@using Microsoft.AspNetCore.Mvc.ModelBinding
 @model SFA.DAS.ASK.Web.ViewModels.RequestSupport.RequestSupportViewModel
 
 @{
@@ -13,6 +14,8 @@
     </div>
 </div>
 
+@Html.Partial("_ErrorSummary")
+
 <form method="post">
     <div class="govuk-form-group">
         <fieldset class="govuk-fieldset">
@@ -22,8 +25,8 @@
 
             <div class="govuk-radios">
                 <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" type="radio" asp-for="HasSignInAccount" id="hasSignInAccount_Yes" value="true">
-                    <label class="govuk-label govuk-radios__label" for="hasSignInAccount_Yes">
+                    <input class="govuk-radios__input" type="radio" asp-for="HasSignInAccount" id="HasSignInAccount" value="true">
+                    <label class="govuk-label govuk-radios__label" for="HasSignInAccount">
                         Yes
                     </label>
                 </div>

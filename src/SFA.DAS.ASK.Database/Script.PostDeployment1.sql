@@ -13,7 +13,7 @@ Post-Deployment Script Template
 print 'Start Post-Deployment';
 
 -- Setup Delivery Areas
-:r .\AddDeliveryArea.sql
+:r .\AddDeliveryAreas.sql
 
 -- Add PostCode to Region Mapping 
 :r .\InsertPostcodetoRegions.sql
