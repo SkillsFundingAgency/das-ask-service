@@ -11,8 +11,8 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         public OrganisationDetailsViewModel(SupportRequest supportRequest)
         {
             RequestId = supportRequest.Id;
-            Other = supportRequest.OtherOrganisationType;
-            SelectedOrganisationType = supportRequest.OrganisationType;
+            Other = supportRequest.Organisation.OtherOrganisationType;
+            SelectedOrganisationType = supportRequest.Organisation.OrganisationType;
         }
 
         public Guid RequestId { get; set; }
@@ -22,8 +22,8 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 
         public SupportRequest ToSupportRequest(SupportRequest supportRequest)
         {
-            supportRequest.OrganisationType = SelectedOrganisationType;
-            supportRequest.OtherOrganisationType = Other;
+            supportRequest.Organisation.OrganisationType = SelectedOrganisationType;
+            supportRequest.Organisation.OtherOrganisationType = Other;
             
             return supportRequest;
         }

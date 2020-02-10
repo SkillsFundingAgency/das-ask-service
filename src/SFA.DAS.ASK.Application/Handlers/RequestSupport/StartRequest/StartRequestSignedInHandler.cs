@@ -13,11 +13,13 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest
     {
         private readonly RequestSupportContext _context;
         private readonly IDfeSignInApiClient _dfeClient;
+        private readonly IMediator _mediator;
 
-        public StartRequestSignedInHandler(RequestSupportContext context, IDfeSignInApiClient dfeClient)
+        public StartRequestSignedInHandler(RequestSupportContext context, IDfeSignInApiClient dfeClient, IMediator mediator)
         {
             _context = context;
             _dfeClient = dfeClient;
+            _mediator = mediator;
         }
         public async Task<SupportRequest> Handle(StartRequestSignedInRequest request, CancellationToken cancellationToken)
         {
@@ -27,22 +29,18 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest
             if (organisations.Count != 1) throw new NotImplementedException("Users with >1 Organisations not handled yet.");
                 
             var org = organisations.First();
-            var address = org.Address.Split(new []{Environment.NewLine}, StringSplitOptions.None);
-                    
+
+            var organisation = await _mediator.Send(new GetOrCreateOrganisationRequest(org), cancellationToken);
+            
             var supportRequest = new SupportRequest
             {
                 Id = Guid.NewGuid(),
                 Agree = true,
                 Email = request.Email,
-                BuildingAndStreet1 = address[0],
-                BuildingAndStreet2 = address[1],
-                TownOrCity = address[2],
-                County = address[3],
-                Postcode = address[4],
                 FirstName = request.Name.Split(new[]{" "}, StringSplitOptions.RemoveEmptyEntries)[0],
                 LastName = request.Name.Split(new[]{" "}, StringSplitOptions.RemoveEmptyEntries)[1],
                 PhoneNumber = org.Telephone, 
-                OrganisationName = org.Name
+                OrganisationId = organisation.Id
             };
 
             _context.SupportRequests.Add(supportRequest);

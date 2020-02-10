@@ -19,7 +19,8 @@ namespace SFA.DAS.ASK.Application.DfeApi
             {new DfeOrganisation
             {
                 Address = "3 The Street\r\nThe Village\r\nTheTown\r\nCounty\r\nStaffordshire\r\nWS12 3UP",
-                Name = "Coventry High School"
+                Name = "Coventry High School",
+                UkPrn = 10000323
             }};
         }
     }
