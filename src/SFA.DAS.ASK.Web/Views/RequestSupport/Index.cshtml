@@ -5,45 +5,49 @@
     ViewBag.Title = "Request support";
 }
 <a asp-action="Index" asp-controller="Home" class="govuk-back-link">Back</a>
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">
-            Request support
-            <span class="govuk-caption-xl">Teachers and careers advisers</span>
-        </h1>
-    </div>
-</div>
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
 
-<partial name="_ErrorSummary"/>
+            <partial name="_ErrorSummary"/>
 
-<form method="post">
-    <div class="govuk-form-group" sfa-gds-error-class-for="HasSignInAccount">
-        <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                Do you have access to a DfE Sign-in account?
-            </legend>
+            <form method="post">
+                <div class="govuk-form-group" sfa-gds-error-class-for="HasSignInAccount">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
 
-            <span sfa-gds-error-message-for="HasSignInAccount"></span>
-            
-            <div class="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" type="radio" asp-for="HasSignInAccount" id="HasSignInAccount" value="true">
-                    <label class="govuk-label govuk-radios__label" for="HasSignInAccount">
-                        Yes
-                    </label>
+                            <h1 class="govuk-fieldset__heading">
+                                Do you have access to a DfE Sign-in account?
+                            </h1>
+
+                        </legend>
+
+
+                        <span sfa-gds-error-message-for="HasSignInAccount"></span>
+
+                        <div class="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="HasSignInAccount" id="HasSignInAccount" value="true">
+                                <label class="govuk-label govuk-radios__label" for="HasSignInAccount">
+                                    Yes
+                                </label>
+                            </div>
+
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="HasSignInAccount" id="hasSignInAccount_No" value="false">
+                                <label class="govuk-label govuk-radios__label" for="hasSignInAccount_No">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
-
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" type="radio" asp-for="HasSignInAccount" id="hasSignInAccount_No" value="false">
-                    <label class="govuk-label govuk-radios__label" for="hasSignInAccount_No">
-                        No
-                    </label>
-                </div>
-            </div>
-        </fieldset>
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+                <a asp-action="Index" asp-controller="Home" class="govuk-link cancel-link">Cancel</a>
+            </form>
+            <p class="govuk-hint">If you experience any difficulties in completing the form, please call for assistance on <a href="tel:01462 341191">01462 341191</a>.</p>
+        </div>
     </div>
-    <button class="govuk-button" data-module="govuk-button" type="submit">
-      Next
-    </button>
-</form>
-<p class="govuk-hint">If you experience any difficulties in completing the form, please call for assistance on <a href="tel:01462 341191">01462 341191</a>.</p>
+</main>

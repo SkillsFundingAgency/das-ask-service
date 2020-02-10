@@ -1,26 +1,27 @@
 ﻿@{
-    ViewData["Title"] = "TODO: TITLE Request support";
+    ViewData["Title"] = "Request support";
 }
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Request support from the National Apprenticeship Service</h1>
-    <p class="govuk-body">We can connect your school, college or other educational establishment with a National Apprenticeship Service delivery partner organisation in your area. They’ll work with you to assess your requirements and deliver your bespoke support package.</p>
-    <p class="govuk-body">This could include:</p>
-    <ul class="govuk-list govuk-list--bullet">
-        <li>school visits and talks</li>
-        <li>free resources</li>
-        <li>support for a specific event, such as a careers fair</li>
-        <li>teacher CPD sessions</li>
-    </ul>
-    <a asp-action="Index" asp-controller="RequestSupport" role="button" draggable="false" class="govuk-button govuk-button--start" data-module="govuk-button">
-      Start now
-      <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false">
-        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
-      </svg>
-    </a>
-    <div class="govuk-inset-text">
-        <a href="#" class="govuk-link">Northern Ireland</a>, <a href="#" class="govuk-link">Scotland</a> and <a href="#" class="govuk-link">Wales</a> have their own websites for requesting support.
-    </div>  
-  </div>
-</div>
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Request support from the National Apprenticeship Service</h1>
+            <p class="govuk-body">We can connect your school, college or other educational establishment with a National Apprenticeship Service delivery partner organisation in your area. They’ll work with you to assess your requirements and deliver your bespoke support package.</p>
+            <p class="govuk-body">This could include:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>school visits and talks</li>
+                <li>free resources</li>
+                <li>support for a specific event, such as a careers fair</li>
+                <li>teacher CPD sessions</li>
+            </ul>
+            <a asp-action="Index" asp-controller="RequestSupport" role="button" draggable="false" class="govuk-button govuk-button--start" data-module="govuk-button">
+                Start now
+                <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false">
+                    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+                </svg>
+            </a>
+            <div class="govuk-inset-text">
+                <a href="#" class="govuk-link">Northern Ireland</a>, <a href="#" class="govuk-link">Scotland</a> and <a href="#" class="govuk-link">Wales</a> have their own websites for requesting support.
+            </div>
+        </div>
+    </div>
+</main>
