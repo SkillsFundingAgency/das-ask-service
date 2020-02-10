@@ -1,40 +1,66 @@
 @model SFA.DAS.ASK.Web.ViewModels.RequestSupport.OtherDetailsViewModel
 
 @{
-    ViewBag.Title = "TODO: OTHER DETAILS";
+    ViewBag.Title = "Other details";
 }
 
-
-<a asp-action="Index" asp-controller="OrganisationAddress" asp-route-requestId="@Model.RequestId">Back</a>
-
-
-<h1>Other details</h1>
 @if (Model.NonSignedIn)
 {
-    <h2>Section 4 of 4</h2>
+    <a asp-action="Index" asp-controller="OrganisationAddress" asp-route-requestId="@Model.RequestId" class="govuk-back-link">Back</a>
 }
 else
 {
-    <h2>Thank you @Model.Email</h2>
+    <a asp-action="Index" asp-controller="RequestSupport" class="govuk-back-link">Back</a>
 }
-<div asp-validation-summary="All"></div>
 
-<form method="post" asp-action="Index" asp-controller="OtherDetails" asp-route-requestId="@Model.RequestId">
-    <label asp-for="AdditionalComments">Additional comments</label>
-    <textarea asp-for="AdditionalComments"></textarea>
-    <input type="hidden" asp-for="NonSignedIn"/>
-    
-    @if (Model.NonSignedIn)
-    {
-        <input type="checkbox" asp-for="Agree"/>
-        <label asp-for="Agree">I have read and understand the Privacy and Cookies Policy and agree to receive communications from Amazing Apprenticeships, funded by the Department for Education, by email.</label>
-    }
-    else
-    {
-        <input type="hidden" asp-for="Agree"/>
-    }
-    
-    <button type="submit">Request support visit</button>
-    
-    <p>Your school will be required to have a planning meeting so that we can explain the full range of support available through the ASK programme, funded by the Department for Education. This will be arranged by your local ASK partner.</p>
-</form>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">
+            Other details
+            <span class="govuk-caption-xl">
+                @if (Model.NonSignedIn)
+                {
+                    <text>Section 4 of 4</text>
+                }
+                else
+                {
+                    <text>Thank you @Model.Email</text>
+                }
+            </span>
+        </h1>
+
+        <form method="post" asp-action="Index" asp-controller="OtherDetails" asp-route-requestId="@Model.RequestId">
+            <input type="hidden" asp-for="NonSignedIn"/>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <label class="govuk-label" asp-for="AdditionalComments">
+                        Additional comments
+                    </label>
+                    <textarea class="govuk-textarea" asp-for="AdditionalComments" rows="5" aria-describedby="more-detail-hint"></textarea>
+
+                    @if (Model.NonSignedIn)
+                    {
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" asp-for="Agree" type="checkbox">
+                            <label class="govuk-label govuk-checkboxes__label" asp-for="Agree">
+                                I have read and understand the Privacy and Cookies Policy and agree to receive communications from Amazing Apprenticeships, funded by the Department for Education, by email.
+                            </label>
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="Agree"/>
+                    }
+                </fieldset>
+            </div>
+            <button class="govuk-button" data-module="govuk-button" type="submit">
+                Request support visit
+            </button>
+
+            <p class="govuk-hint">
+                Your school will be required to have a planning meeting so that we can explain the full range of support available through the
+                ASK programme, funded by the Department for Education. This will be arranged by your local ASK partner.
+            </p>
+        </form>
+    </div>
+</div>

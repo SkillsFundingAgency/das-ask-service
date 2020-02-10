@@ -1,6 +1,8 @@
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest;
 
@@ -16,6 +18,7 @@ namespace SFA.DAS.ASK.Web.Controllers
         }
         
         [HttpGet("sign-in")]
+        // [Authorize]
         public IActionResult SignIn()
         {
             return View("~/Views/RequestSupport/SignIn.cshtml");
@@ -24,7 +27,12 @@ namespace SFA.DAS.ASK.Web.Controllers
         [HttpGet("signed-in")]
         public async Task<IActionResult> SignedIn()
         {
-            var request = await _mediator.Send(new StartRequestSignedInRequest(Guid.NewGuid()));
+            //var email = User.FindFirst(ClaimTypes.Email);
+            var email = "davegouge@myschool.org.uk.edu.com";
+            //var dfeSignInId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var dfeSignInId = Guid.NewGuid();
+            string name = "David Gouge";
+            var request = await _mediator.Send(new StartRequestSignedInRequest(dfeSignInId, email, name));
 
             return RedirectToAction("SignedIn", "OtherDetails", new {requestId = request.Id});
         }

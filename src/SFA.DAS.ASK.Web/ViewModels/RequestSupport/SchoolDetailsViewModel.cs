@@ -12,7 +12,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         {
             RequestId = supportRequest.Id;
             County = supportRequest.County;
-            SchoolName = supportRequest.SchoolName;
+            SchoolName = supportRequest.OrganisationName;
         }
 
         [Required]
@@ -26,7 +26,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 
         public SupportRequest ToSupportRequest(SupportRequest supportRequest)
         {
-            supportRequest.SchoolName = SchoolName;
+            supportRequest.OrganisationName = SchoolName;
             supportRequest.County = County;
             
             return supportRequest;
