@@ -3,11 +3,10 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
-using SFA.DAS.ASK.Application.Handlers.RequestSupport.SaveSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
-namespace SFA.DAS.ASK.Web.Controllers
+namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
     public class OtherDetailsController : Controller
     {
@@ -37,8 +36,11 @@ namespace SFA.DAS.ASK.Web.Controllers
             }
 
             var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+
+            //var email = User.FindFirst(ClaimTypes.Email).Value;
+            var email = "davegouge@gmail.com";
             
-            await _mediator.Send(new SubmitSupportRequest(viewModel.ToSupportRequest(supportRequest)));
+            await _mediator.Send(new SubmitSupportRequest(viewModel.ToSupportRequest(supportRequest), email));
             
             return RedirectToAction("Index", "ApplicationComplete", new{requestId});
         }

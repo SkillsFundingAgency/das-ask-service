@@ -6,33 +6,33 @@ using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SaveSupportRequest;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
-namespace SFA.DAS.ASK.Web.Controllers
+namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
-    public class SchoolDetailsController : Controller
+    public class OrganisationAddressController : Controller
     {
         private readonly IMediator _mediator;
 
-        public SchoolDetailsController(IMediator mediator)
+        public OrganisationAddressController(IMediator mediator)
         {
             _mediator = mediator;
         }
         
-        [HttpGet("school-details/{requestId}")]
+        [HttpGet("organisation-address/{requestId}")]
         public async Task<IActionResult> Index(Guid requestId)
         {
             var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
             
-            var vm = new SchoolDetailsViewModel(supportRequest);
+            var vm = new OrganisationAddressViewModel(supportRequest);
 
-            return View("~/Views/RequestSupport/SchoolDetails.cshtml", vm);
+            return View("~/Views/RequestSupport/OrganisationAddress.cshtml", vm);
         }
 
-        [HttpPost("school-details/{requestId}")]
-        public async Task<IActionResult> Index(Guid requestId, SchoolDetailsViewModel viewModel)
+        [HttpPost("organisation-address/{requestId}")]
+        public async Task<IActionResult> Index(Guid requestId, OrganisationAddressViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View("~/Views/RequestSupport/SchoolDetails.cshtml", viewModel);    
+                return View("~/Views/RequestSupport/OrganisationAddress.cshtml", viewModel);    
             }
             
             var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));

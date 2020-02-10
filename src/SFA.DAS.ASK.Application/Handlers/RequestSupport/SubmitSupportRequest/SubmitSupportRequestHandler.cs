@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SFA.DAS.ASK.Data;
+using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
 {
@@ -21,13 +23,20 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
         
         public async Task<Unit> Handle(SubmitSupportRequest request, CancellationToken cancellationToken)
         {
-            request.SupportRequest.Submitted = true;
-            request.SupportRequest.SubmittedDate = DateTime.UtcNow;
+            await _context.SupportRequestEventLogs.AddAsync(new SupportRequestEventLog
+            {
+                Id = Guid.NewGuid(),
+                SupportRequestId = request.SupportRequest.Id, 
+                Status = RequestStatus.Submitted,
+                EventDate = DateTime.UtcNow,
+                Email = request.Email
+            }, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
             
             // Send email(s).
             _logger.LogInformation("Saved Support Request: " + JsonConvert.SerializeObject(request.SupportRequest));
+            _logger.LogInformation("Events: " + JsonConvert.SerializeObject(_context.SupportRequestEventLogs.Where(srel => srel.SupportRequestId == request.SupportRequest.Id).ToList()));
             
             return Unit.Value;
         }

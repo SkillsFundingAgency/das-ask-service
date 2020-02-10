@@ -1,12 +1,10 @@
 using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest;
 
-namespace SFA.DAS.ASK.Web.Controllers
+namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
     public class SignInController : Controller
     {

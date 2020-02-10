@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace SFA.DAS.ASK.Data.Entities
@@ -21,7 +22,27 @@ namespace SFA.DAS.ASK.Data.Entities
         public string Postcode { get; set; }
         public string AdditionalComments { get; set; }
         public bool Agree { get; set; }
-        public bool Submitted { get; set; }
-        public DateTime? SubmittedDate { get; set; }
+
+        public RequestStatus CurrentStatus { get; set; }
+
+        public List<SupportRequestEventLog> EventLogs { get; set; }
+        // public bool Submitted { get; set; }
+        // public DateTime? SubmittedDate { get; set; }
+    }
+
+    public class SupportRequestEventLog
+    {
+        public Guid Id { get; set; }
+        public Guid SupportRequestId { get; set; }
+        public DateTime EventDate { get; set; }
+        public RequestStatus Status { get; set; }
+        public string Email { get; set; }
+    }
+
+    public enum RequestStatus
+    {
+        Draft,
+        Submitted,
+        ContactConfirmed
     }
 }

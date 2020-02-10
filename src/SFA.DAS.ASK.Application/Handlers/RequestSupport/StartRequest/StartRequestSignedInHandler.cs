@@ -46,6 +46,16 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest
             };
 
             _context.SupportRequests.Add(supportRequest);
+            
+            await _context.SupportRequestEventLogs.AddAsync(new SupportRequestEventLog
+            {
+                Id = Guid.NewGuid(),
+                SupportRequestId = supportRequest.Id, 
+                Status = RequestStatus.Draft,
+                EventDate = DateTime.UtcNow,
+                Email = request.Email
+            }, cancellationToken);
+            
             await _context.SaveChangesAsync(cancellationToken);
             
             return supportRequest;

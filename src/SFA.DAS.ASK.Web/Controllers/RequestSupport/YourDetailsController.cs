@@ -6,7 +6,7 @@ using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SaveSupportRequest;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
-namespace SFA.DAS.ASK.Web.Controllers
+namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
     public class YourDetailsController : Controller
     {
