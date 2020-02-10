@@ -13,7 +13,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
             RequestId = supportRequest.Id;
             AdditionalComments = supportRequest.AdditionalComments;
             Agree = supportRequest.Agree;
-            Email = supportRequest.Email;
+            Email = supportRequest.OrganisationContact.Email;
         }
 
         public string AdditionalComments { get; set; }

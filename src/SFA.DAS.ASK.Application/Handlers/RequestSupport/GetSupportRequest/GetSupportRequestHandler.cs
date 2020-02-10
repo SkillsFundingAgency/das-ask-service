@@ -21,6 +21,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest
             return await _requestSupportContext
                 .SupportRequests
                 .Include(sr => sr.Organisation)
+                .Include(sr => sr.OrganisationContact)
                 .FirstOrDefaultAsync(sr => sr.Id == request.RequestId, cancellationToken: cancellationToken);
         }
     }

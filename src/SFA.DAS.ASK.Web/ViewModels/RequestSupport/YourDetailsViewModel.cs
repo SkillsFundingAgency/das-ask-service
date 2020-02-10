@@ -9,12 +9,12 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         
         public YourDetailsViewModel(SupportRequest supportRequest)
         {
-            FirstName = supportRequest.FirstName;
-            LastName = supportRequest.LastName;
-            JobRole = supportRequest.JobRole;
-            PhoneNumber = supportRequest.PhoneNumber;
-            Email = supportRequest.Email;
-            ConfirmEmail = supportRequest.Email;
+            FirstName = supportRequest.OrganisationContact.FirstName;
+            LastName = supportRequest.OrganisationContact.LastName;
+            JobRole = supportRequest.OrganisationContact.JobRole;
+            PhoneNumber = supportRequest.OrganisationContact.PhoneNumber;
+            Email = supportRequest.OrganisationContact.Email;
+            ConfirmEmail = supportRequest.OrganisationContact.Email;
         }
 
         [Required]
@@ -40,11 +40,11 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 
         public SupportRequest ToSupportRequest(SupportRequest supportRequest)
         {
-            supportRequest.FirstName = FirstName;
-            supportRequest.LastName = LastName;
-            supportRequest.JobRole = JobRole;
-            supportRequest.PhoneNumber = PhoneNumber;
-            supportRequest.Email = Email;
+            supportRequest.OrganisationContact.FirstName = FirstName;
+            supportRequest.OrganisationContact.LastName = LastName;
+            supportRequest.OrganisationContact.JobRole = JobRole;
+            supportRequest.OrganisationContact.PhoneNumber = PhoneNumber;
+            supportRequest.OrganisationContact.Email = Email;
 
             return supportRequest;
         }

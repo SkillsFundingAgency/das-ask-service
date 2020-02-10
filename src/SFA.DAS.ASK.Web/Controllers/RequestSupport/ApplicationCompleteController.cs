@@ -21,7 +21,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         {
             var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
             
-            var vm = new ApplicationCompleteViewModel(){Email = supportRequest.Email};
+            var vm = new ApplicationCompleteViewModel(){Email = supportRequest.OrganisationContact.Email};
             return View("~/Views/RequestSupport/ApplicationComplete.cshtml", vm);
         }
     }

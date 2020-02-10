@@ -10,5 +10,6 @@ namespace SFA.DAS.ASK.Data
         public DbSet<SupportRequest> SupportRequests { get; set; }
         public DbSet<SupportRequestEventLog> SupportRequestEventLogs { get; set; }
         public DbSet<Organisation> Organisations { get; set; }
+        public DbSet<OrganisationContact> OrganisationContacts { get; set; }
     }
 }

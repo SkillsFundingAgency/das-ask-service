@@ -20,7 +20,8 @@ namespace SFA.DAS.ASK.Application.DfeApi
             {
                 Address = "3 The Street\r\nThe Village\r\nTheTown\r\nCounty\r\nStaffordshire\r\nWS12 3UP",
                 Name = "Coventry High School",
-                UkPrn = 10000323
+                UkPrn = 10000323,
+                Telephone = "01543 344255"
             }};
         }
     }

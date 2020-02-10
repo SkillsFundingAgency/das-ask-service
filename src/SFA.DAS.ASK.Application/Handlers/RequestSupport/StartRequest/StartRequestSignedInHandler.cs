@@ -31,15 +31,14 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest
             var org = organisations.First();
 
             var organisation = await _mediator.Send(new GetOrCreateOrganisationRequest(org), cancellationToken);
+
+            var contact = await _mediator.Send(new GetOrCreateOrganisationContactRequest(request.Email, request.Name, organisation.Id, org.Telephone));
             
             var supportRequest = new SupportRequest
             {
                 Id = Guid.NewGuid(),
                 Agree = true,
-                Email = request.Email,
-                FirstName = request.Name.Split(new[]{" "}, StringSplitOptions.RemoveEmptyEntries)[0],
-                LastName = request.Name.Split(new[]{" "}, StringSplitOptions.RemoveEmptyEntries)[1],
-                PhoneNumber = org.Telephone, 
+                OrganisationContactId = contact.Id,
                 OrganisationId = organisation.Id
             };
 
