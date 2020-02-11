@@ -1,14 +1,17 @@
-﻿CREATE TABLE [Organisations](
+﻿CREATE TABLE [dbo].[Organisations](
 	[Id] [uniqueidentifier] NOT NULL,
-	[OrganisationName] [nvarchar](400) NOT NULL,
-	[OrganisationType] [nvarchar](20) NOT NULL,  
-	[OrganisationReferenceId] [nvarchar](200) NULL,
-	OrganisationData [nvarchar](max) NULL,
-    RAGRatings [nvarchar](max) NULL,
-	[Status] [nvarchar](20) NOT NULL,
-	[CreatedAt] [datetime2](7) NOT NULL DEFAULT GETUTCDATE(),
-	[UpdatedAt] [datetime2](7) NULL,
-	[DeletedAt] [datetime2](7) NULL,
- CONSTRAINT [PK_Organisations] PRIMARY KEY ([Id])
- )
- GO
+	[UkPrn] [int] NOT NULL,
+	[OrganisationName] [nvarchar](250) NOT NULL,
+	[OrganisationType] [int] NULL,
+	[OtherOrganisationType] [nvarchar](250) NULL,
+	[BuildingAndStreet1] [nvarchar](250) NULL,
+	[BuildingAndStreet2] [nvarchar](250) NULL,
+	[TownOrCity] [nvarchar](250) NULL,
+	[County] [nvarchar](250) NULL,
+	[Postcode] [nvarchar](8) NOT NULL,
+ CONSTRAINT [PK_Organisations] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
