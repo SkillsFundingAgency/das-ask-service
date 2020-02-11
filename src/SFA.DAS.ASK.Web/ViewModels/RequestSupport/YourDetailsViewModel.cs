@@ -7,7 +7,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
     {
         public YourDetailsViewModel() { }
         
-        public YourDetailsViewModel(SupportRequest supportRequest)
+        public YourDetailsViewModel(TempSupportRequest supportRequest)
         {
             FirstName = supportRequest.FirstName;
             LastName = supportRequest.LastName;
@@ -38,7 +38,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         [Compare("Email")]
         public string ConfirmEmail { get; set; }
 
-        public SupportRequest ToSupportRequest(SupportRequest supportRequest)
+        public TempSupportRequest ToTempSupportRequest(TempSupportRequest supportRequest)
         {
             supportRequest.FirstName = FirstName;
             supportRequest.LastName = LastName;

@@ -1,5 +1,11 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,8 +13,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Logging;
+using SFA.DAS.ASK.Application.DfeApi;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport;
-using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.Boilerplate.Logging;
 
@@ -16,8 +24,11 @@ namespace SFA.DAS.ASK.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment _environment;
+
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
+            _environment = environment;
             Configuration = configuration;
         }
 
@@ -33,15 +44,98 @@ namespace SFA.DAS.ASK.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+            IdentityModelEventSource.ShowPII = true;
+
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                })
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                    options.Cookie.Name = ".Assessors.Cookies";
+                    options.Cookie.HttpOnly = true;
+
+                    if (!_environment.IsDevelopment())
+                    {
+                        options.Cookie.Domain = ".apprenticeships.education.gov.uk";
+                    }
+
+                    options.SlidingExpiration = true;
+                    options.ExpireTimeSpan = TimeSpan.FromHours(1);
+                })
+                .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
+                {
+                    options.CorrelationCookie = new CookieBuilder()
+                    {
+                        Name = ".Assessors.Correlation.",
+                        HttpOnly = true,
+                        SameSite = SameSiteMode.None,
+                        SecurePolicy = CookieSecurePolicy.SameAsRequest
+                    };
+
+                    options.SignInScheme = "Cookies";
+                    options.Authority = Configuration["DfeSignIn:MetadataAddress"];
+                    options.RequireHttpsMetadata = false;
+                    options.ClientId = Configuration["DfeSignIn:ClientId"];
+
+                    options.Scope.Clear();
+                    options.Scope.Add("openid");
+                    options.Scope.Add("profile");
+
+                    options.SaveTokens = true;
+
+                    options.DisableTelemetry = true;
+                    options.Events = new OpenIdConnectEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var isSpuriousAuthCbRequest =
+                                context.Request.Path == options.CallbackPath &&
+                                context.Request.Method == "GET" &&
+                                !context.Request.Query.ContainsKey("code");
+
+                            if (isSpuriousAuthCbRequest)
+                            {
+                                context.HandleResponse();
+                                context.Response.StatusCode = 302;
+                                context.Response.Headers["Location"] = "/";
+                            }
+
+                            return Task.CompletedTask;
+                        },
+
+                        OnRemoteFailure = ctx =>
+                        {
+                            return Task.FromResult(0);
+                        },
+
+                        OnTokenValidated = context =>
+                        {
+                            var a = context;
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
+
+
+            services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>(client => client.BaseAddress = new Uri(Configuration["DfeSignIn:ApiUri"]));
+            
+            services.AddAuthorization();
+            
             services.AddNLogLogging(Configuration);
 
             services.AddHealthChecks();
 
             services.AddApplicationInsightsTelemetry();
 
-            services.AddMediatR(typeof(StartRequestHandler));
+            services.AddMediatR(typeof(StartTempSupportRequestHandler));
 
-            services.AddDbContext<RequestSupportContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
+            //services.AddDbContext<AskContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
+            services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionString"]));
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

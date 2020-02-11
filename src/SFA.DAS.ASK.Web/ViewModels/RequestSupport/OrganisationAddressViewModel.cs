@@ -11,11 +11,11 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         public OrganisationAddressViewModel(SupportRequest supportRequest)
         {
             RequestId = supportRequest.Id;
-            BuildingAndStreet1 = supportRequest.BuildingAndStreet1;
-            BuildingAndStreet2 = supportRequest.BuildingAndStreet2;
-            TownOrCity = supportRequest.TownOrCity;
-            County = supportRequest.County;
-            Postcode = supportRequest.Postcode;
+            BuildingAndStreet1 = supportRequest.Organisation.BuildingAndStreet1;
+            BuildingAndStreet2 = supportRequest.Organisation.BuildingAndStreet2;
+            TownOrCity = supportRequest.Organisation.TownOrCity;
+            County = supportRequest.Organisation.County;
+            Postcode = supportRequest.Organisation.Postcode;
         }
 
         [Required]
@@ -33,11 +33,11 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 
         public SupportRequest ToSupportRequest(SupportRequest supportRequest)
         {
-            supportRequest.BuildingAndStreet1 = BuildingAndStreet1;
-            supportRequest.BuildingAndStreet2 = BuildingAndStreet2;
-            supportRequest.TownOrCity = TownOrCity;
-            supportRequest.County = County;
-            supportRequest.Postcode = Postcode;
+            supportRequest.Organisation.BuildingAndStreet1 = BuildingAndStreet1;
+            supportRequest.Organisation.BuildingAndStreet2 = BuildingAndStreet2;
+            supportRequest.Organisation.TownOrCity = TownOrCity;
+            supportRequest.Organisation.County = County;
+            supportRequest.Organisation.Postcode = Postcode;
 
             return supportRequest;
         }

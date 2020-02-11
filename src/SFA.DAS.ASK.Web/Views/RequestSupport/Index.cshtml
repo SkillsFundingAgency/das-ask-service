@@ -1,25 +1,53 @@
+@using Microsoft.AspNetCore.Mvc.ModelBinding
 @model SFA.DAS.ASK.Web.ViewModels.RequestSupport.RequestSupportViewModel
 
 @{
-    ViewBag.Title = "TODO: Title - Request Support";
+    ViewBag.Title = "Request support";
 }
+<a asp-action="Index" asp-controller="Home" class="govuk-back-link">Back</a>
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
 
-<a asp-action="Index" asp-controller="Home">Back</a>
+            <partial name="_ErrorSummary"/>
 
-<h1>Request support</h1>
-<h2>Teachers and careers advisers</h2>
+            <form method="post">
+                <div class="govuk-form-group" sfa-gds-error-class-for="HasSignInAccount">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
 
-<form method="post">
-    <p>Do you have access to a DfE Sign-in account?</p>
+                            <h1 class="govuk-fieldset__heading">
+                                Do you have access to a DfE Sign-in account?
+                            </h1>
+
+                        </legend>
 
 
-    <label for="hasSignInAccount_Yes">Yes</label>
-    <input type="radio" asp-for="HasSignInAccount" id="hasSignInAccount_Yes" value="true"/>
+                        <span sfa-gds-error-message-for="HasSignInAccount"></span>
 
-    <label for="hasSignInAccount_No">No</label>
-    <input type="radio" asp-for="HasSignInAccount" id="hasSignInAccount_No" value="false"/>
-    
-    <button type="submit">Next</button>
-</form>
+                        <div class="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="HasSignInAccount" id="HasSignInAccount" value="true">
+                                <label class="govuk-label govuk-radios__label" for="HasSignInAccount">
+                                    Yes
+                                </label>
+                            </div>
 
-<p>If you experience any difficulties in completing the form, please call for assistance on <a href="#">01462 341191</a>.</p>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="HasSignInAccount" id="hasSignInAccount_No" value="false">
+                                <label class="govuk-label govuk-radios__label" for="hasSignInAccount_No">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+                <a asp-action="Index" asp-controller="Home" class="govuk-link cancel-link">Cancel</a>
+            </form>
+            <p class="govuk-hint">If you experience any difficulties in completing the form, please call for assistance on <a href="tel:01462 341191">01462 341191</a>.</p>
+        </div>
+    </div>
+</main>

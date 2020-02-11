@@ -8,7 +8,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
     {
         public OrganisationDetailsViewModel(){ }
         
-        public OrganisationDetailsViewModel(SupportRequest supportRequest)
+        public OrganisationDetailsViewModel(TempSupportRequest supportRequest)
         {
             RequestId = supportRequest.Id;
             Other = supportRequest.OtherOrganisationType;
@@ -20,7 +20,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         public int? SelectedOrganisationType { get; set; }
         public string Other { get; set; }
 
-        public SupportRequest ToSupportRequest(SupportRequest supportRequest)
+        public TempSupportRequest ToSupportRequest(TempSupportRequest supportRequest)
         {
             supportRequest.OrganisationType = SelectedOrganisationType;
             supportRequest.OtherOrganisationType = Other;
