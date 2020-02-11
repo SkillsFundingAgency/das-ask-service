@@ -5,3 +5,4 @@
     [Ordering] INT NOT NULL DEFAULT 0,
     [DeliveryPartnerId] [uniqueidentifier] NOT NULL
 ) ON [PRIMARY] 
+GO

@@ -66,10 +66,6 @@
     <Build Include="Tables\DeliveryAreas.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="AddDeliveryAreas.sql" />
-    <Build Include="InsertPostcodetoRegions.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />
   </ItemGroup>
 </Project>

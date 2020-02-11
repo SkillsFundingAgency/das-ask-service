@@ -5,3 +5,4 @@ CREATE TABLE PostCodeRegion (
     Region  NVARCHAR(50)  NOT NULL,
     DeliveryAreaId [int] NULL
 )
+GO
