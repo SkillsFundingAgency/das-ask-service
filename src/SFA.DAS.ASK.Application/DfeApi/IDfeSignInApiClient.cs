@@ -5,6 +5,6 @@ namespace SFA.DAS.ASK.Application.DfeApi
 {
     public interface IDfeSignInApiClient
     {
-        List<DfeOrganisation> GetOrganisations(Guid requestDfeSignInId);
+        List<DfeOrganisation> GetOrganisations(Guid dfeSignInId);
     }
 }

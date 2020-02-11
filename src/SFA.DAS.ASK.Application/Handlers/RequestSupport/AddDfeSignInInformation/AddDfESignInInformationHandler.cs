@@ -26,15 +26,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformatio
         {
             var dfeOrganisations = _dfeClient.GetOrganisations(command.DfeSignInId);
 
-            if (dfeOrganisations == null || !dfeOrganisations.Any()) throw new Exception($"User {command.DfeSignInId} doesn't have an associated organisation in DfE SignIn.");
-            if (dfeOrganisations.Count != 1) throw new NotImplementedException("Users with >1 Organisations not handled yet.");
-
-            var dfeOrganisation = dfeOrganisations.First();
-
-            // var organisation = await _mediator.Send(new GetOrCreateOrganisationRequest(dfeOrganisation), cancellationToken);
-            //
-            // var contact = await _mediator.Send(new GetOrCreateOrganisationContactRequest(informationCommand.Email, informationCommand.Name, organisation.Id, dfeOrganisation.Telephone));
-            //
+            var dfeOrganisation = dfeOrganisations.Single(o => o.Urn == command.Urn);
 
             var dfeOrganisationAddress = dfeOrganisation.Address.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
 
@@ -52,16 +44,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformatio
             tempSupportRequest.PhoneNumber = dfeOrganisation.Telephone;
             tempSupportRequest.OrganisationName = dfeOrganisation.Name;
             tempSupportRequest.ReferenceId = dfeOrganisation.UkPrn.ToString();
-
-            // await _context.SupportRequestEventLogs.AddAsync(new SupportRequestEventLog
-            // {
-            //     Id = Guid.NewGuid(),
-            //     SupportRequestId = supportRequest.Id, 
-            //     Status = RequestStatus.Draft,
-            //     EventDate = DateTime.UtcNow,
-            //     Email = informationCommand.Email
-            // }, cancellationToken);
-
+            
             await _context.SaveChangesAsync(cancellationToken);
 
             return tempSupportRequest;

@@ -9,9 +9,12 @@
             <ul class="govuk-list govuk-error-summary__list">
                 @foreach (KeyValuePair<string, ModelStateEntry> kvp in ViewData.ModelState)
                 {
-                    <li>
-                        <a href="#@kvp.Key">@kvp.Value.Errors[0].ErrorMessage</a>
-                    </li>    
+                    @if (kvp.Value.Errors.Any())
+                    {
+                        <li>
+                            <a href="#@kvp.Key">@kvp.Value.Errors[0].ErrorMessage</a>
+                        </li>
+                    }
                 }
                 
             </ul>
