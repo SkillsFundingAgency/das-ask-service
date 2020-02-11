@@ -64,6 +64,7 @@
     <Build Include="Tables\PostCodeRegions.sql" />
     <Build Include="Tables\EmailTemplates.sql" />
     <Build Include="Tables\DeliveryAreas.sql" />
+    <Build Include="Tables\DeliveryPartners.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />
