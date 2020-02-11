@@ -59,6 +59,8 @@
     <Folder Include="Tables" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="Tables\Organisations.sql" />
+    <Build Include="Tables\Contacts.sql" />
     <Build Include="Tables\DeliveryArea.sql" />
     <Build Include="Tables\PostCodeRegions.sql" />
     <Build Include="Tables\EmailTemplates.sql" />
