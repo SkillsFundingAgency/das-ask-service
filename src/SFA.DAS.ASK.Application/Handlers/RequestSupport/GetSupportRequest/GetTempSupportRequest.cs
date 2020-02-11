@@ -4,11 +4,11 @@ using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest
 {
-    public class GetSupportRequest : IRequest<SupportRequest>
+    public class GetTempSupportRequest : IRequest<TempSupportRequest>
     {
         public Guid RequestId { get; }
 
-        public GetSupportRequest(Guid requestId)
+        public GetTempSupportRequest(Guid requestId)
         {
             RequestId = requestId;
         }

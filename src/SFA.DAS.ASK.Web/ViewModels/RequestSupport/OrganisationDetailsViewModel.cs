@@ -8,11 +8,11 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
     {
         public OrganisationDetailsViewModel(){ }
         
-        public OrganisationDetailsViewModel(SupportRequest supportRequest)
+        public OrganisationDetailsViewModel(TempSupportRequest supportRequest)
         {
             RequestId = supportRequest.Id;
-            Other = supportRequest.Organisation.OtherOrganisationType;
-            SelectedOrganisationType = supportRequest.Organisation.OrganisationType;
+            Other = supportRequest.OtherOrganisationType;
+            SelectedOrganisationType = supportRequest.OrganisationType;
         }
 
         public Guid RequestId { get; set; }
@@ -20,10 +20,10 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         public int? SelectedOrganisationType { get; set; }
         public string Other { get; set; }
 
-        public SupportRequest ToSupportRequest(SupportRequest supportRequest)
+        public TempSupportRequest ToSupportRequest(TempSupportRequest supportRequest)
         {
-            supportRequest.Organisation.OrganisationType = SelectedOrganisationType;
-            supportRequest.Organisation.OtherOrganisationType = Other;
+            supportRequest.OrganisationType = SelectedOrganisationType;
+            supportRequest.OtherOrganisationType = Other;
             
             return supportRequest;
         }

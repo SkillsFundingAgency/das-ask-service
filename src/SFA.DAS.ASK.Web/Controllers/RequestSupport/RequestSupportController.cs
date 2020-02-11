@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
+using SFA.DAS.ASK.Data.Entities;
 using SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
@@ -37,7 +38,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                 return RedirectToAction("SignIn", "SignIn");
             }
 
-            var startRequestResponse = await  _mediator.Send(new StartRequestCommand());
+            var startRequestResponse = await  _mediator.Send(new StartTempSupportRequestCommand(SupportRequestType.Manual));
             return RedirectToAction("Index", "YourDetails", new {requestId = startRequestResponse.RequestId});
         }
     }

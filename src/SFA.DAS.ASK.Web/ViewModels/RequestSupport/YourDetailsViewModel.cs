@@ -7,14 +7,14 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
     {
         public YourDetailsViewModel() { }
         
-        public YourDetailsViewModel(SupportRequest supportRequest)
+        public YourDetailsViewModel(TempSupportRequest supportRequest)
         {
-            FirstName = supportRequest.OrganisationContact.FirstName;
-            LastName = supportRequest.OrganisationContact.LastName;
-            JobRole = supportRequest.OrganisationContact.JobRole;
-            PhoneNumber = supportRequest.OrganisationContact.PhoneNumber;
-            Email = supportRequest.OrganisationContact.Email;
-            ConfirmEmail = supportRequest.OrganisationContact.Email;
+            FirstName = supportRequest.FirstName;
+            LastName = supportRequest.LastName;
+            JobRole = supportRequest.JobRole;
+            PhoneNumber = supportRequest.PhoneNumber;
+            Email = supportRequest.Email;
+            ConfirmEmail = supportRequest.Email;
         }
 
         [Required]
@@ -38,13 +38,13 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         [Compare("Email")]
         public string ConfirmEmail { get; set; }
 
-        public SupportRequest ToSupportRequest(SupportRequest supportRequest)
+        public TempSupportRequest ToTempSupportRequest(TempSupportRequest supportRequest)
         {
-            supportRequest.OrganisationContact.FirstName = FirstName;
-            supportRequest.OrganisationContact.LastName = LastName;
-            supportRequest.OrganisationContact.JobRole = JobRole;
-            supportRequest.OrganisationContact.PhoneNumber = PhoneNumber;
-            supportRequest.OrganisationContact.Email = Email;
+            supportRequest.FirstName = FirstName;
+            supportRequest.LastName = LastName;
+            supportRequest.JobRole = JobRole;
+            supportRequest.PhoneNumber = PhoneNumber;
+            supportRequest.Email = Email;
 
             return supportRequest;
         }

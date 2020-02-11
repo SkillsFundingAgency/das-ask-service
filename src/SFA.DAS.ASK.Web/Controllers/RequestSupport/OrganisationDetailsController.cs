@@ -20,7 +20,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         [HttpGet("organisation-details/{requestId}")]
         public async Task<IActionResult> Index(Guid requestId)
         {
-            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
             var vm = new OrganisationDetailsViewModel(supportRequest);
 
@@ -41,16 +41,17 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                 return View("~/Views/RequestSupport/OrganisationDetails.cshtml", viewModel);
             }
             
-            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
-            await _mediator.Send(new SaveSupportRequest(viewModel.ToSupportRequest(supportRequest)));
+            await _mediator.Send(new SaveTempSupportRequest(viewModel.ToSupportRequest(supportRequest)));
 
             if (viewModel.SelectedOrganisationType == 1) // School
             {
-                return RedirectToAction("Index", "SchoolDetails", new {requestId = requestId});
+                //return RedirectToAction("Index", "SchoolDetails", new {requestId = requestId});
             }
             
-            return RedirectToAction("Index", "OrganisationAddress", new {requestId = requestId});
+            //return RedirectToAction("Index", "OrganisationAddress", new {requestId = requestId});
+            return Ok();
         }
     }
 }

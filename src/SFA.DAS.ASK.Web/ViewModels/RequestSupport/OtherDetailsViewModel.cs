@@ -8,12 +8,12 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
     {
         public OtherDetailsViewModel() { }
         
-        public OtherDetailsViewModel(SupportRequest supportRequest)
+        public OtherDetailsViewModel(TempSupportRequest supportRequest)
         {
             RequestId = supportRequest.Id;
             AdditionalComments = supportRequest.AdditionalComments;
             Agree = supportRequest.Agree;
-            Email = supportRequest.OrganisationContact.Email;
+            Email = supportRequest.Email;
         }
 
         public string AdditionalComments { get; set; }
@@ -23,7 +23,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 
         public Guid RequestId { get; set; }
 
-        public SupportRequest ToSupportRequest(SupportRequest supportRequest)
+        public TempSupportRequest ToTempSupportRequest(TempSupportRequest supportRequest)
         {
             supportRequest.AdditionalComments = AdditionalComments;
             supportRequest.Agree = Agree;

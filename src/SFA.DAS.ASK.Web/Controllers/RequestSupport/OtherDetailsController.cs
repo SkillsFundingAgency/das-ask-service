@@ -20,7 +20,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         [HttpGet("other-details/{requestId}")]
         public async Task<IActionResult> Index(Guid requestId)
         {
-            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
             var vm = new OtherDetailsViewModel(supportRequest){NonSignedIn = true};
             
@@ -35,12 +35,12 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                 return View("~/Views/RequestSupport/OtherDetails.cshtml", viewModel);
             }
 
-            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
 
             //var email = User.FindFirst(ClaimTypes.Email).Value;
             var email = "davegouge@gmail.com";
             
-            await _mediator.Send(new SubmitSupportRequest(viewModel.ToSupportRequest(supportRequest), email));
+            await _mediator.Send(new SubmitSupportRequest(viewModel.ToTempSupportRequest(supportRequest), email));
             
             return RedirectToAction("Index", "ApplicationComplete", new{requestId});
         }
@@ -49,7 +49,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         [HttpGet("other-details-signed-in/{requestId}")]
         public async Task<IActionResult> SignedIn(Guid requestId)
         {
-            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
             var vm = new OtherDetailsViewModel(supportRequest){NonSignedIn = false};
             

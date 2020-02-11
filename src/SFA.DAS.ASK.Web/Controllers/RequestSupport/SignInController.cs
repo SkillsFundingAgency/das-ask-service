@@ -2,7 +2,9 @@ using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformation;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
+using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
@@ -30,9 +32,12 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             //var dfeSignInId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var dfeSignInId = Guid.NewGuid();
             string name = "David Gouge";
-            var request = await _mediator.Send(new StartRequestSignedInRequest(dfeSignInId, email, name));
+            
+            var startRequestResponse = await _mediator.Send(new StartTempSupportRequestCommand(SupportRequestType.DfeSignIn));
 
-            return RedirectToAction("SignedIn", "OtherDetails", new {requestId = request.Id});
+            await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, email, name, startRequestResponse.RequestId));
+            
+            return RedirectToAction("SignedIn", "OtherDetails", new {requestId = startRequestResponse.RequestId});
         }
     }
 }

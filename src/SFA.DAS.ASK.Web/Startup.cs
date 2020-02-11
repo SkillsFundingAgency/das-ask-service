@@ -16,7 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
 using SFA.DAS.ASK.Application.DfeApi;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport;
-using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.Boilerplate.Logging;
 
@@ -113,9 +113,10 @@ namespace SFA.DAS.ASK.Web
                             return Task.FromResult(0);
                         },
 
-                        OnTokenValidated = async context =>
+                        OnTokenValidated = context =>
                         {
                             var a = context;
+                            return Task.CompletedTask;
                         }
                     };
                 });
@@ -131,9 +132,10 @@ namespace SFA.DAS.ASK.Web
 
             services.AddApplicationInsightsTelemetry();
 
-            services.AddMediatR(typeof(StartRequestHandler));
+            services.AddMediatR(typeof(StartTempSupportRequestHandler));
 
-            services.AddDbContext<RequestSupportContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
+            //services.AddDbContext<AskContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
+            services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionString"]));
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

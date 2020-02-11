@@ -6,29 +6,29 @@ using Microsoft.EntityFrameworkCore;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Data.Entities;
 
-namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartRequest
+namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest
 {
     public class GetOrCreateOrganisationContactHandler : IRequestHandler<GetOrCreateOrganisationContactRequest, OrganisationContact>
     {
-        private readonly RequestSupportContext _context;
+        private readonly AskContext _context;
 
-        public GetOrCreateOrganisationContactHandler(RequestSupportContext context)
+        public GetOrCreateOrganisationContactHandler(AskContext context)
         {
             _context = context;
         }
         public async Task<OrganisationContact> Handle(GetOrCreateOrganisationContactRequest request, CancellationToken cancellationToken)
         {
-            var contact = await _context.OrganisationContacts.SingleOrDefaultAsync(c => c.OrganisationId == request.OrganisationId && c.Email == request.Email, cancellationToken: cancellationToken);
+            var contact = await _context.OrganisationContacts.SingleOrDefaultAsync(c => c.OrganisationId == request.OrganisationId && c.Email == request.TempSupportRequest.Email, cancellationToken: cancellationToken);
             if (!(contact is null)) return contact;
             
             contact = new OrganisationContact
             {
-                Email = request.Email,
-                FirstName = request.Name.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries)[0],
-                LastName = request.Name.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries)[1],
+                Email = request.TempSupportRequest.Email,
+                FirstName = request.TempSupportRequest.FirstName,
+                LastName = request.TempSupportRequest.LastName,
                 Id = Guid.NewGuid(),
                 OrganisationId = request.OrganisationId, 
-                PhoneNumber = request.Telephone
+                PhoneNumber = request.TempSupportRequest.PhoneNumber
             };
 
             await _context.OrganisationContacts.AddAsync(contact, cancellationToken);

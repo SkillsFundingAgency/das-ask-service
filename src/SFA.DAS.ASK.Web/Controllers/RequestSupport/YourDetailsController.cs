@@ -20,7 +20,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         [HttpGet("your-details/{requestId}")]
         public async Task<IActionResult> Index(Guid requestId)
         {
-            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
             var vm = new YourDetailsViewModel(supportRequest);
             
@@ -35,9 +35,9 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                 return View("~/Views/RequestSupport/YourDetails.cshtml", viewModel);
             }
             
-            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
-            await _mediator.Send(new SaveSupportRequest(viewModel.ToSupportRequest(supportRequest)));
+            await _mediator.Send(new SaveTempSupportRequest(viewModel.ToTempSupportRequest(supportRequest)));
             
             return RedirectToAction("Index", "OrganisationDetails", new {requestId = requestId});
         }

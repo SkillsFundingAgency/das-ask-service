@@ -19,9 +19,9 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         [HttpGet("application-complete/{requestId}")]
         public async Task<IActionResult> Index(Guid requestId)
         {
-            var supportRequest = await _mediator.Send(new GetSupportRequest(requestId));
+            var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
-            var vm = new ApplicationCompleteViewModel(){Email = supportRequest.OrganisationContact.Email};
+            var vm = new ApplicationCompleteViewModel(){Email = supportRequest.Email};
             return View("~/Views/RequestSupport/ApplicationComplete.cshtml", vm);
         }
     }
