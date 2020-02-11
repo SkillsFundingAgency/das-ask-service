@@ -56,13 +56,15 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="Tables\" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="Tables\Organisations.sql" />
+    <Build Include="Tables\Contacts.sql" />
     <Build Include="Tables\PostCodeRegions.sql" />
     <Build Include="Tables\EmailTemplates.sql" />
     <Build Include="Tables\DeliveryAreas.sql" />
-    <Build Include="AddDeliveryAreas.sql" />
-    <Build Include="InsertPostcodetoRegions.sql" />
+    <Build Include="Tables\DeliveryPartners.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />
