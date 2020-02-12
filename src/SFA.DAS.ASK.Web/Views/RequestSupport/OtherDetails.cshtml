@@ -17,7 +17,7 @@ else
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-xl">
-                Other details
+                Submit your request
                 <span class="govuk-caption-xl">
                     @if (Model.NonSignedIn)
                     {
@@ -25,7 +25,7 @@ else
                     }
                     else
                     {
-                        <text>Thank you @Model.Email</text>
+                        <text>Thank you @Model.DisplayName</text>
                     }
                 </span>
             </h1>
@@ -34,9 +34,8 @@ else
                 <input type="hidden" asp-for="NonSignedIn"/>
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
-                        <label class="govuk-label" asp-for="AdditionalComments">
-                            Additional comments
-                        </label>
+                        <label class="govuk-heading-s no-bottom-margin" asp-for="AdditionalComments">Do you have any more details to share?</label>
+                        <span id="additonal-comments-hint" class="govuk-hint">For example, the type of support you’re looking for or the expected audience.</span>    
                         <textarea class="govuk-textarea" asp-for="AdditionalComments" rows="5" aria-describedby="more-detail-hint"></textarea>
 
                         @if (Model.NonSignedIn)
@@ -55,14 +54,14 @@ else
                     </fieldset>
                 </div>
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Request support visit
+                    Request support
                 </button>
                 <a asp-action="Index" asp-controller="Home" class="govuk-link cancel-link">Cancel</a>
 
-                <p class="govuk-hint">
-                    Your school will be required to have a planning meeting so that we can explain the full range of support available through the
-                    ASK programme, funded by the Department for Education. This will be arranged by your local ASK partner.
-                </p>
+                @* <p class="govuk-hint"> *@
+                @*     Your school will be required to have a planning meeting so that we can explain the full range of support available through the *@
+                @*     ASK programme, funded by the Department for Education. This will be arranged by your local ASK partner. *@
+                @* </p> *@
             </form>
         </div>
     </div>
