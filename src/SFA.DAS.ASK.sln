@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ASK.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ASK.Data", "SFA.DAS.ASK.Data\SFA.DAS.ASK.Data.csproj", "{0055F2E7-235B-4636-A1DC-CF55199579FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ASK.Application.UnitTests", "SFA.DAS.ASK.Application.UnitTests\SFA.DAS.ASK.Application.UnitTests.csproj", "{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,18 @@ Global
 		{0055F2E7-235B-4636-A1DC-CF55199579FC}.Release|x64.Build.0 = Release|Any CPU
 		{0055F2E7-235B-4636-A1DC-CF55199579FC}.Release|x86.ActiveCfg = Release|Any CPU
 		{0055F2E7-235B-4636-A1DC-CF55199579FC}.Release|x86.Build.0 = Release|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Debug|x64.Build.0 = Debug|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Debug|x86.Build.0 = Debug|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Release|x64.ActiveCfg = Release|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Release|x64.Build.0 = Release|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Release|x86.ActiveCfg = Release|Any CPU
+		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

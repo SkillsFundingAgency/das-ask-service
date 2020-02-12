@@ -12,5 +12,8 @@ namespace SFA.DAS.ASK.Data
         public DbSet<Organisation> Organisations { get; set; }
         public DbSet<OrganisationContact> OrganisationContacts { get; set; }
         public DbSet<TempSupportRequest> TempSupportRequests { get; set; }
+        public DbSet<PostcodeRegion> PostcodeRegions { get; set; }
+        public DbSet<DeliveryPartner> DeliveryPartners { get; set; }
+        public DbSet<DeliveryArea> DeliveryAreas { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -30,12 +31,12 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
         {
             var tempSupportRequest = await _context.TempSupportRequests.SingleAsync(tsr => tsr.Id == request.TempSupportRequest.Id, cancellationToken: cancellationToken);
 
-            // Create the real Support Request data here from the TempSupportRequest.
-            
             var organisation = await _mediator.Send(new GetOrCreateOrganisationRequest(tempSupportRequest), cancellationToken);
-            
             var contact = await _mediator.Send(new GetOrCreateOrganisationContactRequest(tempSupportRequest, organisation.Id));
 
+            var postcodeRegion = await _context.PostcodeRegions.SingleOrDefaultAsync(pr => pr.PostcodePrefix == Regex.Replace(tempSupportRequest.Postcode, @"(\p{L}+).*", "$1"), cancellationToken: cancellationToken);
+            var deliveryArea = await _context.DeliveryAreas.SingleOrDefaultAsync(da => da.Id == postcodeRegion.DeliveryAreaId, cancellationToken: cancellationToken);
+            
             var supportRequest = new SupportRequest()
             {
                 AdditionalComments = tempSupportRequest.AdditionalComments,
@@ -61,11 +62,11 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
                     }
                 },
                 Organisation = organisation,
-                OrganisationContact = contact
+                OrganisationContact = contact,
+                DeliveryPartnerId = deliveryArea.DeliveryPartnerId
             };
 
             await _context.SupportRequests.AddAsync(supportRequest, cancellationToken);
-            
             await _context.SaveChangesAsync(cancellationToken);
             
             // Send email(s).
