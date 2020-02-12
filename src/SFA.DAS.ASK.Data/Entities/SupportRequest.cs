@@ -10,7 +10,7 @@ namespace SFA.DAS.ASK.Data.Entities
        
         public string AdditionalComments { get; set; }
 
-        public RequestStatus CurrentStatus { get; set; }
+        public Status CurrentStatus { get; set; }
 
         public List<SupportRequestEventLog> EventLogs { get; set; }
 
@@ -19,9 +19,12 @@ namespace SFA.DAS.ASK.Data.Entities
 
         public OrganisationContact OrganisationContact { get; set; }
         public Guid OrganisationContactId { get; set; }
+
+        public DeliveryPartner DeliveryPartner { get; set; }
+        public Guid DeliveryPartnerId { get; set; }
     }
 
-    public enum RequestStatus
+    public enum Status
     {
         Draft,
         Submitted,

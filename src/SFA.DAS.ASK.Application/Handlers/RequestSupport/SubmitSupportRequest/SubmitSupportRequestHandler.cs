@@ -39,7 +39,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
             var supportRequest = new SupportRequest()
             {
                 AdditionalComments = tempSupportRequest.AdditionalComments,
-                CurrentStatus = RequestStatus.Submitted,
+                CurrentStatus = Status.Submitted,
                 Id = tempSupportRequest.Id,
                 EventLogs = new List<SupportRequestEventLog>()
                 {
@@ -47,7 +47,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
                     {
                         Id = Guid.NewGuid(),
                         SupportRequestId = request.TempSupportRequest.Id, 
-                        Status = RequestStatus.Draft,
+                        Status = Status.Draft,
                         EventDate = tempSupportRequest.StartDate,
                         Email = request.Email
                     },
@@ -55,7 +55,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
                     {
                         Id = Guid.NewGuid(),
                         SupportRequestId = request.TempSupportRequest.Id, 
-                        Status = RequestStatus.Submitted,
+                        Status = Status.Submitted,
                         EventDate = DateTime.UtcNow,
                         Email = request.Email
                     }
