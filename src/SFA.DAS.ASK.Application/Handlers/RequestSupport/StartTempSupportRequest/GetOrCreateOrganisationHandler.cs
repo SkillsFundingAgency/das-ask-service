@@ -19,7 +19,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportReques
         
         public async Task<Organisation> Handle(GetOrCreateOrganisationRequest request, CancellationToken cancellationToken)
         {
-            var organisation = await _context.Organisations.FirstOrDefaultAsync(org => org.UkPrn == int.Parse(request.TempSupportRequest.ReferenceId), cancellationToken: cancellationToken);
+            var organisation = await _context.Organisations.FirstOrDefaultAsync(org => org.ReferenceId == request.TempSupportRequest.ReferenceId, cancellationToken: cancellationToken);
             if (organisation is  null)
             {
                 organisation = new Organisation
@@ -31,7 +31,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportReques
                     County = request.TempSupportRequest.County,
                     Postcode = request.TempSupportRequest.Postcode,
                     OrganisationName = request.TempSupportRequest.OrganisationName,
-                    UkPrn = int.Parse(request.TempSupportRequest.ReferenceId)
+                    ReferenceId = request.TempSupportRequest.ReferenceId
                 };
 
                 await _context.Organisations.AddAsync(organisation, cancellationToken);

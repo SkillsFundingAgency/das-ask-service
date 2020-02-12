@@ -5,7 +5,7 @@ namespace SFA.DAS.ASK.Data.Entities
     public class Organisation
     {
         public Guid Id { get; set; }
-        public int UkPrn { get; set; }
+        public string ReferenceId { get; set; }
         public string OrganisationName { get; set; }
         public int? OrganisationType { get; set; }
         public string OtherOrganisationType { get; set; }
