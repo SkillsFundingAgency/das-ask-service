@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -14,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using SFA.DAS.ASK.Application.DfeApi;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
@@ -81,13 +83,32 @@ namespace SFA.DAS.ASK.Web
                     options.Authority = Configuration["DfeSignIn:MetadataAddress"];
                     options.RequireHttpsMetadata = false;
                     options.ClientId = Configuration["DfeSignIn:ClientId"];
-
+                    options.ClientSecret = Configuration["DfeSignIn:ClientSecret"];
+                    options.ResponseType = OpenIdConnectResponseType.Code;
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                    
+                    
                     options.Scope.Clear();
                     options.Scope.Add("openid");
+                    options.Scope.Add("email");
                     options.Scope.Add("profile");
 
                     options.SaveTokens = true;
-
+                    options.UseTokenLifetime = true;
+                    
+                    options.SecurityTokenValidator = new JwtSecurityTokenHandler
+                    {
+                        InboundClaimTypeMap = new Dictionary<string, string>(),
+                        TokenLifetimeInMinutes = 20,
+                        SetDefaultTimesOnTokenCreation = true,
+                    };
+                    options.ProtocolValidator = new OpenIdConnectProtocolValidator
+                    {
+                        RequireSub = true,
+                        RequireStateValidation = false,
+                        NonceLifetime = TimeSpan.FromMinutes(15)
+                    };
+                    
                     options.DisableTelemetry = true;
                     options.Events = new OpenIdConnectEvents
                     {
@@ -156,7 +177,8 @@ namespace SFA.DAS.ASK.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseAuthentication();
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

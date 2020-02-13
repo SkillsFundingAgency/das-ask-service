@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace SFA.DAS.ASK.Web.Infrastructure.TagHelpers
 {
-    [HtmlTargetElement(Attributes = "sfa-gds-error-class-for")]
-    public class FormGroupErrorClassTagHelper : TagHelper
+    [HtmlTargetElement("span", Attributes = "sfa-gds-error-message-for")]
+    public class ErrorMessageTagHelper : TagHelper
     {
-        public const string ValidationForAttributeName = "sfa-gds-error-class-for";
+        public const string ValidationForAttributeName = "sfa-gds-error-message-for";
 
         [HtmlAttributeName(ValidationForAttributeName)]
         public ModelExpression For { get; set; }
@@ -26,8 +26,13 @@ namespace SFA.DAS.ASK.Web.Infrastructure.TagHelpers
             ViewContext.ViewData.ModelState.TryGetValue(For.Name, out entry);
             if (entry == null || !entry.Errors.Any()) return;
             
-            output.Attributes.RemoveAll("sfa-gds-error-class");
-            output.AddClass("govuk-form-group--error", HtmlEncoder.Default);
+            output.Attributes.RemoveAll(ValidationForAttributeName);
+            output.AddClass("govuk-error-message", HtmlEncoder.Default);
+
+            var errorMessage = entry.Errors.First().ErrorMessage;
+            
+            output.Content.AppendHtml($"<span class=\"govuk-visually-hidden\">Error:</span> {errorMessage}");
+
         }
     }
 }
