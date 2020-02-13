@@ -20,4 +20,9 @@
     <ProjectReference Include="..\SFA.DAS.Boilerplate\SFA.DAS.Boilerplate.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\images\FIRE-IT-UP.png" />
+  </ItemGroup>
+
 </Project>

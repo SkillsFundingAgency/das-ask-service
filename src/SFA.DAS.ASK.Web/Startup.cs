@@ -136,7 +136,6 @@ namespace SFA.DAS.ASK.Web
 
             //services.AddDbContext<AskContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
             services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionString"]));
-            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

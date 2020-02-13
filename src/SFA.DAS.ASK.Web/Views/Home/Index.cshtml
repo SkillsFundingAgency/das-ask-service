@@ -1,6 +1,15 @@
-﻿@{
+﻿@using System.Collections.Specialized
+@{
     ViewData["Title"] = "Request support";
 }
+
+@section Banner{
+    <div class="landing-banner">
+        <h3 class="govuk-heading-s">Part of</h3>
+        <a href="https://fire-it-up-v18.herokuapp.com/campaign/hub-careers-advisers" class="govuk-heading-m govuk-link--no-visited-state">Apprenticeships - Careers advisers</a>
+    </div>
+}
+
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -21,6 +30,12 @@
             </a>
             <div class="govuk-inset-text">
                 <a href="#" class="govuk-link">Northern Ireland</a>, <a href="#" class="govuk-link">Scotland</a> and <a href="#" class="govuk-link">Wales</a> have their own websites for requesting support.
+            </div>
+        </div>
+        <div class="govuk-grid-column-one-third">
+            <div class="promo-section">
+                <h2 class="govuk-heading-m">Part of advice and guidance for teachers and careers advisers</h2>
+                <img src="~/images/FIRE-IT-UP.png"/>
             </div>
         </div>
     </div>
