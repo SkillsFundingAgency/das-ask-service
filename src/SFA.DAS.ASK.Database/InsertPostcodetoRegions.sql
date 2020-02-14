@@ -138,20 +138,20 @@ GO
 
 -- add DeliveryArea to PostCode Region 
 BEGIN
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 0 WHERE [Region] = 'Channel Islands'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 0 WHERE [Region] = 'distance or e-learning'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 1 WHERE [Region] = 'East Midlands'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 2 WHERE [Region] = 'East of England'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 3 WHERE [Region] = 'London'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 4 WHERE [Region] = 'North East England'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 5 WHERE [Region] = 'North West England'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 0 WHERE [Region] = 'Northern Ireland'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 0 WHERE [Region] = 'Scotland'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 6 WHERE [Region] = 'South East England'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 7 WHERE [Region] = 'South West England'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 0 WHERE [Region] = 'Wales'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 8 WHERE [Region] = 'West Midlands'
-UPDATE  [PostcodeRegion] SET [DeliveryAreaId] = 9 WHERE [Region] = 'Yorkshire and the Humber'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 0 WHERE [Region] = 'Channel Islands'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 0 WHERE [Region] = 'distance or e-learning'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 1 WHERE [Region] = 'East Midlands'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 2 WHERE [Region] = 'East of England'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 3 WHERE [Region] = 'London'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 4 WHERE [Region] = 'North East England'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 5 WHERE [Region] = 'North West England'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 0 WHERE [Region] = 'Northern Ireland'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 0 WHERE [Region] = 'Scotland'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 6 WHERE [Region] = 'South East England'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 7 WHERE [Region] = 'South West England'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 0 WHERE [Region] = 'Wales'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 8 WHERE [Region] = 'West Midlands'
+UPDATE  [PostcodeRegions] SET [DeliveryAreaId] = 9 WHERE [Region] = 'Yorkshire and the Humber'
 
 END
 GO
