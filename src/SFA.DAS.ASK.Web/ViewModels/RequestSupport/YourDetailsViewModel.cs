@@ -17,25 +17,25 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
             ConfirmEmail = supportRequest.Email;
         }
 
-        [Required]
+        [Required(ErrorMessage = "Enter your first name")]
         public string FirstName { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Enter your last name")]
         public string LastName { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Enter your job role")]
         public string JobRole { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Enter your phone number")]
         public string PhoneNumber { get; set; }
         
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Enter your email address")]
+        [EmailAddress(ErrorMessage = "Enter an email address in the correct format, like name@example.com")]
         public string Email { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Confirm your email address")]
         [EmailAddress]
-        [Compare("Email")]
+        [Compare("Email", ErrorMessage = "Email addresses must match")]
         public string ConfirmEmail { get; set; }
 
         public TempSupportRequest ToTempSupportRequest(TempSupportRequest supportRequest)
