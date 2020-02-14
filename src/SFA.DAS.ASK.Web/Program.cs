@@ -15,7 +15,7 @@ namespace SFA.DAS.ASK.Web
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((context, builder) =>
                 {
-                    builder.AddAzureStorageConfigurationProvider(context, "SFA.DAS.ASK.Web", "1.0");
+                    builder.AddAzureStorageConfigurationProvider(context, "SFA.DAS.Ask", "1.0");
                 })
                 .UseStartup<Startup>();
     }
