@@ -11,9 +11,8 @@ namespace SFA.DAS.Boilerplate.Logging
 {
     public class NLogConfiguration
     {
-        public void ConfigureNLog(IConfiguration configuration)
+        public void ConfigureNLog(IConfiguration configuration, string appName)
         {
-            var appName = configuration["Logging:AppName"];
             var env = configuration["EnvironmentName"];
             var config = new LoggingConfiguration();
 

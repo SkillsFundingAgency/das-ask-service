@@ -147,7 +147,7 @@ namespace SFA.DAS.ASK.Web
             
             services.AddAuthorization();
             
-            services.AddNLogLogging(Configuration);
+            services.AddNLogLogging(Configuration, "das-ask-service-web");
 
             services.AddHealthChecks();
 

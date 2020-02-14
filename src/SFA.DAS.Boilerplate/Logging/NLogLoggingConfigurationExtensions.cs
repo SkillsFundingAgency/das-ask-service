@@ -7,7 +7,7 @@ namespace SFA.DAS.Boilerplate.Logging
 {
     public static class NLogLoggingConfigurationExtensions
     {
-        public static IServiceCollection AddNLogLogging(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddNLogLogging(this IServiceCollection services, IConfiguration configuration, string appName)
         {
             var nLogConfiguration = new NLogConfiguration();
 
@@ -22,7 +22,7 @@ namespace SFA.DAS.Boilerplate.Logging
                 });
                 options.AddConsole();
 
-                nLogConfiguration.ConfigureNLog(configuration);
+                nLogConfiguration.ConfigureNLog(configuration, appName);
             });
 
             return services;
