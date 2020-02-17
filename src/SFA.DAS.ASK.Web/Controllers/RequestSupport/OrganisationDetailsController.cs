@@ -50,8 +50,8 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                 //return RedirectToAction("Index", "SchoolDetails", new {requestId = requestId});
             }
             
-            //return RedirectToAction("Index", "OrganisationAddress", new {requestId = requestId});
-            return Ok();
+            return RedirectToAction("Index", "OrganisationSearch", new {requestId = requestId});
+            //return Ok();
         }
     }
 }

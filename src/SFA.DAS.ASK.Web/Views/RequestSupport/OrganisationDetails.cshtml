@@ -5,41 +5,75 @@
 }
 
 
-<a asp-action="Index" asp-controller="YourDetails" asp-route-requestId="@Model.RequestId">Back</a>
+<a class="govuk-back-link" asp-action="Index" asp-controller="YourDetails" asp-route-requestId="@Model.RequestId">Back</a>
+
+<main class="govuk-main-wrapper" id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <partial name="_ErrorSummary" />
+
+            <h1 class="govuk-heading-xl">
+                Organisation details
+                <span class="govuk-caption-xl">Section 2 of 4</span>
+            </h1>
+            <form method="post">
+                <p>Organisation type</p>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="SelectedOrganisationType" id="organisationType_school" value="1" />
+                                <label class="govuk-label govuk-radios__label" for="organisationType_school">School</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="SelectedOrganisationType" id="organisationType_lep" value="2" />
+                                <label class="govuk-label govuk-radios__label" for="organisationType_lep">Local Enterprise Partnership (LEP)</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="SelectedOrganisationType" id="organisationType_localauthority" value="3" />
+                                <label class="govuk-label govuk-radios__label" for="organisationType_localauthority">Local Authority or Council</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="SelectedOrganisationType" id="organisationType_emb" value="4" />
+                                <label class="govuk-label govuk-radios__label" for="organisationType_emb">Employer membership body</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="SelectedOrganisationType" id="organisationType_careersservice" value="5" />
+                                <label class="govuk-label govuk-radios__label" for="organisationType_careersservice">Careers Service</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="SelectedOrganisationType" id="organisationType_other" value="6"  data-aria-controls="conditional_organisationType_other" />
+                                <label class="govuk-label govuk-radios__label" for="organisationType_other">Other</label>
+                            </div>
+
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional_organisationType_other">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label" for="organisationType_other_details">
+                                        Please specify
+                                    </label>
+                                    <input class="govuk-input govuk-!-width-one-third" id="organisationType_other_details" asp-for="Other">
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                    </fieldset>
+
+                </div>
+
+                <button class="govuk-button" type="submit" >Continue</button>
+                <a class="govuk-link das-link--button-aligned" asp-controller="Home" asp-action="Index"> Cancel </a>
+            </form>
+
+            <p>If you experience any difficulties in completing the form, please call for assistance on <a href="#">01462 341191</a>.</p>
+
+        </div>
+    </div>
+</main>
 
 
-<h1>Organisation details</h1>
-<h2>Section 2 of 4</h2>
-
-<div asp-validation-summary="All"></div>
-
-<form method="post">
-    <p>Organisation type</p>
-    
-    
-    <input type="radio" asp-for="SelectedOrganisationType" id="organisationType_school" value="1"/>
-    <label for="organisationType_school">School</label>
-    
-    <input type="radio" asp-for="SelectedOrganisationType" id="organisationType_lep" value="2"/>
-    <label for="organisationType_lep">Local Enterprise Partnership (LEP)</label>
-    
-    <input type="radio" asp-for="SelectedOrganisationType" id="organisationType_localauthority" value="3"/>
-    <label for="organisationType_localauthority">Local Authority or Council</label>
-    
-    <input type="radio" asp-for="SelectedOrganisationType" id="organisationType_emb" value="4"/>
-    <label for="organisationType_emb">Employer membership body</label>
-    
-    <input type="radio" asp-for="SelectedOrganisationType" id="organisationType_careersservice" value="5"/>
-    <label for="organisationType_careersservice">Careers Service</label>
-    
-    <input type="radio" asp-for="SelectedOrganisationType" id="organisationType_other" value="6"/>
-    <label for="organisationType_other">Other</label>
-    
-    <label for="organisationType_other_details">Please specify</label>
-    <input type="text" asp-for="Other" id="organisationType_other_details"/>
-
-    <button type="submit">Next</button>
-</form>
 
 
-<p>If you experience any difficulties in completing the form, please call for assistance on <a href="#">01462 341191</a>.</p>
+           
