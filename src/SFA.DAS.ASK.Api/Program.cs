@@ -20,10 +20,10 @@ namespace SFA.DAS.ASK.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((context, builder) =>
-                {
-                    builder.AddAzureStorageConfigurationProvider(context, "SFA.DAS.ASK.Api", "1.0");
-                })
+                // .ConfigureAppConfiguration((context, builder) =>
+                // {
+                //     builder.AddAzureStorageConfigurationProvider(context, "SFA.DAS.ASK.Api", "1.0", null);
+                // })
                 .UseStartup<Startup>();
     }
 }

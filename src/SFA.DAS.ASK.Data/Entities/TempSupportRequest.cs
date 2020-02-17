@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Threading.Tasks;
 
 namespace SFA.DAS.ASK.Data.Entities
 {
@@ -25,6 +27,15 @@ namespace SFA.DAS.ASK.Data.Entities
 
         public SupportRequestType SupportRequestType { get; set; }
         public string ReferenceId { get; set; }
+
+        public TempSupportRequestStatus Status { get; set; }
+    }
+
+    public enum TempSupportRequestStatus
+    {
+        Active,
+        Cancelled,
+        Submitted
     }
 
     public enum SupportRequestType

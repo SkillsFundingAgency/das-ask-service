@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ using SFA.DAS.ASK.Application.DfeApi;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
 using SFA.DAS.ASK.Data;
+using SFA.DAS.Boilerplate.Configuration;
 using SFA.DAS.Boilerplate.Logging;
 
 namespace SFA.DAS.ASK.Web
@@ -29,10 +31,19 @@ namespace SFA.DAS.ASK.Web
     {
         private readonly IHostingEnvironment _environment;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment, ILogger<Startup> logger)
         {
             _environment = environment;
-            Configuration = configuration;
+
+            var config = new ConfigurationBuilder()
+                .AddConfiguration(configuration)
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddAzureStorageConfigurationProvider("SFA.DAS.Ask", "1.0", logger).Build();
+            
+            
+            Configuration = config;
         }
 
         public IConfiguration Configuration { get; }
@@ -40,6 +51,9 @@ namespace SFA.DAS.ASK.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationInsightsTelemetry();
+            services.AddNLogLogging(Configuration, "das-ask-service-web");
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -47,7 +61,6 @@ namespace SFA.DAS.ASK.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             IdentityModelEventSource.ShowPII = true;
@@ -148,11 +161,9 @@ namespace SFA.DAS.ASK.Web
             
             services.AddAuthorization();
             
-            services.AddNLogLogging(Configuration, "das-ask-service-web");
 
             services.AddHealthChecks();
 
-            services.AddApplicationInsightsTelemetry();
 
             services.AddMediatR(typeof(StartTempSupportRequestHandler));
 
