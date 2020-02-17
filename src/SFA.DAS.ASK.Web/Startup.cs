@@ -156,12 +156,6 @@ namespace SFA.DAS.ASK.Web
 
             services.AddMediatR(typeof(StartTempSupportRequestHandler));
 
-            var sp = services.BuildServiceProvider();
-
-            var logger = sp.GetService<ILogger<Startup>>();
-            
-            logger.LogInformation("Configuration SqlConnectionstring: {0}", Configuration["SqlConnectionstring"].Substring(0,20));
-            
             //services.AddDbContext<AskContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
             services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionstring"]));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
