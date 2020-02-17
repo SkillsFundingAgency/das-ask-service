@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using SFA.DAS.ASK.Application.DfeApi;
@@ -155,6 +156,12 @@ namespace SFA.DAS.ASK.Web
 
             services.AddMediatR(typeof(StartTempSupportRequestHandler));
 
+            var sp = services.BuildServiceProvider();
+
+            var logger = sp.GetService<ILogger<Startup>>();
+            
+            logger.LogInformation("Configuration SqlConnectionstring: {0}", Configuration["SqlConnectionstring"].Substring(0,20));
+            
             //services.AddDbContext<AskContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
             services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionstring"]));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
