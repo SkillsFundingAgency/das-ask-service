@@ -44,13 +44,18 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                 return RedirectToAction("Index", new {requestId});
             }
             
-            //var email = User.FindFirst(ClaimTypes.Email);
-            var email = "davegouge@myschool.org.uk.edu.com";
-            //var dfeSignInId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var dfeSignInId = Guid.NewGuid();
-            string name = "David Gouge";
+            // //var email = User.FindFirst(ClaimTypes.Email);
+            // var email = "davegouge@myschool.org.uk.edu.com";
+            // //var dfeSignInId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            // var dfeSignInId = Guid.NewGuid();
+            // string name = "David Gouge";
             
-            await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, viewModel.SelectedUrn, email, name, requestId));
+            var email = User.FindFirst("email").Value;
+            var dfeSignInId = Guid.Parse(User.FindFirst("sid").Value);
+            var firstname = User.FindFirst("given_name").Value;
+            var lastname = User.FindFirst("family_name").Value;
+            
+            await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, viewModel.SelectedUrn, email, firstname, lastname, requestId));
             
             return RedirectToAction("SignedIn", "OtherDetails", new {requestId = requestId});
         }

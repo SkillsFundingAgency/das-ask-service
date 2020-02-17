@@ -31,28 +31,32 @@ namespace SFA.DAS.ASK.Web
     {
         private readonly IHostingEnvironment _environment;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment environment, ILogger<Startup> logger)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             _environment = environment;
 
-            var config = new ConfigurationBuilder()
-                .AddConfiguration(configuration)
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                .AddAzureStorageConfigurationProvider("SFA.DAS.Ask", "1.0", logger).Build();
-            
-            
-            Configuration = config;
+            Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry();
             services.AddNLogLogging(Configuration, "das-ask-service-web");
+
+            var sp = services.BuildServiceProvider();
+            var logger = sp.GetService<ILogger<Startup>>();
+            
+            var config = new ConfigurationBuilder()
+                .AddConfiguration(Configuration)
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{_environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddAzureStorageConfigurationProvider("SFA.DAS.Ask", "1.0", logger).Build();
+
+            Configuration = config;
             
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -72,7 +76,7 @@ namespace SFA.DAS.ASK.Web
                 })
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                 {
-                    options.Cookie.Name = ".Assessors.Cookies";
+                    options.Cookie.Name = ".Ask.Cookies";
                     options.Cookie.HttpOnly = true;
 
                     if (!_environment.IsDevelopment())
@@ -85,13 +89,6 @@ namespace SFA.DAS.ASK.Web
                 })
                 .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
                 {
-                    options.CorrelationCookie = new CookieBuilder()
-                    {
-                        Name = ".Assessors.Correlation.",
-                        HttpOnly = true,
-                        SameSite = SameSiteMode.None,
-                        SecurePolicy = CookieSecurePolicy.SameAsRequest
-                    };
 
                     options.SignInScheme = "Cookies";
                     options.Authority = Configuration["DfeSignIn:MetadataAddress"];

@@ -39,8 +39,8 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformatio
             tempSupportRequest.TownOrCity = dfeOrganisationAddress[2];
             tempSupportRequest.County = dfeOrganisationAddress[3];
             tempSupportRequest.Postcode = dfeOrganisationAddress[4];
-            tempSupportRequest.FirstName = command.Name.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries)[0];
-            tempSupportRequest.LastName = command.Name.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries)[1];
+            tempSupportRequest.FirstName = command.FirstName;
+            tempSupportRequest.LastName = command.LastName;
             tempSupportRequest.PhoneNumber = dfeOrganisation.Telephone;
             tempSupportRequest.OrganisationName = dfeOrganisation.Name;
             tempSupportRequest.ReferenceId = dfeOrganisation.UkPrn.ToString();
