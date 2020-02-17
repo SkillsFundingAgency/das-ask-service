@@ -156,7 +156,7 @@ namespace SFA.DAS.ASK.Web
             services.AddMediatR(typeof(StartTempSupportRequestHandler));
 
             //services.AddDbContext<AskContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
-            services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionString"]));
+            services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionstring"]));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
