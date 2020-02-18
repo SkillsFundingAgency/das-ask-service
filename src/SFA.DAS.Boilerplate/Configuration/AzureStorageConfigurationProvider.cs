@@ -25,6 +25,7 @@ namespace SFA.DAS.Boilerplate.Configuration
         public override void Load()
         {
             _logger.Info("AzureStorageConfigurationProvider Load()");
+            _logger.Info($"ConfigurationStorageConnectionString is {_configuration["ConfigurationStorageConnectionString"]}, IsNullOrWhiteSpace = ({string.IsNullOrWhiteSpace(_configuration["ConfigurationStorageConnectionString"])})");
             if (string.IsNullOrWhiteSpace(_configuration["ConfigurationStorageConnectionString"]))
             {
                 return;
