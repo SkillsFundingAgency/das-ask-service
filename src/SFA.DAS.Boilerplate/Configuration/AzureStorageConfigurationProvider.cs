@@ -30,9 +30,9 @@ namespace SFA.DAS.Boilerplate.Configuration
             var configItem = (ConfigurationItem)result.Result;
             var jsonObject = JObject.Parse(configItem.Data);
 
-            foreach (var child in jsonObject.Children())
+            foreach (JToken child in jsonObject.Children())
             {
-                if (child.Type == JTokenType.Property)
+                if (child.First is JValue)
                 {
                     Data.Add($"{child.Path}", ((JProperty)child).Value.ToString());
                 }
