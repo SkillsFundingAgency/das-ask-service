@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Organisations](
 	[Id] [uniqueidentifier] NOT NULL,
-	[UkPrn] [int] NOT NULL,
+	[ReferenceId] [nvarchar](250) NOT NULL,
 	[OrganisationName] [nvarchar](250) NOT NULL,
 	[OrganisationType] [int] NULL,
 	[OtherOrganisationType] [nvarchar](250) NULL,
