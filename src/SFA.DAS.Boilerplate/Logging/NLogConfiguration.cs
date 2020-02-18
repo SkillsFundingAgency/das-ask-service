@@ -11,7 +11,7 @@ namespace SFA.DAS.Boilerplate.Logging
 {
     public class NLogConfiguration
     {
-        public void ConfigureNLog(IConfiguration configuration, string appName)
+        public LoggingConfiguration ConfigureNLog(IConfiguration configuration, string appName)
         {
             var env = configuration["EnvironmentName"];
             var config = new LoggingConfiguration();
@@ -26,6 +26,8 @@ namespace SFA.DAS.Boilerplate.Logging
             // }
 
             LogManager.Configuration = config;
+
+            return config;
         }
 
         // private static void AddLocalTarget(LoggingConfiguration config, string appName)

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
+using System.IO;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -14,13 +13,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using SFA.DAS.ASK.Application.DfeApi;
-using SFA.DAS.ASK.Application.Handlers.RequestSupport;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
+using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
+using SFA.DAS.ASK.Web.Controllers.RequestSupport;
+using SFA.DAS.ASK.Web.Infrastructure;
+using SFA.DAS.ASK.Web.Infrastructure.Filters;
+using SFA.DAS.Boilerplate.Configuration;
 using SFA.DAS.Boilerplate.Logging;
 
 namespace SFA.DAS.ASK.Web
@@ -32,14 +33,28 @@ namespace SFA.DAS.ASK.Web
         public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             _environment = environment;
+
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationInsightsTelemetry();
+            services.AddNLogLogging(Configuration, "das-ask-service-web");
+            
+            var config = new ConfigurationBuilder()
+                .AddConfiguration(Configuration)
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{_environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .AddAzureStorageConfigurationProvider("SFA.DAS.Ask", "1.0").Build();
+
+            Configuration = config;
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -47,10 +62,7 @@ namespace SFA.DAS.ASK.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-
-            IdentityModelEventSource.ShowPII = true;
 
             services.AddAuthentication(options =>
                 {
@@ -59,7 +71,7 @@ namespace SFA.DAS.ASK.Web
                 })
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                 {
-                    options.Cookie.Name = ".Assessors.Cookies";
+                    options.Cookie.Name = ".Ask.Cookies";
                     options.Cookie.HttpOnly = true;
 
                     if (!_environment.IsDevelopment())
@@ -72,13 +84,6 @@ namespace SFA.DAS.ASK.Web
                 })
                 .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
                 {
-                    options.CorrelationCookie = new CookieBuilder()
-                    {
-                        Name = ".Assessors.Correlation.",
-                        HttpOnly = true,
-                        SameSite = SameSiteMode.None,
-                        SecurePolicy = CookieSecurePolicy.SameAsRequest
-                    };
 
                     options.SignInScheme = "Cookies";
                     options.Authority = Configuration["DfeSignIn:MetadataAddress"];
@@ -144,15 +149,32 @@ namespace SFA.DAS.ASK.Web
                 });
 
 
+            if (!_environment.IsDevelopment())
+            {
+                services.AddDistributedRedisCache(options =>
+                {
+                    options.Configuration = Configuration["DefaultSessionRedisConnectionString"];
+                    options.InstanceName = "das_ask_";
+                });    
+            }
+
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+            
+            services.AddScoped<CheckRequestFilter>();
+
+            services.AddTransient<ISessionService, SessionService>();
+
             services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>(client => client.BaseAddress = new Uri(Configuration["DfeSignIn:ApiUri"]));
             services.AddHttpClient<INonDfeSignInApiClient, NonDfeSignInApiClient>(client => client.BaseAddress = new Uri(Configuration["DfeSignIn:ApiUri"]));
             services.AddAuthorization();
             
-            services.AddNLogLogging(Configuration, "das-ask-service-web");
 
             services.AddHealthChecks();
 
-            services.AddApplicationInsightsTelemetry();
 
             services.AddMediatR(typeof(StartTempSupportRequestHandler));
 
@@ -179,6 +201,7 @@ namespace SFA.DAS.ASK.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseSession();
             
             app.UseMvc(routes =>
             {

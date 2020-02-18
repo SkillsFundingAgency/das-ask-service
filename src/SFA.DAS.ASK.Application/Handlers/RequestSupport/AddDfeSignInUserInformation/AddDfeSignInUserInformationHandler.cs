@@ -22,8 +22,8 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInUserInform
 
             tempSupportRequest.Agree = true;
             tempSupportRequest.Email = request.Email;
-            tempSupportRequest.FirstName = request.Name.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries)[0];
-            tempSupportRequest.LastName = request.Name.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries)[1];
+            tempSupportRequest.FirstName = request.FirstName;
+            tempSupportRequest.LastName = request.LastName;
             tempSupportRequest.SupportRequestType = SupportRequestType.Manual;
             
             await _context.SaveChangesAsync(cancellationToken);

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using SFA.DAS.Boilerplate.Configuration;
 
 namespace SFA.DAS.ASK.Web
@@ -11,12 +13,12 @@ namespace SFA.DAS.ASK.Web
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((context, builder) =>
-                {
-                    builder.AddAzureStorageConfigurationProvider(context, "SFA.DAS.Ask", "1.0");
-                })
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            var webHostBuilder = WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
+
+            return webHostBuilder;
+        }
     }
 }

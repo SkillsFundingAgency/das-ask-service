@@ -66,6 +66,8 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
                 DeliveryPartnerId = deliveryArea.DeliveryPartnerId
             };
 
+            tempSupportRequest.Status = TempSupportRequestStatus.Submitted;
+            
             await _context.SupportRequests.AddAsync(supportRequest, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             

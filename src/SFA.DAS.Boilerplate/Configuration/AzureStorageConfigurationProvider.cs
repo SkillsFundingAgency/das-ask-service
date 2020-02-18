@@ -24,18 +24,15 @@ namespace SFA.DAS.Boilerplate.Configuration
             {
                 return;
             }
-            
             var table = GetTable();
             var operation = GetOperation(_appname, _configuration["EnvironmentName"], _version);
-            var result = table.ExecuteAsync(operation).Result;
-
+            var result = table.Execute(operation);
             var configItem = (ConfigurationItem)result.Result;
-
             var jsonObject = JObject.Parse(configItem.Data);
 
-            foreach (var child in jsonObject.Children())
+            foreach (JToken child in jsonObject.Children())
             {
-                if (child.Type == JTokenType.Property)
+                if (child.First is JValue)
                 {
                     Data.Add($"{child.Path}", ((JProperty)child).Value.ToString());
                 }
