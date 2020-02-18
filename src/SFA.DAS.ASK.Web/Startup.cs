@@ -20,6 +20,7 @@ using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Web.Controllers.RequestSupport;
 using SFA.DAS.ASK.Web.Infrastructure;
+using SFA.DAS.ASK.Web.Infrastructure.Filters;
 using SFA.DAS.Boilerplate.Configuration;
 using SFA.DAS.Boilerplate.Logging;
 
