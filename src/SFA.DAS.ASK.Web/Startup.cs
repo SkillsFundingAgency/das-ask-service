@@ -153,7 +153,7 @@ namespace SFA.DAS.ASK.Web
             {
                 services.AddDistributedRedisCache(options =>
                 {
-                    options.Configuration = Configuration["SessionRedisConnectionString"];
+                    options.Configuration = Configuration["DefaultSessionRedisConnectionString"];
                     options.InstanceName = "das_ask_";
                 });    
             }
