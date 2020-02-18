@@ -16,8 +16,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using SFA.DAS.ASK.Application.DfeApi;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
+using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Web.Controllers.RequestSupport;
+using SFA.DAS.ASK.Web.Infrastructure;
 using SFA.DAS.Boilerplate.Configuration;
 using SFA.DAS.Boilerplate.Logging;
 
@@ -146,8 +148,25 @@ namespace SFA.DAS.ASK.Web
                 });
 
 
-            services.AddScoped<CheckRequestFilter>();
+            if (!_environment.IsDevelopment())
+            {
+                services.AddDistributedRedisCache(options =>
+                {
+                    options.Configuration = Configuration["SessionRedisConnectionString"];
+                    options.InstanceName = "das_ask_";
+                });    
+            }
+
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             
+            services.AddScoped<CheckRequestFilter>();
+
+            services.AddTransient<ISessionService, SessionService>();
+
             services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>(client => client.BaseAddress = new Uri(Configuration["DfeSignIn:ApiUri"]));
             
             services.AddAuthorization();
@@ -181,6 +200,7 @@ namespace SFA.DAS.ASK.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseSession();
             
             app.UseMvc(routes =>
             {

@@ -2,28 +2,13 @@ using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest;
+using SFA.DAS.ASK.Web.Infrastructure;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
-    public class CheckRequestFilter : ActionFilterAttribute
-    {
-        private readonly IMediator _mediator;
-
-        public CheckRequestFilter(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-        
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            base.OnActionExecuting(context);
-        }
-    }
-    
     public class OtherDetailsController : Controller
     {
         private readonly IMediator _mediator;
