@@ -57,6 +57,7 @@ namespace SFA.DAS.ASK.Web
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{_environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables()
                 .AddAzureStorageConfigurationProvider("SFA.DAS.Ask", "1.0", nlog).Build();
 
             Configuration = config;
