@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.CancelSupportRequest;
 
@@ -21,6 +22,28 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             var email = User.FindFirst("email").Value;
             await _mediator.Send(new CancelSupportRequestCommand(requestId, email));
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet("cancel-request/{requestId}")]
+        public  IActionResult Index(Guid requestId, string returnAction, string returnController)
+        {
+            var vm = new CancelSupportRequestViewModel(requestId, returnAction, returnController);
+            
+            return View("~/Views/RequestSupport/CancelRequest.cshtml", vm);
+        }
+    }
+
+    public class CancelSupportRequestViewModel
+    {
+        public Guid RequestId { get; }
+        public string ReturnAction { get; }
+        public string ReturnController { get; }
+
+        public CancelSupportRequestViewModel(Guid requestId, string returnAction, string returnController)
+        {
+            RequestId = requestId;
+            ReturnAction = returnAction;
+            ReturnController = returnController;
         }
     }
 }

@@ -12,7 +12,7 @@
             </h1>
 
             <partial name="_ErrorSummary"/>
-
+            
             <form method="post" asp-action="Index" asp-controller="SelectOrganisation" asp-route-requestId="@Model.RequestId">
                 <input type="hidden" asp-for="RequestId"/>
                 <div class="govuk-form-group" sfa-gds-error-class-for="SelectedUrn">
@@ -40,9 +40,7 @@
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Next
                 </button>
-            </form>
-            <form asp-action="Cancel" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId">
-                <button type="submit" class="govuk-link cancel-link">Cancel</button>
+                <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="SelectOrganisation" class="govuk-link cancel-link">Cancel</a>
             </form>
 
         </div>

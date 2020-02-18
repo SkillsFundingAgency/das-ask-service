@@ -1,0 +1,24 @@
+@model SFA.DAS.ASK.Web.Controllers.RequestSupport.CancelSupportRequestViewModel
+
+@{
+    ViewBag.Title = "Select organisation";
+}
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">
+                Are you sure?
+                <span class="govuk-caption-xl"></span>
+            </h1>
+
+            
+            <form method="post" asp-action="Cancel" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Yes
+                </button>
+                <a asp-action="@Model.ReturnAction" asp-controller="@Model.ReturnController" asp-route-requestId="@Model.RequestId" class="govuk-link cancel-link">No</a>
+            </form>
+
+        </div>
+    </div>
+</main>
