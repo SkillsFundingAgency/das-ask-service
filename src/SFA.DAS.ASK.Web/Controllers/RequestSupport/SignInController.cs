@@ -25,17 +25,11 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             _httpContextAccessor = httpContextAccessor;
         }
         
-        [HttpGet("sign-in")]
-        [Authorize]
-        public IActionResult SignIn()
-        {
-            return View("~/Views/RequestSupport/SignIn.cshtml");
-        }
-        //
-        // [HttpGet("signed-in")]
-        // public async Task<IActionResult> SignedIn()
+        // [HttpGet("sign-in")]
+        // [Authorize]
+        // public IActionResult SignIn()
         // {
-        //     
+        //     return View("~/Views/RequestSupport/SignIn.cshtml");
         // }
     }
 }

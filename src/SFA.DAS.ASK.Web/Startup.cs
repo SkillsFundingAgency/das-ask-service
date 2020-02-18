@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using SFA.DAS.ASK.Application.DfeApi;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
 using SFA.DAS.ASK.Data;
+using SFA.DAS.ASK.Web.Controllers.RequestSupport;
 using SFA.DAS.Boilerplate.Configuration;
 using SFA.DAS.Boilerplate.Logging;
 
@@ -145,6 +146,8 @@ namespace SFA.DAS.ASK.Web
                 });
 
 
+            services.AddScoped<CheckRequestFilter>();
+            
             services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>(client => client.BaseAddress = new Uri(Configuration["DfeSignIn:ApiUri"]));
             
             services.AddAuthorization();

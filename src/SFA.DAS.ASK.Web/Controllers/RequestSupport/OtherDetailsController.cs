@@ -2,12 +2,28 @@ using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
+    public class CheckRequestFilter : ActionFilterAttribute
+    {
+        private readonly IMediator _mediator;
+
+        public CheckRequestFilter(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+        
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            base.OnActionExecuting(context);
+        }
+    }
+    
     public class OtherDetailsController : Controller
     {
         private readonly IMediator _mediator;
@@ -18,6 +34,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         }
         
         [HttpGet("other-details/{requestId}")]
+        [ServiceFilter(typeof(CheckRequestFilter))]
         public async Task<IActionResult> Index(Guid requestId)
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
@@ -47,6 +64,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 
         
         [HttpGet("other-details-signed-in/{requestId}")]
+        [ServiceFilter(typeof(CheckRequestFilter))]
         public async Task<IActionResult> SignedIn(Guid requestId)
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
