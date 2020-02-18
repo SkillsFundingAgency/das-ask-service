@@ -145,7 +145,7 @@ namespace SFA.DAS.ASK.Web
 
 
             services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>(client => client.BaseAddress = new Uri(Configuration["DfeSignIn:ApiUri"]));
-            
+            services.AddHttpClient<INonDfeSignInApiClient, NonDfeSignInApiClient>(client => client.BaseAddress = new Uri(Configuration["DfeSignIn:ApiUri"]));
             services.AddAuthorization();
             
             services.AddNLogLogging(Configuration, "das-ask-service-web");
