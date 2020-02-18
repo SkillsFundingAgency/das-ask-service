@@ -56,7 +56,15 @@ else
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Request support
                 </button>
-                <a asp-action="Index" asp-controller="Home" class="das-button--link">Cancel</a>
+                @if (Model.NonSignedIn)
+                {
+                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OtherDetails"  class="das-button--link">Cancel</a>    
+                }
+                else
+                {
+                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="SignedIn" asp-route-returnController="OtherDetails"  class="das-button--link">Cancel</a>
+                }
+                
 
                 @* <p class="govuk-hint"> *@
                 @*     Your school will be required to have a planning meeting so that we can explain the full range of support available through the *@

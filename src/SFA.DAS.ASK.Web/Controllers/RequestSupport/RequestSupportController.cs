@@ -36,11 +36,10 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             if (viewModel.HasSignInAccount.GetValueOrDefault())
             {
                 return RedirectToAction("SignIn", "RequestSupportSignIn");
-                //return RedirectToAction("SignIn", "SignIn");
             }
 
             var startRequestResponse = await  _mediator.Send(new StartTempSupportRequestCommand(SupportRequestType.Manual));
-            return RedirectToAction("Index", "YourDetails", new {requestId = startRequestResponse.RequestId});
+            return RedirectToAction("Index", "OrganisationSearch", new {requestId = startRequestResponse.RequestId});
         }
     }
 }

@@ -40,7 +40,7 @@
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Next
                 </button>
-                <a asp-action="Index" asp-controller="Home" class="das-button--link">Cancel</a>
+                <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="SelectOrganisation" class="das-button--link">Cancel</a>
             </form>
 
         </div>
