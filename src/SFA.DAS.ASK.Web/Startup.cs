@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,12 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using NLog.Web;
 using SFA.DAS.ASK.Application.DfeApi;
-using SFA.DAS.ASK.Application.Handlers.RequestSupport;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.Boilerplate.Configuration;
@@ -46,11 +40,6 @@ namespace SFA.DAS.ASK.Web
         {
             services.AddApplicationInsightsTelemetry();
             services.AddNLogLogging(Configuration, "das-ask-service-web");
-
-            var nlog = NLogBuilder.ConfigureNLog(new NLogConfiguration().ConfigureNLog(Configuration, "das-ask-service-web")).GetCurrentClassLogger();
-
-            var sp = services.BuildServiceProvider();
-            var logger = sp.GetService<ILogger<Startup>>();
             
             var config = new ConfigurationBuilder()
                 .AddConfiguration(Configuration)
@@ -58,7 +47,7 @@ namespace SFA.DAS.ASK.Web
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{_environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables()
-                .AddAzureStorageConfigurationProvider("SFA.DAS.Ask", "1.0", nlog).Build();
+                .AddAzureStorageConfigurationProvider("SFA.DAS.Ask", "1.0").Build();
 
             Configuration = config;
             
@@ -70,8 +59,6 @@ namespace SFA.DAS.ASK.Web
             });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-
-            IdentityModelEventSource.ShowPII = true;
 
             services.AddAuthentication(options =>
                 {
