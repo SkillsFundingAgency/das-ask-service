@@ -13,7 +13,6 @@
                     Section 3 of 4
                 </span>
             </h1>
-
             <form method="post" asp-action="Index" asp-controller="OtherDetails" asp-route-requestId="@Model.RequestId">
                 <div class="govuk-form-group">
                   <label class="govuk-label" for="event-name">
@@ -21,12 +20,10 @@
                   </label>
                   <input class="govuk-input" id="event-name" name="event-name" type="text">
                 </div>
-
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Search
                 </button>
-                <a asp-action="Index" asp-controller="Home" class="govuk-link das-link--button-aligned">Cancel</a>
-               
+                <a asp-action="Index" asp-controller="Home" class="das-button--link">Cancel</a>
             </form>
         </div>
     </div>
