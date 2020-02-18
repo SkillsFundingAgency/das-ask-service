@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using NLog;
 
 namespace SFA.DAS.Boilerplate.Configuration
 {
@@ -8,9 +8,9 @@ namespace SFA.DAS.Boilerplate.Configuration
         private readonly IConfiguration _configuration;
         private readonly string _appname;
         private readonly string _version;
-        private readonly ILogger _logger;
+        private readonly Logger _logger;
 
-        public AzureStorageConfigurationSource(IConfiguration configuration, string appname, string version, ILogger logger)
+        public AzureStorageConfigurationSource(IConfiguration configuration, string appname, string version, Logger logger)
         {
             _configuration = configuration;
             _appname = appname;

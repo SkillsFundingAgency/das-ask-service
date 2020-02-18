@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using NLog.Web;
 using SFA.DAS.ASK.Application.DfeApi;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
@@ -46,6 +47,8 @@ namespace SFA.DAS.ASK.Web
             services.AddApplicationInsightsTelemetry();
             services.AddNLogLogging(Configuration, "das-ask-service-web");
 
+            var nlog = NLogBuilder.ConfigureNLog(new NLogConfiguration().ConfigureNLog(Configuration, "das-ask-service-web")).GetCurrentClassLogger();
+
             var sp = services.BuildServiceProvider();
             var logger = sp.GetService<ILogger<Startup>>();
             
@@ -54,7 +57,7 @@ namespace SFA.DAS.ASK.Web
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{_environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                .AddAzureStorageConfigurationProvider("SFA.DAS.Ask", "1.0", logger).Build();
+                .AddAzureStorageConfigurationProvider("SFA.DAS.Ask", "1.0", nlog).Build();
 
             Configuration = config;
             

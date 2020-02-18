@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NLog;
 
 namespace SFA.DAS.Boilerplate.Configuration
 {
     public static class AzureStorageConfigurationProviderExtensions
     {
-        public static IConfigurationBuilder AddAzureStorageConfigurationProvider(this IConfigurationBuilder builder, string appname, string version, ILogger logger)
+        public static IConfigurationBuilder AddAzureStorageConfigurationProvider(this IConfigurationBuilder builder, string appname, string version, Logger logger)
         {
             // builder.SetBasePath(Directory.GetCurrentDirectory());
             // builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
