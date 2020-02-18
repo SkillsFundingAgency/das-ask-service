@@ -149,14 +149,14 @@ namespace SFA.DAS.ASK.Web
                 });
 
 
-            if (!_environment.IsDevelopment())
-            {
+            // if (!_environment.IsDevelopment())
+            // {
                 services.AddDistributedRedisCache(options =>
                 {
-                    options.Configuration = Configuration["DefaultSessionRedisConnectionString"];
+                    options.Configuration = Configuration["SessionRedisConnectionString"];
                     options.InstanceName = "das_ask_";
                 });    
-            }
+            //}
 
             services.AddSession(options =>
             {
