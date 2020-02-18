@@ -9,6 +9,8 @@
       <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
+      <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.7" />
+      <PackageReference Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
     </ItemGroup>
 
     <ItemGroup>
