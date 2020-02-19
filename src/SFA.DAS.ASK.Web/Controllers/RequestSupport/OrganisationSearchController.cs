@@ -41,18 +41,4 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         //}
     }
 
-    public class OrganisationSearchViewModel
-    {
-        public Guid RequestId { get; set; }
-        public string SearchTerms { get; set; }
-        public List<NonDfeOrganisation> Results { get; set; }
-
-        public OrganisationSearchViewModel() { }
-        public OrganisationSearchViewModel(Guid requestId, string searchTerms,List<NonDfeOrganisation> results)
-        {
-            RequestId = requestId;
-            SearchTerms = searchTerms;
-            Results = results;
-        }
-    }
 }

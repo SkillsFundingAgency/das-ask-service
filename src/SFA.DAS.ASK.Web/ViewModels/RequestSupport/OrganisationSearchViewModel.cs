@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 {
-    public class OrganisationResultsViewModel
+
+    public class OrganisationSearchViewModel
     {
         public Guid RequestId { get; set; }
-        public List<NonDfeOrganisation> Results { get; set; }
         public string Search { get; set; }
+        public List<NonDfeOrganisation> Results { get; set; }
 
-        public OrganisationResultsViewModel() { }
-        public OrganisationResultsViewModel(List<NonDfeOrganisation> results, Guid requestId, string searchTerms)
+        public OrganisationSearchViewModel() { }
+        public OrganisationSearchViewModel(Guid requestId, string searchTerms, List<NonDfeOrganisation> results)
         {
-            Results = results;
             RequestId = requestId;
             Search = searchTerms;
+            Results = results;
         }
-        public Guid SelectedResult { get; set; }
-
-        
     }
 }
