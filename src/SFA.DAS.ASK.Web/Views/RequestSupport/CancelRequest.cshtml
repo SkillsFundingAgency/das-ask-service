@@ -16,7 +16,7 @@
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Yes
                 </button>
-                <a asp-action="@Model.ReturnAction" asp-controller="@Model.ReturnController" asp-route-requestId="@Model.RequestId" class="govuk-link cancel-link">No</a>
+                <a id="cancelLink" asp-action="@Model.ReturnAction" asp-controller="@Model.ReturnController" asp-route-requestId="@Model.RequestId" class="govuk-link cancel-link">No</a>
             </form>
 
         </div>
