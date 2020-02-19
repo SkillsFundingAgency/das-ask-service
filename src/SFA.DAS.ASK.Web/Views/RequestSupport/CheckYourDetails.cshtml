@@ -1,0 +1,125 @@
+@using SFA.DAS.ASK.Data.Entities
+@model SFA.DAS.ASK.Web.ViewModels.RequestSupport.CheckYourDetailsViewModel
+
+@{
+    ViewBag.Title = "Check your details";
+}
+@if (Model.SupportRequestType == SupportRequestType.DfeSignIn)
+{
+    <a asp-action="Index" asp-controller="SelectOrganisation" asp-route-requestId="@Model.RequestId" class="govuk-back-link">Back</a>
+}
+else
+{
+    <a asp-action="Index" asp-controller="SelectOrganisation" asp-route-requestId="@Model.RequestId" class="govuk-back-link">Back</a>
+}
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Check your details</h1>
+
+            <h2 class="govuk-heading-m">Your details</h2>
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Name
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.Name
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">
+                            Change<span class="govuk-visually-hidden"> name</span>
+                        </a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Your job role
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.JobRole
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">
+                            Change<span class="govuk-visually-hidden"> your job role</span>
+                        </a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Contact details
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.PhoneNumber <br/>
+                        @Model.Email <br/>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">
+                            Change<span class="govuk-visually-hidden"> contact details</span>
+                        </a>
+                    </dd>
+                </div>
+            </dl>
+
+            <h2 class="govuk-heading-m">Organisation type</h2>
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Type
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.OrganisationType
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">
+                            Change<span class="govuk-visually-hidden"> organisation type</span>
+                        </a>
+                    </dd>
+                </div>
+            </dl>
+
+            <h2 class="govuk-heading-m">Organisation details</h2>
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Name
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        <strong>
+                            @Model.OrganisationName
+                        </strong>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">
+                            Change<span class="govuk-visually-hidden"> organisation name</span>
+                        </a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Address
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.BuildingAndStreet1 <br/>
+                        @Model.BuildingAndStreet2 <br/>
+                        @Model.TownOrCity <br/>
+                        @Model.County <br/>
+                        @Model.Postcode <br/>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+
+                    </dd>
+                </div>
+            </dl>
+
+            <form method="post" asp-action="Index" asp>
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+                <a asp-action="Index" asp-controller="CancelSupportRequest" class="das-button--link">Cancel</a>
+            </form>
+            <p class="govuk-hint">If you experience any difficulties in completing the form, please call for assistance on <a href="tel:01462 341191" class="govuk-link">01462 341191</a>.</p>
+        </div>
+    </div>
+</main>

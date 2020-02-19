@@ -52,7 +52,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                 case DfeOrganisationsStatus.Single:
                     await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, dfeOrganisationsCheckResponse.Id, email, firstname, lastname, startRequestResponse.RequestId));
             
-                    return RedirectToAction("SignedIn", "OtherDetails", new {requestId = startRequestResponse.RequestId});
+                    return RedirectToAction("Index", "CheckYourDetails", new {requestId = startRequestResponse.RequestId});
                     
                 default:
                     throw new ArgumentOutOfRangeException();

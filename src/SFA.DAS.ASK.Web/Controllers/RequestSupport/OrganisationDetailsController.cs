@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SaveSupportRequest;
+using SFA.DAS.ASK.Data.Entities;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
@@ -35,7 +36,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                 return View("~/Views/RequestSupport/OrganisationDetails.cshtml", viewModel);
             }
 
-            if (viewModel.SelectedOrganisationType == 6 && string.IsNullOrWhiteSpace(viewModel.Other))
+            if (viewModel.SelectedOrganisationType == OrganisationType.Other && string.IsNullOrWhiteSpace(viewModel.Other))
             {
                 ModelState.AddModelError("organisationType_other_details", "Please enter something for Other");
                 return View("~/Views/RequestSupport/OrganisationDetails.cshtml", viewModel);
@@ -45,10 +46,10 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             
             await _mediator.Send(new SaveTempSupportRequest(viewModel.ToSupportRequest(supportRequest)));
 
-            if (viewModel.SelectedOrganisationType == 1) // School
-            {
-                //return RedirectToAction("Index", "SchoolDetails", new {requestId = requestId});
-            }
+            // if (viewModel.SelectedOrganisationType == OrganisationType.School) // School
+            // {
+            //     //return RedirectToAction("Index", "SchoolDetails", new {requestId = requestId});
+            // }
             
             return RedirectToAction("Index", "OrganisationSearch", new {requestId = requestId});
             //return Ok();

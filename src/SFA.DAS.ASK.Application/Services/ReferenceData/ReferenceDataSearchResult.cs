@@ -6,7 +6,7 @@ namespace SFA.DAS.ASK.Application.Services.ReferenceData
     {
         public Guid? Id { get; set; }
         public string Name { get; set; }
-        public OrganisationType Type { get; set; }
+        public ReferenceDataOrganisationType Type { get; set; }
         public int SubType { get; set; }
         public string Code { get; set; }
         public ReferenceDataAddress Address { get; set; }

@@ -14,8 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using SFA.DAS.ASK.Application.DfeApi;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
+using SFA.DAS.ASK.Application.Services.DfeApi;
 using SFA.DAS.ASK.Application.Services.ReferenceData;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
@@ -150,14 +150,14 @@ namespace SFA.DAS.ASK.Web
                 });
 
 
-            // if (!_environment.IsDevelopment())
-            // {
+            if (!_environment.IsDevelopment())
+            {
                 services.AddDistributedRedisCache(options =>
                 {
                     options.Configuration = Configuration["SessionRedisConnectionString"];
                     options.InstanceName = "das_ask_";
                 });    
-            //}
+            }
 
             services.AddSession(options =>
             {
