@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using MediatR;
 using SFA.DAS.ASK.Application.DfeApi;
+using SFA.DAS.ASK.Application.Services.ReferenceData;
 
 namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations
 {
-    public class GetNonDfeOrganisationsRequest : IRequest<List<NonDfeOrganisation>>
+    public class GetNonDfeOrganisationsRequest : IRequest<IEnumerable<ReferenceDataSearchResult>>
     {
-        public GetNonDfeOrganisationsRequest()
-        {
+        public string SearchTerm { get; set; }
 
+        public GetNonDfeOrganisationsRequest(string search)
+        {
+            SearchTerm = search;
         }
 
     }

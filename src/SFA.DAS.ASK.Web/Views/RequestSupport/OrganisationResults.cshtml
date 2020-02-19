@@ -1,6 +1,8 @@
 ﻿@model SFA.DAS.ASK.Web.ViewModels.RequestSupport.OrganisationResultsViewModel
 @{
     ViewData["Title"] = "OrganisationResults";
+
+    var resultsCount = Model.Results.Count == 1 ? "1 results found" : Model.Results.Count.ToString() + " results found";
 }
 
 <main class="govuk-main-wrapper" id="main-content" role="main">
@@ -28,14 +30,16 @@
 
             <hr />
 
+            <p> @resultsCount</p>
+
             @if (Model.Results.Count > 0)
             {
-                <p> @Model.Results.Count  results found</p>
+
                 @foreach (var result in Model.Results)
                 {
                     <form method="post" asp-controller="OrganisationResults" asp-action="Index">
 
-                        <input type="hidden" asp-for="SelectedResult" value="@result.Guid" />
+                        <input type="hidden" asp-for="SelectedResult" value="@result.Id" />
 
                         <button class="govuk-heading-m govuk-link" type="submit"> @result.Name</button>
 

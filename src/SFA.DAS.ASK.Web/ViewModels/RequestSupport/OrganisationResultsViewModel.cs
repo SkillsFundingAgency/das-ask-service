@@ -1,4 +1,5 @@
 ﻿using SFA.DAS.ASK.Application.DfeApi;
+using SFA.DAS.ASK.Application.Services.ReferenceData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
     public class OrganisationResultsViewModel
     {
         public Guid RequestId { get; set; }
-        public List<NonDfeOrganisation> Results { get; set; }
+        public List<ReferenceDataSearchResult> Results { get; set; }
         public string Search { get; set; }
 
         public OrganisationResultsViewModel() { }
-        public OrganisationResultsViewModel(List<NonDfeOrganisation> results, Guid requestId, string searchTerms)
+        public OrganisationResultsViewModel(List<ReferenceDataSearchResult> results, Guid requestId, string searchTerms)
         {
             Results = results;
             RequestId = requestId;

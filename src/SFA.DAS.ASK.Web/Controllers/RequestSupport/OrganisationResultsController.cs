@@ -11,6 +11,7 @@ using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 using SFA.DAS.ASK.Application.Services.Session;
 using Newtonsoft.Json;
 using SFA.DAS.ASK.Application.DfeApi;
+using SFA.DAS.ASK.Application.Services.ReferenceData;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
@@ -30,13 +31,15 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         public async Task<IActionResult> Index(Guid requestId, string search)
         {
 
-            var nonDfeOrganisations = await _mediator.Send(new GetNonDfeOrganisationsRequest());
+            var nonDfeOrganisations = await _mediator.Send(new GetNonDfeOrganisationsRequest(search));
 
-            nonDfeOrganisations.ForEach(o => o.Guid = Guid.NewGuid());
+            var nonDfeOrganisationsList = nonDfeOrganisations.ToList();
+                
+            nonDfeOrganisationsList.ForEach(o => o.Id = Guid.NewGuid());
 
-            _sessionService.Set(requestId.ToString(), JsonConvert.SerializeObject(nonDfeOrganisations));
+            _sessionService.Set(requestId.ToString(), JsonConvert.SerializeObject(nonDfeOrganisationsList));
 
-            var viewModel = new OrganisationResultsViewModel(nonDfeOrganisations, requestId, search);
+            var viewModel = new OrganisationResultsViewModel(nonDfeOrganisationsList, requestId, search);
 
             return View("~/Views/RequestSupport/OrganisationResults.cshtml", viewModel);
         }
@@ -48,9 +51,9 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             
             // Model Validation ??
 
-            var cachedResults = JsonConvert.DeserializeObject<List<NonDfeOrganisation>>(_sessionService.Get(requestId.ToString()));
+            var cachedResults = JsonConvert.DeserializeObject<List<ReferenceDataSearchResult>>(_sessionService.Get(requestId.ToString()));
 
-            var selectedResult = cachedResults.Where(r => r.Guid == viewModel.SelectedResult).FirstOrDefault();
+            var selectedResult = cachedResults.Where(r => r.Id == viewModel.SelectedResult).FirstOrDefault();
 
             await _mediator.Send(new AddNonDfESignInInformationCommand(selectedResult, requestId));
 

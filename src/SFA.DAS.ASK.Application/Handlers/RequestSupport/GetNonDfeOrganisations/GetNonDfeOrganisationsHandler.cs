@@ -3,20 +3,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.ASK.Application.DfeApi;
+using SFA.DAS.ASK.Application.Services.ReferenceData;
 
 namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations
 {
-    public class GetNonDfeOrganisationsHandler : IRequestHandler<GetNonDfeOrganisationsRequest, List<NonDfeOrganisation>>
+    public class GetNonDfeOrganisationsHandler : IRequestHandler<GetNonDfeOrganisationsRequest, IEnumerable<ReferenceDataSearchResult>>
     {
-        private readonly INonDfeSignInApiClient _nonDfeApiClient;
+        private readonly IReferenceDataApiClient _referenceDataApiClient;
 
-        public GetNonDfeOrganisationsHandler(INonDfeSignInApiClient nonDfeApiClient)
+        public GetNonDfeOrganisationsHandler(IReferenceDataApiClient referenceDataApiClient)
         {
-            _nonDfeApiClient = nonDfeApiClient;
+            _referenceDataApiClient = referenceDataApiClient;
         }
-        public async Task<List<NonDfeOrganisation>> Handle(GetNonDfeOrganisationsRequest request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ReferenceDataSearchResult>> Handle(GetNonDfeOrganisationsRequest request, CancellationToken cancellationToken)
         {
-            return _nonDfeApiClient.GetOrganisations();
+            return await _referenceDataApiClient.Search(request.SearchTerm);
         }
     }
 }

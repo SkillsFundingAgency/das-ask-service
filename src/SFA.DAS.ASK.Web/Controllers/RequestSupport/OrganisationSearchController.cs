@@ -21,7 +21,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         [HttpGet("organisation-search/{requestId}")]
         public IActionResult Index(Guid requestid)
         {
-            var vm = new OrganisationSearchViewModel(requestid, null, null);
+            var vm = new OrganisationSearchViewModel(requestid, null);
             return View("~/Views/RequestSupport/OrganisationSearch.cshtml", vm);
         }
 
