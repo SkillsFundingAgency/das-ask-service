@@ -29,7 +29,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         public async Task<IActionResult> SignedIn()
         {
             var email = User.FindFirst("email").Value;
-            var dfeSignInId = Guid.Parse(User.FindFirst("sid").Value);
+            var dfeSignInId = Guid.Parse(User.FindFirst("sub").Value);
             var firstname = User.FindFirst("given_name").Value;
             var lastname = User.FindFirst("family_name").Value;
             // var email = "davegouge@myschool.org.uk.edu.com";
@@ -50,7 +50,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                     
                     break;
                 case DfeOrganisationsStatus.Single:
-                    await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, dfeOrganisationsCheckResponse.Urn, email, firstname, lastname, startRequestResponse.RequestId));
+                    await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, dfeOrganisationsCheckResponse.Id, email, firstname, lastname, startRequestResponse.RequestId));
             
                     return RedirectToAction("SignedIn", "OtherDetails", new {requestId = startRequestResponse.RequestId});
                     

@@ -16,7 +16,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetDfeOrganisations
         }
         public async Task<List<DfeOrganisation>> Handle(GetDfeOrganisationsRequest request, CancellationToken cancellationToken)
         {
-            return _dfeApiClient.GetOrganisations(request.DfeSignInId);
+            return await _dfeApiClient.GetOrganisations(request.DfeSignInId);
         }
     }
 }

@@ -167,13 +167,14 @@ namespace SFA.DAS.ASK.Web
 
             services.AddOptions();
             services.Configure<ReferenceDataApiConfig>(Configuration.GetSection("ReferenceDataApiAuthentication"));
+            services.Configure<DfeSignInConfig>(Configuration.GetSection("DfeSignIn"));
             
             services.AddScoped<CheckRequestFilter>();
 
             services.AddTransient<ISessionService, SessionService>();
 
             services.AddHttpClient<IReferenceDataApiClient, ReferenceDataApiClient>();
-            services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>(client => client.BaseAddress = new Uri(Configuration["DfeSignIn:ApiUri"]));
+            services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>();
             
             services.AddAuthorization();
             

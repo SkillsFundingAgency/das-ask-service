@@ -24,26 +24,29 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformatio
 
         public async Task<TempSupportRequest> Handle(AddDfESignInInformationCommand command, CancellationToken cancellationToken)
         {
-            var dfeOrganisations = _dfeClient.GetOrganisations(command.DfeSignInId);
+            var dfeOrganisations = await _dfeClient.GetOrganisations(command.DfeSignInId);
 
-            var dfeOrganisation = dfeOrganisations.Single(o => o.Urn == command.Urn);
-
-            var dfeOrganisationAddress = dfeOrganisation.Address.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+            var dfeOrganisation = dfeOrganisations.Single(o => o.Id == command.Id);
 
             var tempSupportRequest = _context.TempSupportRequests.Single(tsr => tsr.Id == command.RequestId);
 
             tempSupportRequest.Agree = true;
             tempSupportRequest.Email = command.Email;
-            tempSupportRequest.BuildingAndStreet1 = dfeOrganisationAddress[0];
-            tempSupportRequest.BuildingAndStreet2 = dfeOrganisationAddress[1];
-            tempSupportRequest.TownOrCity = dfeOrganisationAddress[2];
-            tempSupportRequest.County = dfeOrganisationAddress[3];
-            tempSupportRequest.Postcode = dfeOrganisationAddress[4];
+            if (dfeOrganisation.Address != null)
+            {
+                var dfeOrganisationAddress = dfeOrganisation.Address.Split(new[] {','}, StringSplitOptions.None);
+                tempSupportRequest.BuildingAndStreet1 = dfeOrganisationAddress[0].Trim();
+                tempSupportRequest.BuildingAndStreet2 = dfeOrganisationAddress[1].Trim();
+                tempSupportRequest.TownOrCity = dfeOrganisationAddress[2].Trim();
+                tempSupportRequest.County = dfeOrganisationAddress[3].Trim();
+                tempSupportRequest.Postcode = dfeOrganisationAddress[4].Trim();
+            }
+            
             tempSupportRequest.FirstName = command.FirstName;
             tempSupportRequest.LastName = command.LastName;
             tempSupportRequest.PhoneNumber = dfeOrganisation.Telephone;
             tempSupportRequest.OrganisationName = dfeOrganisation.Name;
-            tempSupportRequest.ReferenceId = dfeOrganisation.UkPrn.ToString();
+            tempSupportRequest.ReferenceId = dfeOrganisation.Urn;
             
             await _context.SaveChangesAsync(cancellationToken);
 

@@ -25,8 +25,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         [ImportModelState]
         public async Task<IActionResult> Index(Guid requestId)
         {
-            //var dfeSignInId = Guid.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var dfeSignInId = Guid.NewGuid();
+            var dfeSignInId = Guid.Parse(_httpContextAccessor.HttpContext.User.FindFirst("sub").Value);
             
             var dfeOrganisations = await _mediator.Send(new GetDfeOrganisationsRequest(dfeSignInId));
             
@@ -51,11 +50,11 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             // string name = "David Gouge";
             
             var email = User.FindFirst("email").Value;
-            var dfeSignInId = Guid.Parse(User.FindFirst("sid").Value);
+            var dfeSignInId = Guid.Parse(User.FindFirst("sub").Value);
             var firstname = User.FindFirst("given_name").Value;
             var lastname = User.FindFirst("family_name").Value;
             
-            await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, viewModel.SelectedUrn, email, firstname, lastname, requestId));
+            await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, viewModel.SelectedId, email, firstname, lastname, requestId));
             
             return RedirectToAction("SignedIn", "OtherDetails", new {requestId = requestId});
         }

@@ -15,19 +15,19 @@
             
             <form method="post" asp-action="Index" asp-controller="SelectOrganisation" asp-route-requestId="@Model.RequestId">
                 <input type="hidden" asp-for="RequestId"/>
-                <div class="govuk-form-group" sfa-gds-error-class-for="SelectedUrn">
+                <div class="govuk-form-group" sfa-gds-error-class-for="SelectedId">
                     <fieldset class="govuk-fieldset">
                         <h1 class="govuk-fieldset__heading">
                             Select your Organisation
                         </h1>
 
-                        <span sfa-gds-error-message-for="SelectedUrn"></span>
+                        <span sfa-gds-error-message-for="SelectedId"></span>
 
                         <div class="govuk-radios">
                             @foreach (var org in Model.Organisations)
                             {
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="where-do-you-live" asp-for="SelectedUrn" type="radio" value="@org.Key">
+                                    <input class="govuk-radios__input" id="where-do-you-live" asp-for="SelectedId" type="radio" value="@org.Key">
                                     <label class="govuk-label govuk-radios__label" for="where-do-you-live">
                                         @org.Value
                                     </label>
