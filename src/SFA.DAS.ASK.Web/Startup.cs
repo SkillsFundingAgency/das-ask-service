@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using SFA.DAS.ASK.Application.DfeApi;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
+using SFA.DAS.ASK.Application.Services.ReferenceData;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Web.Controllers.RequestSupport;
@@ -149,27 +150,32 @@ namespace SFA.DAS.ASK.Web
                 });
 
 
-            if (!_environment.IsDevelopment())
-            {
+            // if (!_environment.IsDevelopment())
+            // {
                 services.AddDistributedRedisCache(options =>
                 {
                     options.Configuration = Configuration["SessionRedisConnectionString"];
                     options.InstanceName = "das_ask_";
                 });    
-            }
+            //}
 
             services.AddSession(options =>
             {
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+
+            services.AddOptions();
+            services.Configure<ReferenceDataApiConfig>(Configuration.GetSection("ReferenceDataApiAuthentication"));
+            services.Configure<DfeSignInConfig>(Configuration.GetSection("DfeSignIn"));
             
             services.AddScoped<CheckRequestFilter>();
 
             services.AddTransient<ISessionService, SessionService>();
 
-            services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>(client => client.BaseAddress = new Uri(Configuration["DfeSignIn:ApiUri"]));
-            services.AddHttpClient<INonDfeSignInApiClient, NonDfeSignInApiClient>(client => client.BaseAddress = new Uri(Configuration["DfeSignIn:ApiUri"]));
+            services.AddHttpClient<IReferenceDataApiClient, ReferenceDataApiClient>();
+            services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>();
+            
             services.AddAuthorization();
             
 

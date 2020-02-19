@@ -4,11 +4,11 @@ namespace SFA.DAS.ASK.Application.DfeApi
 {
     public class DfeOrganisation
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public DfeOrganisationCategory Category { get; set; }
         public string Urn { get; set; }
-        public int UkPrn { get; set; }
+        public int? UkPrn { get; set; }
         public int EstablishmentNumber { get; set; }
         public DfeOrganisationStatus Status { get; set; }
         public DateTime? ClosedOn { get; set; }

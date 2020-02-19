@@ -19,7 +19,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.DfeOrganisationsCheck
         
         public async Task<DfeOrganisationsCheckResponse> Handle(DfeOrganisationsCheckRequest request, CancellationToken cancellationToken)
         {
-            var dfeOrganisations = _dfeApiClient.GetOrganisations(request.DfeSignInId);
+            var dfeOrganisations = await _dfeApiClient.GetOrganisations(request.DfeSignInId);
             if (dfeOrganisations is null || !dfeOrganisations.Any())
             {
                 return new DfeOrganisationsCheckResponse()
@@ -39,7 +39,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.DfeOrganisationsCheck
             return new DfeOrganisationsCheckResponse()
             {
                 DfeOrganisationsStatus = DfeOrganisationsStatus.Single,
-                Urn = dfeOrganisations.Single().Urn
+                Id = dfeOrganisations.Single().Id
             };
         }
     }

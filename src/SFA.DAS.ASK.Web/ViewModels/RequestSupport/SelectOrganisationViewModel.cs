@@ -14,11 +14,11 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         public SelectOrganisationViewModel(List<DfeOrganisation> dfeOrganisations, Guid requestId)
         {
             RequestId = requestId;
-            Organisations = dfeOrganisations.ToDictionary(organisation => organisation.Urn, organisation => organisation.Name);
+            Organisations = dfeOrganisations.ToDictionary(organisation => organisation.Id, organisation => organisation.Name);
         }
 
-        public Dictionary<string, string> Organisations { get; set; }
+        public Dictionary<Guid, string> Organisations { get; set; }
         [Required(ErrorMessage = "Please select one of your Organisations")]
-        public string SelectedUrn { get; set; }
+        public Guid SelectedId { get; set; }
     }
 }

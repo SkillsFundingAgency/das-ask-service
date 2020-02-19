@@ -12,17 +12,4 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.DfeOrganisationsCheck
             DfeSignInId = dfeSignInId;
         }
     }
-
-    public class DfeOrganisationsCheckResponse
-    {
-        public string Urn { get; set; }
-        public DfeOrganisationsStatus DfeOrganisationsStatus { get; set; }
-    }
-
-    public enum DfeOrganisationsStatus
-    {
-        Multiple,
-        None,
-        Single
-    }
 }
