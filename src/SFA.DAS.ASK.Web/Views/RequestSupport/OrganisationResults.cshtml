@@ -16,7 +16,8 @@
     <button class="govuk-button" data-module="govuk-button" type="submit">
         Search
     </button>
-    <a asp-action="Index" asp-controller="Home" class="govuk-link das-link--button-aligned">Cancel</a>
+    @*<a asp-action="Index" asp-controller="Home" class="govuk-link das-link--button-aligned">Cancel</a>*@
+    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OrganisationSearch" class="govuk-link das-link--button-aligned">Cancel</a>
 
 </form>
 
@@ -25,16 +26,16 @@
 @if (Model.Results.Count > 0)
 {
     <p> @Model.Results.Count  results found</p>
-
-    <form method="post" asp-controller="organisation-results" asp-action="Index">
         @foreach (var result in Model.Results)
         {
-            <input type="hidden" asp-for="SelectedResult" value="@result.Guid"/>
+            <form method="post" asp-controller="organisation-results" asp-action="Index">
 
-            <button class="govuk-link" type="submit"> @result.Name</button>
-            <p> @result.Name</p>
-            <p> @result.Sector</p>
+                <input type="hidden" asp-for="SelectedResult" value="@result.Guid" />
+
+                <button class="govuk-link" type="submit"> @result.Name</button>
+                <p> @result.Name</p>
+                <p> @result.Sector</p>
+            
+            </form>
         }
-    </form>
-    
-}
+    }

@@ -6,17 +6,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.AddNonDfeSignInInformation;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
+using SFA.DAS.ASK.Application.Services.Session;
+using Newtonsoft.Json;
+using SFA.DAS.ASK.Application.DfeApi;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
     public class OrganisationResultsController : Controller
     {
         private readonly IMediator _mediator;
+        private readonly ISessionService _sessionService;
 
-        public OrganisationResultsController(IMediator mediator)
+        public OrganisationResultsController(IMediator mediator, ISessionService sessionService)
         {
             _mediator = mediator;
+            _sessionService = sessionService;
         }
 
         [HttpGet("organisation-results/{requestId}")]
@@ -28,8 +34,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 
             nonDfeOrganisations.ForEach(o => o.Guid = Guid.NewGuid());
 
-            // cache results
-
+            _sessionService.Set(requestId.ToString(), JsonConvert.SerializeObject(nonDfeOrganisations));
 
             var viewModel = new OrganisationResultsViewModel(nonDfeOrganisations, requestId, search);
 
@@ -40,17 +45,18 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         [ExportModelState]
         public async Task<IActionResult> Index(Guid requestId, OrganisationResultsViewModel viewModel)
         {
-            //post back selected guid
+            
             // Model Validation ??
-            var view = viewModel;
-            // lookup from cache for guid
-            var selectedResult = viewModel.Results.First(r => r.Guid == viewModel.SelectedResult);
 
-            // save to db
+            var cachedResults = JsonConvert.DeserializeObject<List<NonDfeOrganisation>>(_sessionService.Get(requestId.ToString()));
 
-            // redirect to check your answers
+            var selectedResult = cachedResults.Where(r => r.Guid == viewModel.SelectedResult).FirstOrDefault();
 
-            return View("~/Views/RequestSupport/OrganisationResults.cshtml", viewModel);
+            await _mediator.Send(new AddNonDfESignInInformationCommand(selectedResult, requestId));
+
+            // handle failed saves??
+
+            return RedirectToAction("Index", "CheckAnswers", new { requestId });
         }
     }
 }
