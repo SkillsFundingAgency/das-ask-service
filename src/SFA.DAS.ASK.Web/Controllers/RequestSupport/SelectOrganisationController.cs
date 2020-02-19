@@ -56,7 +56,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             
             await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, viewModel.SelectedId, email, firstname, lastname, requestId));
             
-            return RedirectToAction("SignedIn", "OtherDetails", new {requestId = requestId});
+            return RedirectToAction("Index", "CheckYourDetails", new {requestId = requestId});
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace SFA.DAS.ASK.Application.DfeApi
+namespace SFA.DAS.ASK.Application.Services.DfeApi
 {
     public class DfeOrganisation
     {

@@ -2,7 +2,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using SFA.DAS.ASK.Application.DfeApi;
+using SFA.DAS.ASK.Application.Services.DfeApi;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Data.Entities;
 

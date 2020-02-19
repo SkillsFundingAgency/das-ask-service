@@ -25,11 +25,11 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
-            var vm = new OtherDetailsViewModel(supportRequest){NonSignedIn = true};
+            var vm = new OtherDetailsViewModel(supportRequest);
             
             return View("~/Views/RequestSupport/OtherDetails.cshtml", vm);
         }
-
+        
         [HttpPost("other-details/{requestId}")]
         public async Task<IActionResult> Index(Guid requestId, OtherDetailsViewModel viewModel)
         {
@@ -48,16 +48,6 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             return RedirectToAction("Index", "ApplicationComplete", new{requestId});
         }
 
-        
-        [HttpGet("other-details-signed-in/{requestId}")]
-        [ServiceFilter(typeof(CheckRequestFilter))]
-        public async Task<IActionResult> SignedIn(Guid requestId)
-        {
-            var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
-            
-            var vm = new OtherDetailsViewModel(supportRequest){NonSignedIn = false};
-            
-            return View("~/Views/RequestSupport/OtherDetails.cshtml", vm);
-        }
+
     }
 }

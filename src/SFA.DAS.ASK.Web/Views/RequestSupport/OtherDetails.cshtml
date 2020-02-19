@@ -1,17 +1,18 @@
+@using SFA.DAS.ASK.Data.Entities
 @model SFA.DAS.ASK.Web.ViewModels.RequestSupport.OtherDetailsViewModel
 
 @{
     ViewBag.Title = "Other details";
 }
-
-@if (Model.NonSignedIn)
-{
-    <a asp-action="Index" asp-controller="OrganisationAddress" asp-route-requestId="@Model.RequestId" class="govuk-back-link">Back</a>
-}
-else
-{
-    <a asp-action="Index" asp-controller="RequestSupport" class="govuk-back-link">Back</a>
-}
+@* *@
+@* @if (Model.NonSignedIn) *@
+@* { *@
+@*     <a asp-action="Index" asp-controller="OrganisationAddress" asp-route-requestId="@Model.RequestId" class="govuk-back-link">Back</a> *@
+@* } *@
+@* else *@
+@* { *@
+<a asp-action="Index" asp-controller="CheckYourDetails" asp-route-requestId="@Model.RequestId" class="govuk-back-link">Back</a>
+@* } *@
 
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -19,7 +20,7 @@ else
             <h1 class="govuk-heading-xl">
                 Submit your request
                 <span class="govuk-caption-xl">
-                    @if (Model.NonSignedIn)
+                    @if (Model.SupportRequestType == SupportRequestType.Manual)
                     {
                         <text>Section 4 of 4</text>
                     }
@@ -31,14 +32,14 @@ else
             </h1>
 
             <form method="post" asp-action="Index" asp-controller="OtherDetails" asp-route-requestId="@Model.RequestId">
-                <input type="hidden" asp-for="NonSignedIn"/>
+                <input type="hidden" asp-for="SupportRequestType"/>
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                         <label class="govuk-heading-s no-bottom-margin" asp-for="AdditionalComments">Do you have any more details to share?</label>
-                        <span id="additonal-comments-hint" class="govuk-hint">For example, the type of support you’re looking for or the expected audience.</span>    
+                        <span id="additonal-comments-hint" class="govuk-hint">For example, the type of support you’re looking for or the expected audience.</span>
                         <textarea class="govuk-textarea" asp-for="AdditionalComments" rows="5" aria-describedby="more-detail-hint"></textarea>
 
-                        @if (Model.NonSignedIn)
+                        @if (Model.SupportRequestType == SupportRequestType.Manual)
                         {
                             <div class="govuk-checkboxes__item">
                                 <input class="govuk-checkboxes__input" asp-for="Agree" type="checkbox">
@@ -56,15 +57,8 @@ else
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Request support
                 </button>
-                @if (Model.NonSignedIn)
-                {
-                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OtherDetails"  class="das-button--link">Cancel</a>    
-                }
-                else
-                {
-                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="SignedIn" asp-route-returnController="OtherDetails"  class="das-button--link">Cancel</a>
-                }
-                
+                <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OtherDetails" class="das-button--link">Cancel</a>
+
 
                 @* <p class="govuk-hint"> *@
                 @*     Your school will be required to have a planning meeting so that we can explain the full range of support available through the *@

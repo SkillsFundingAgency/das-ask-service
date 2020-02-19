@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SFA.DAS.ASK.Application.DfeApi
+namespace SFA.DAS.ASK.Application.Services.DfeApi
 {
     public interface IDfeSignInApiClient
     {

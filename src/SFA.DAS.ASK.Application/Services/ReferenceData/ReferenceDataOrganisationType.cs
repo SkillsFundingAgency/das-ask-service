@@ -1,6 +1,6 @@
 namespace SFA.DAS.ASK.Application.Services.ReferenceData
 {
-    public enum OrganisationType
+    public enum ReferenceDataOrganisationType
     {
         Company = 1,
         Charity = 2,

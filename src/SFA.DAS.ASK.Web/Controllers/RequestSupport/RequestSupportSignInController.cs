@@ -32,9 +32,6 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             var dfeSignInId = Guid.Parse(User.FindFirst("sub").Value);
             var firstname = User.FindFirst("given_name").Value;
             var lastname = User.FindFirst("family_name").Value;
-            // var email = "davegouge@myschool.org.uk.edu.com";
-            // var dfeSignInId = Guid.NewGuid();
-            // string name = "David Gouge";
 
             var startRequestResponse = await _mediator.Send(new StartTempSupportRequestCommand(SupportRequestType.DfeSignIn));
             
@@ -43,16 +40,15 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             {
                 case DfeOrganisationsStatus.Multiple:
                     return RedirectToAction("Index", "SelectOrganisation", new {requestId = startRequestResponse.RequestId});
-                    break;
+                    
                 case DfeOrganisationsStatus.None:
                     await _mediator.Send(new AddDfeSignInUserInformationCommand(email, firstname, lastname, startRequestResponse.RequestId));
                     return RedirectToAction("Index", "OrganisationSearch", new {requestId = startRequestResponse.RequestId});
-                    
-                    break;
+                
                 case DfeOrganisationsStatus.Single:
                     await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, dfeOrganisationsCheckResponse.Id, email, firstname, lastname, startRequestResponse.RequestId));
             
-                    return RedirectToAction("SignedIn", "OtherDetails", new {requestId = startRequestResponse.RequestId});
+                    return RedirectToAction("Index", "CheckYourDetails", new {requestId = startRequestResponse.RequestId});
                     
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using SFA.DAS.ASK.Application.DfeApi;
+using SFA.DAS.ASK.Application.Services.DfeApi;
 
 namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetDfeOrganisations
 {

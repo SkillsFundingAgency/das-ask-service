@@ -15,7 +15,10 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
             Agree = supportRequest.Agree;
             Email = supportRequest.Email;
             DisplayName = supportRequest.FirstName + " " + supportRequest.LastName;
+            SupportRequestType = supportRequest.SupportRequestType;
         }
+
+        public SupportRequestType SupportRequestType { get; set; }
 
         public string AdditionalComments { get; set; }
         [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms....")]
@@ -32,7 +35,6 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
             return supportRequest;
         }
 
-        public bool NonSignedIn { get; set; }
         public string Email { get; set; }
         public string DisplayName { get; set; }
     }
