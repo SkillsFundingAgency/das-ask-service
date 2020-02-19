@@ -1,8 +1,6 @@
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
 using SFA.DAS.ASK.Data.Entities;
 using SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer;
@@ -10,31 +8,24 @@ using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
-    public class RequestSupportController : Controller
+    public class HasSignInController : Controller
     {
         private readonly IMediator _mediator;
-        private readonly ILogger<RequestSupportController> _logger;
-        private readonly IHttpContextAccessor _contextAccessor;
-
-        public RequestSupportController(IMediator mediator, ILogger<RequestSupportController> logger, IHttpContextAccessor contextAccessor)
+        public HasSignInController(IMediator mediator)
         {
             _mediator = mediator;
-            _logger = logger;
-            _contextAccessor = contextAccessor;
         }
         
-        [HttpGet("request-support")]
+        [HttpGet("has-signin")]
         [ImportModelState]
         public IActionResult Index()
         {
-            var value = _contextAccessor.HttpContext.Session.GetString("Dave");
-            _logger.LogInformation("Value is " + value);
-            return View();
+            return View("~/Views/RequestSupport/HasSignIn.cshtml");
         }
 
-        [HttpPost("request-support")]
+        [HttpPost("has-signin")]
         [ExportModelState]
-        public async Task<IActionResult> Index(RequestSupportViewModel viewModel)
+        public async Task<IActionResult> Index(HasSignInViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {

@@ -9,27 +9,27 @@ using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
-    public class OrganisationDetailsController : Controller
+    public class OrganisationTypeController : Controller
     {
         private readonly IMediator _mediator;
 
-        public OrganisationDetailsController(IMediator mediator)
+        public OrganisationTypeController(IMediator mediator)
         {
             _mediator = mediator;
         }
         
-        [HttpGet("organisation-details/{requestId}")]
+        [HttpGet("organisation-type/{requestId}")]
         public async Task<IActionResult> Index(Guid requestId)
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
-            var vm = new OrganisationDetailsViewModel(supportRequest);
+            var vm = new OrganisationTypeViewModel(supportRequest);
 
             return View("~/Views/RequestSupport/OrganisationDetails.cshtml", vm);
         }
 
-        [HttpPost("organisation-details/{requestId}")]
-        public async Task<IActionResult> Index(Guid requestId, OrganisationDetailsViewModel viewModel)
+        [HttpPost("organisation-type/{requestId}")]
+        public async Task<IActionResult> Index(Guid requestId, OrganisationTypeViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -45,14 +45,8 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
             await _mediator.Send(new SaveTempSupportRequest(viewModel.ToSupportRequest(supportRequest)));
-
-            // if (viewModel.SelectedOrganisationType == OrganisationType.School) // School
-            // {
-            //     //return RedirectToAction("Index", "SchoolDetails", new {requestId = requestId});
-            // }
-            
+           
             return RedirectToAction("Index", "OrganisationSearch", new {requestId = requestId});
-            //return Ok();
         }
     }
 }

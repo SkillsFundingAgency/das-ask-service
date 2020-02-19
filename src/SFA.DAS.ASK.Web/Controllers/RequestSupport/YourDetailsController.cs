@@ -39,7 +39,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             
             await _mediator.Send(new SaveTempSupportRequest(viewModel.ToTempSupportRequest(supportRequest)));
             
-            return RedirectToAction("Index", "OrganisationDetails", new {requestId = requestId});
+            return RedirectToAction("Index", "OrganisationType", new {requestId = requestId});
         }
     }
 }

@@ -28,7 +28,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         }
 
         [HttpPost("check-your-details/{requestId}")]
-        public async Task<IActionResult> Continue(Guid requestId)
+        public IActionResult Continue(Guid requestId)
         {
             return RedirectToAction("Index", "OtherDetails", new {requestId});
         }

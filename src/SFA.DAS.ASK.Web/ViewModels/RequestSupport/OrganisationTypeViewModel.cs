@@ -4,11 +4,11 @@ using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 {
-    public class OrganisationDetailsViewModel
+    public class OrganisationTypeViewModel
     {
-        public OrganisationDetailsViewModel(){ }
+        public OrganisationTypeViewModel(){ }
         
-        public OrganisationDetailsViewModel(TempSupportRequest supportRequest)
+        public OrganisationTypeViewModel(TempSupportRequest supportRequest)
         {
             RequestId = supportRequest.Id;
             Other = supportRequest.OtherOrganisationType;

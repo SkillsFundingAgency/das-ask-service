@@ -19,8 +19,6 @@ using SFA.DAS.ASK.Application.Services.DfeApi;
 using SFA.DAS.ASK.Application.Services.ReferenceData;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
-using SFA.DAS.ASK.Web.Controllers.RequestSupport;
-using SFA.DAS.ASK.Web.Infrastructure;
 using SFA.DAS.ASK.Web.Infrastructure.Filters;
 using SFA.DAS.Boilerplate.Configuration;
 using SFA.DAS.Boilerplate.Logging;
@@ -45,7 +43,7 @@ namespace SFA.DAS.ASK.Web
         {
             services.AddApplicationInsightsTelemetry();
             services.AddNLogLogging(Configuration, "das-ask-service-web");
-            
+
             var config = new ConfigurationBuilder()
                 .AddConfiguration(Configuration)
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -55,7 +53,7 @@ namespace SFA.DAS.ASK.Web
                 .AddAzureStorageConfigurationProvider("SFA.DAS.Ask", "1.0").Build();
 
             Configuration = config;
-            
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -85,7 +83,6 @@ namespace SFA.DAS.ASK.Web
                 })
                 .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
                 {
-
                     options.SignInScheme = "Cookies";
                     options.Authority = Configuration["DfeSignIn:MetadataAddress"];
                     options.RequireHttpsMetadata = false;
@@ -93,8 +90,8 @@ namespace SFA.DAS.ASK.Web
                     options.ClientSecret = Configuration["DfeSignIn:ClientSecret"];
                     options.ResponseType = OpenIdConnectResponseType.Code;
                     options.GetClaimsFromUserInfoEndpoint = true;
-                    
-                    
+
+
                     options.Scope.Clear();
                     options.Scope.Add("openid");
                     options.Scope.Add("email");
@@ -102,7 +99,7 @@ namespace SFA.DAS.ASK.Web
 
                     options.SaveTokens = true;
                     options.UseTokenLifetime = true;
-                    
+
                     options.SecurityTokenValidator = new JwtSecurityTokenHandler
                     {
                         InboundClaimTypeMap = new Dictionary<string, string>(),
@@ -115,7 +112,7 @@ namespace SFA.DAS.ASK.Web
                         RequireStateValidation = false,
                         NonceLifetime = TimeSpan.FromMinutes(15)
                     };
-                    
+
                     options.DisableTelemetry = true;
                     options.Events = new OpenIdConnectEvents
                     {
@@ -136,10 +133,7 @@ namespace SFA.DAS.ASK.Web
                             return Task.CompletedTask;
                         },
 
-                        OnRemoteFailure = ctx =>
-                        {
-                            return Task.FromResult(0);
-                        },
+                        OnRemoteFailure = ctx => { return Task.FromResult(0); },
 
                         OnTokenValidated = context =>
                         {
@@ -148,7 +142,7 @@ namespace SFA.DAS.ASK.Web
                         }
                     };
                 });
-
+            services.AddAuthorization();
 
             if (!_environment.IsDevelopment())
             {
@@ -156,7 +150,7 @@ namespace SFA.DAS.ASK.Web
                 {
                     options.Configuration = Configuration["SessionRedisConnectionString"];
                     options.InstanceName = "das_ask_";
-                });    
+                });
             }
 
             services.AddSession(options =>
@@ -168,23 +162,19 @@ namespace SFA.DAS.ASK.Web
             services.AddOptions();
             services.Configure<ReferenceDataApiConfig>(Configuration.GetSection("ReferenceDataApiAuthentication"));
             services.Configure<DfeSignInConfig>(Configuration.GetSection("DfeSignIn"));
-            
+
             services.AddScoped<CheckRequestFilter>();
 
             services.AddTransient<ISessionService, SessionService>();
 
             services.AddHttpClient<IReferenceDataApiClient, ReferenceDataApiClient>();
             services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>();
-            
-            services.AddAuthorization();
-            
+
 
             services.AddHealthChecks();
 
-
             services.AddMediatR(typeof(StartTempSupportRequestHandler));
 
-            //services.AddDbContext<AskContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
             services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionstring"]));
             services.AddMvc().AddSessionStateTempDataProvider().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -208,7 +198,7 @@ namespace SFA.DAS.ASK.Web
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseSession();
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
