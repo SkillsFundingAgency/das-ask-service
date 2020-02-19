@@ -1,6 +1,6 @@
 using System;
 using MediatR;
-using SFA.DAS.ASK.Application.DfeApi;
+using SFA.DAS.ASK.Application.Services.DfeApi;
 using SFA.DAS.ASK.Application.Services.ReferenceData;
 using SFA.DAS.ASK.Data.Entities;
 

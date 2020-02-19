@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using SFA.DAS.ASK.Application.DfeApi;
+using SFA.DAS.ASK.Application.Services.DfeApi;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Data.Entities;
 
@@ -30,7 +30,6 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddNonDfeSignInInforma
             tempSupportRequest.TownOrCity = organisation.Address.Line3;
             tempSupportRequest.County = organisation.Address.Line4;
             tempSupportRequest.Postcode = organisation.Address.Postcode;
-            // tempSupportRequest.PhoneNumber = _organisation.p; ----------PHone number
             tempSupportRequest.OrganisationName = organisation.Name;
             tempSupportRequest.ReferenceId = organisation.Code;
             

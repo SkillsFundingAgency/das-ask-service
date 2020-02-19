@@ -4,7 +4,7 @@ using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 using MediatR;
 using System.Threading.Tasks;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations;
-using SFA.DAS.ASK.Application.DfeApi;
+using SFA.DAS.ASK.Application.Services.DfeApi;
 using System.Collections.Generic;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport

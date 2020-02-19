@@ -25,7 +25,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             
             var vm = new OrganisationTypeViewModel(supportRequest);
 
-            return View("~/Views/RequestSupport/OrganisationDetails.cshtml", vm);
+            return View("~/Views/RequestSupport/OrganisationType.cshtml", vm);
         }
 
         [HttpPost("organisation-type/{requestId}")]
@@ -33,13 +33,13 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         {
             if (!ModelState.IsValid)
             {
-                return View("~/Views/RequestSupport/OrganisationDetails.cshtml", viewModel);
+                return View("~/Views/RequestSupport/OrganisationType.cshtml", viewModel);
             }
 
             if (viewModel.SelectedOrganisationType == OrganisationType.Other && string.IsNullOrWhiteSpace(viewModel.Other))
             {
                 ModelState.AddModelError("organisationType_other_details", "Please enter something for Other");
-                return View("~/Views/RequestSupport/OrganisationDetails.cshtml", viewModel);
+                return View("~/Views/RequestSupport/OrganisationType.cshtml", viewModel);
             }
             
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
