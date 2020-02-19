@@ -58,11 +58,11 @@ else
                 </button>
                 @if (Model.NonSignedIn)
                 {
-                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OtherDetails"  class="govuk-link cancel-link">Cancel</a>    
+                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OtherDetails"  class="das-button--link">Cancel</a>    
                 }
                 else
                 {
-                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="SignedIn" asp-route-returnController="OtherDetails"  class="govuk-link cancel-link">Cancel</a>
+                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="SignedIn" asp-route-returnController="OtherDetails"  class="das-button--link">Cancel</a>
                 }
                 
 
