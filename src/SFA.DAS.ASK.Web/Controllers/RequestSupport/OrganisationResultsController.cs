@@ -10,7 +10,6 @@ using SFA.DAS.ASK.Application.Handlers.RequestSupport.AddNonDfeSignInInformation
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 using SFA.DAS.ASK.Application.Services.Session;
 using Newtonsoft.Json;
-using SFA.DAS.ASK.Application.Services.DfeApi;
 using SFA.DAS.ASK.Application.Services.ReferenceData;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
