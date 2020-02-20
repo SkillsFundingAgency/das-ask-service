@@ -19,16 +19,6 @@
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-xl">
                 Submit your request
-                <span class="govuk-caption-xl">
-                    @if (Model.SupportRequestType == SupportRequestType.Manual)
-                    {
-                        <text>Section 4 of 4</text>
-                    }
-                    else
-                    {
-                        <text>Thank you @Model.DisplayName</text>
-                    }
-                </span>
             </h1>
 
             <form method="post" asp-action="Index" asp-controller="OtherDetails" asp-route-requestId="@Model.RequestId">
