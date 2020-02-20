@@ -30,18 +30,34 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         [ImportModelState]
         public async Task<IActionResult> Index(Guid requestId, string search)
         {
+            if (string.IsNullOrEmpty(search))
+            {
+                search = _sessionService.Get("Searchstring-" + requestId.ToString());
 
-            var nonDfeOrganisations = await _mediator.Send(new GetNonDfeOrganisationsRequest(search));
+                var cachedResults = JsonConvert.DeserializeObject < List < ReferenceDataSearchResult >> (_sessionService.Get(requestId.ToString()));
 
-            var nonDfeOrganisationsList = nonDfeOrganisations.ToList();
-                
-            nonDfeOrganisationsList.ForEach(o => o.Id = Guid.NewGuid());
+                var viewModel = new OrganisationResultsViewModel(cachedResults, requestId, search);
 
-            _sessionService.Set(requestId.ToString(), JsonConvert.SerializeObject(nonDfeOrganisationsList));
+                return View("~/Views/RequestSupport/OrganisationResults.cshtml", viewModel);
+            } 
+            else
+            {
+                _sessionService.Set("Searchstring-" + requestId.ToString(), search);
 
-            var viewModel = new OrganisationResultsViewModel(nonDfeOrganisationsList, requestId, search);
+                var nonDfeOrganisations = await _mediator.Send(new GetNonDfeOrganisationsRequest(search));
 
-            return View("~/Views/RequestSupport/OrganisationResults.cshtml", viewModel);
+                var nonDfeOrganisationsList = nonDfeOrganisations.ToList();
+
+                nonDfeOrganisationsList.ForEach(o => o.Id = Guid.NewGuid());
+
+
+                _sessionService.Set(requestId.ToString(), JsonConvert.SerializeObject(nonDfeOrganisationsList));
+                var viewModel = new OrganisationResultsViewModel(nonDfeOrganisationsList, requestId, search);
+
+                return View("~/Views/RequestSupport/OrganisationResults.cshtml", viewModel);
+            }
+
+           
         }
 
         [HttpPost("organisation-results/{requestId}")]
@@ -54,6 +70,24 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             var cachedResults = JsonConvert.DeserializeObject<List<ReferenceDataSearchResult>>(_sessionService.Get(requestId.ToString()));
 
             var selectedResult = cachedResults.Where(r => r.Id == viewModel.SelectedResult).FirstOrDefault();
+
+            await _mediator.Send(new AddNonDfESignInInformationCommand(selectedResult, requestId));
+
+            // handle failed saves??
+
+            return RedirectToAction("Index", "CheckYourDetails", new { requestId });
+        }
+
+        [HttpGet("organisation-results/{requestId}/{selectedSchool}")]
+        [ExportModelState]
+        public async Task<IActionResult> Select(Guid requestId, Guid selectedSchool)
+        {
+
+            // Model Validation ??
+
+            var cachedResults = JsonConvert.DeserializeObject<List<ReferenceDataSearchResult>>(_sessionService.Get(requestId.ToString()));
+
+            var selectedResult = cachedResults.Where(r => r.Id == selectedSchool).FirstOrDefault();
 
             await _mediator.Send(new AddNonDfESignInInformationCommand(selectedResult, requestId));
 

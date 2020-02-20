@@ -16,8 +16,9 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         }
 
         public Guid RequestId { get; set; }
-        [Required(ErrorMessage = "Please select an Organisation Type")]
+        [Required(ErrorMessage = "Please select an organisation type")]
         public OrganisationType? SelectedOrganisationType { get; set; }
+        
         public string Other { get; set; }
 
         public TempSupportRequest ToSupportRequest(TempSupportRequest supportRequest)

@@ -3,35 +3,36 @@
 @{
     ViewBag.Title = "Other details";
 }
+<a class="govuk-back-link" asp-action="Index" asp-controller="OrganisationType" asp-route-requestId="@Model.RequestId">Back</a>
 
-    <main class="govuk-main-wrapper " id="main-content" role="main">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-xl">
-                    Organisation Search
-                    <span class="govuk-caption-xl">
-                        Section 3 of 4
-                    </span>
-                </h1>
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">
+                Organisation Search
+                <span class="govuk-caption-xl">
+                    Section 3 of 4
+                </span>
+            </h1>
 
-                <form method="get" asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId">
-                    @*<input type="hidden" asp-for="RequestId" value="@Model.RequestId" />*@
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="event-name">
-                            Search for your organisation
-                        </label>
+            <form method="get" asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId">
+                @*<input type="hidden" asp-for="RequestId" value="@Model.RequestId" />*@
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="event-name">
+                        Search for your organisation
+                    </label>
                         
-                        <input class="govuk-input" asp-for="Search" type="text">
-                    </div>
+                    <input class="govuk-input" asp-for="Search" type="text">
+                </div>
 
-                    <button class="govuk-button" data-module="govuk-button" type="submit">
-                        Search
-                    </button>
-                    <a asp-action="Index" asp-controller="Home" class="govuk-link das-link--button-aligned">Cancel</a>
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Search
+                </button>
+                <a asp-action="Index" asp-controller="Home" class="govuk-link das-link--button-aligned">Cancel</a>
 
-                </form>
-            </div>
+            </form>
         </div>
+    </div>
 
      
-    </main>
+</main>

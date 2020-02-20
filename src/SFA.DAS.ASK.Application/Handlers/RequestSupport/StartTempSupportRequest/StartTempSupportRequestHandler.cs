@@ -22,16 +22,12 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportReques
         public async Task<StartTempSupportRequestResponse> Handle(StartTempSupportRequestCommand tempSupportRequest, CancellationToken cancellationToken)
         {
             var requestId = Guid.NewGuid();
-            
-            _sessionService.Set("Dave2", "Hola!");
-            _sessionService.Set("Dave3", "YO!");
-            var response = _sessionService.Get("Dave2");
-            var response2 = _sessionService.Get("Dave3");
 
             _askContext.TempSupportRequests.Add(new TempSupportRequest()
             {
                 Id = requestId, 
-                StartDate = DateTime.UtcNow
+                StartDate = DateTime.UtcNow,
+                SupportRequestType = tempSupportRequest.Type
             });
             await _askContext.SaveChangesAsync(cancellationToken);
             

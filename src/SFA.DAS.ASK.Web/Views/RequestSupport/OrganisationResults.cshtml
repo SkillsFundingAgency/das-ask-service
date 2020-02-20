@@ -4,7 +4,7 @@
 
     var resultsCount = Model.Results.Count == 1 ? "1 results found" : Model.Results.Count.ToString() + " results found";
 }
-
+    <a class="govuk-back-link" asp-action="Index" asp-controller="OrganisationSearch" asp-route-requestId="@Model.RequestId" asp-route-search="@Model.Search">Back</a>
 <main class="govuk-main-wrapper" id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -23,7 +23,7 @@
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Search
                 </button>
-                @*<a asp-action="Index" asp-controller="Home" class="govuk-link das-link--button-aligned">Cancel</a>*@
+
                 <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OrganisationSearch" class="govuk-link das-link--button-aligned">Cancel</a>
 
             </form>
@@ -37,7 +37,14 @@
 
                 @foreach (var result in Model.Results)
                 {
-                    <form method="post" asp-controller="OrganisationResults" asp-action="Index">
+                   
+
+                        <a class="govuk-heading-m govuk-link" asp-controller="OrganisationResults" asp-action="Select" asp-route-requestId="@Model.RequestId" asp-route-selectedSchool="@result.Id"> @result.Name</a>
+                        <p> @result.GetAddressString(result.Address)</p>
+
+                        <hr />
+
+                    @*<form method="get" asp-controller="OrganisationResults" asp-action="Index">
 
                         <input type="hidden" asp-for="SelectedResult" value="@result.Id" />
 
@@ -47,7 +54,7 @@
 
                         <hr />
 
-                    </form>
+                    </form>*@
                 }
             }
         </div>
