@@ -34,7 +34,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             {
                 search = _sessionService.Get("Searchstring-" + requestId.ToString());
 
-                var cachedResults = JsonConvert.DeserializeObject < List < ReferenceDataSearchResult >> (_sessionService.Get(requestId.ToString()));
+                var cachedResults = JsonConvert.DeserializeObject<List < ReferenceDataSearchResult >> (_sessionService.Get(requestId.ToString()));
 
                 var viewModel = new OrganisationResultsViewModel(cachedResults, requestId, search);
 
