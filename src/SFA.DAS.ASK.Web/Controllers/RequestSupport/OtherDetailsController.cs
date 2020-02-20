@@ -6,6 +6,7 @@ using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest;
 using SFA.DAS.ASK.Web.Infrastructure;
 using SFA.DAS.ASK.Web.Infrastructure.Filters;
+using SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
@@ -21,6 +22,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         
         [HttpGet("other-details/{requestId}")]
         [ServiceFilter(typeof(CheckRequestFilter))]
+        [ImportModelState]
         public async Task<IActionResult> Index(Guid requestId)
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
@@ -31,11 +33,13 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         }
         
         [HttpPost("other-details/{requestId}")]
+        [ExportModelState]
         public async Task<IActionResult> Index(Guid requestId, OtherDetailsViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View("~/Views/RequestSupport/OtherDetails.cshtml", viewModel);
+                return RedirectToAction("Index", requestId);
+                //return View("~/Views/RequestSupport/OtherDetails.cshtml", viewModel);
             }
 
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
