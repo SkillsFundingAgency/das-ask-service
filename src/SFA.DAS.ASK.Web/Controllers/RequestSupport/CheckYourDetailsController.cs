@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data.Entities;
+using SFA.DAS.ASK.Web.Infrastructure.Filters;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
@@ -23,6 +24,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         }
 
         [HttpGet("check-your-details/{requestId}")]
+        [ServiceFilter(typeof(CheckRequestFilter))]
         public async Task<IActionResult> Index(Guid requestId)
         {
             var tempSupportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
