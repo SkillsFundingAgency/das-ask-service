@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SFA.DAS.ASK.Application.Utils;
+using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 {
@@ -11,11 +13,13 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
     {
         public Guid RequestId { get; set; }
         public string Search { get; set; }
+        public string OrganisationType { get; set; }
 
         public OrganisationSearchViewModel() { }
-        public OrganisationSearchViewModel(Guid requestId, string searchTerms)
+        public OrganisationSearchViewModel(TempSupportRequest request, string searchTerms)
         {
-            RequestId = requestId;
+            RequestId = request.Id;
+            OrganisationType = EnumHelper.GetEnumDescription(request.OrganisationType);
             Search = searchTerms;
         }
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations;
 using SFA.DAS.ASK.Application.Services.DfeApi;
 using System.Collections.Generic;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
@@ -19,26 +20,11 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         }
 
         [HttpGet("organisation-search/{requestId}")]
-        public IActionResult Index(Guid requestid, string search)
+        public async Task<IActionResult> Index(Guid requestId, string search)
         {
-            var vm = new OrganisationSearchViewModel(requestid, search);
+            var tempSupportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
+            var vm = new OrganisationSearchViewModel(tempSupportRequest, search);
             return View("~/Views/RequestSupport/OrganisationSearch.cshtml", vm);
         }
-
-
-        //[HttpPost("organisation-search/{requestId}")]
-        //public async Task<IActionResult> Search(Guid requestid, OrganisationSearchViewModel viewModel)
-        //{
-
-        //   var nonDfeOrganisations = await _mediator.Send(new GetNonDfeOrganisationsRequest());
-
-
-        //    viewModel.Results = nonDfeOrganisations;
-        //    viewModel.RequestId = requestid;
-        //    return RedirectToAction("Index", "OrganisationResults", new { requestid = requestid, search = viewModel.SearchTerms });
-
-        //    return View("~/Views/RequestSupport/OrganisationSearch.cshtml", viewModel);
-        //}
     }
-
 }
