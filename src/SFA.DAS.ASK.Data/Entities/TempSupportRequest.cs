@@ -30,6 +30,8 @@ namespace SFA.DAS.ASK.Data.Entities
         public string ReferenceId { get; set; }
 
         public TempSupportRequestStatus Status { get; set; }
+        public Guid? DfeSignInId { get; set; }
+        public Guid? SelectedDfeSignInOrganisationId { get; set; }
     }
 
     public enum OrganisationType

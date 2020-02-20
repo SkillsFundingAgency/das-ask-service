@@ -1,4 +1,5 @@
 using System;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.DfeOrganisationsCheck;
 using SFA.DAS.ASK.Application.Utils;
 using SFA.DAS.ASK.Data.Entities;
 
@@ -6,7 +7,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 {
     public class CheckYourDetailsViewModel
     {
-        public CheckYourDetailsViewModel(TempSupportRequest tempSupportRequest)
+        public CheckYourDetailsViewModel(TempSupportRequest tempSupportRequest, string numberOfOrgs)
         {
             RequestId = tempSupportRequest.Id;
             Name = tempSupportRequest.FirstName + tempSupportRequest.LastName;
@@ -21,6 +22,10 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
             County = tempSupportRequest.County;
             Postcode = tempSupportRequest.Postcode;
             SupportRequestType = tempSupportRequest.SupportRequestType;
+            if (numberOfOrgs != null)
+            {
+                NumberOfOrgs = (DfeOrganisationsStatus) int.Parse(numberOfOrgs);
+            }
         }
 
         public Guid RequestId { get; set; }
@@ -36,5 +41,6 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         public string County { get; set; }
         public string Postcode { get; set; }
         public SupportRequestType SupportRequestType { get; set; }
+        public DfeOrganisationsStatus NumberOfOrgs { get; set; }
     }
 }

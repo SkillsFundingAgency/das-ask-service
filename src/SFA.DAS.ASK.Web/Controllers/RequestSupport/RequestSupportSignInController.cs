@@ -8,6 +8,7 @@ using SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformation;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInUserInformation;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.DfeOrganisationsCheck;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
+using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
@@ -15,10 +16,12 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
     public class RequestSupportSignInController : Controller
     {
         private readonly IMediator _mediator;
+        private readonly ISessionService _sessionService;
 
-        public RequestSupportSignInController(IMediator mediator)
+        public RequestSupportSignInController(IMediator mediator, ISessionService sessionService)
         {
             _mediator = mediator;
+            _sessionService = sessionService;
         }
         
         public async Task SignIn()
@@ -36,17 +39,21 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             var startRequestResponse = await _mediator.Send(new StartTempSupportRequestCommand(SupportRequestType.DfeSignIn));
             
             var dfeOrganisationsCheckResponse = await _mediator.Send(new DfeOrganisationsCheckRequest(dfeSignInId));
+            
+            _sessionService.Set("NumberOfOrgs",((int)dfeOrganisationsCheckResponse.DfeOrganisationsStatus).ToString());
+            
             switch (dfeOrganisationsCheckResponse.DfeOrganisationsStatus)
             {
                 case DfeOrganisationsStatus.Multiple:
+                    await _mediator.Send(new AddDfeSignInUserInformationCommand(email, firstname, lastname, startRequestResponse.RequestId, dfeSignInId));
                     return RedirectToAction("Index", "SelectOrganisation", new {requestId = startRequestResponse.RequestId});
                     
                 case DfeOrganisationsStatus.None:
-                    await _mediator.Send(new AddDfeSignInUserInformationCommand(email, firstname, lastname, startRequestResponse.RequestId));
+                    await _mediator.Send(new AddDfeSignInUserInformationCommand(email, firstname, lastname, startRequestResponse.RequestId, dfeSignInId));
                     return RedirectToAction("Index", "OrganisationSearch", new {requestId = startRequestResponse.RequestId});
                 
                 case DfeOrganisationsStatus.Single:
-                    await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, dfeOrganisationsCheckResponse.Id, email, firstname, lastname, startRequestResponse.RequestId));
+                    await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, dfeOrganisationsCheckResponse.Id, email, firstname, lastname, startRequestResponse.RequestId, dfeSignInId));
             
                     return RedirectToAction("Index", "CheckYourDetails", new {requestId = startRequestResponse.RequestId});
                     

@@ -47,6 +47,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformatio
             tempSupportRequest.PhoneNumber = dfeOrganisation.Telephone;
             tempSupportRequest.OrganisationName = dfeOrganisation.Name;
             tempSupportRequest.ReferenceId = dfeOrganisation.Urn;
+            tempSupportRequest.DfeSignInId = command.DfeSignInId;
             
             await _context.SaveChangesAsync(cancellationToken);
 
