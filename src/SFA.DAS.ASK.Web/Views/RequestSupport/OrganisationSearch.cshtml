@@ -9,19 +9,11 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-xl">
-                Organisation Search
-                <span class="govuk-caption-xl">
-                    Section 3 of 4
-                </span>
+                Search for @Model.OrganisationType
             </h1>
 
             <form method="get" asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId">
-                @*<input type="hidden" asp-for="RequestId" value="@Model.RequestId" />*@
                 <div class="govuk-form-group">
-                    <label class="govuk-label" for="event-name">
-                        Search for your organisation
-                    </label>
-                        
                     <input class="govuk-input" asp-for="Search" type="text">
                 </div>
 
@@ -31,6 +23,7 @@
                 <a asp-action="Index" asp-controller="Home" class="govuk-link das-link--button-aligned">Cancel</a>
 
             </form>
+            <partial name="_DifficultiesFooter"/>
         </div>
     </div>
 

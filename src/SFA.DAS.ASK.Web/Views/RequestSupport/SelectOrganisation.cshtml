@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Select organisation";
 }
+<a asp-action="Index" asp-controller="HasSignIn" class="govuk-back-link">Back</a>
+
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -12,14 +14,16 @@
             </h1>
 
             <partial name="_ErrorSummary"/>
-            
+
             <form method="post" asp-action="Index" asp-controller="SelectOrganisation" asp-route-requestId="@Model.RequestId">
                 <input type="hidden" asp-for="RequestId"/>
                 <div class="govuk-form-group" sfa-gds-error-class-for="SelectedId">
                     <fieldset class="govuk-fieldset">
-                        <h1 class="govuk-fieldset__heading">
-                            Select your Organisation
-                        </h1>
+                        @* <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl"> *@
+                        @*     <h1 class="govuk-fieldset__heading"> *@
+                        @*         Select your Organisation *@
+                        @*     </h1> *@
+                        @* </legend> *@
 
                         <span sfa-gds-error-message-for="SelectedId"></span>
 

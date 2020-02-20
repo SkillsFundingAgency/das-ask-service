@@ -15,8 +15,7 @@
             <partial name="_ErrorSummary" />
 
             <h1 class="govuk-heading-xl">
-                Organisation details
-                <span class="govuk-caption-xl">Section 2 of 4</span>
+                Organisation type
             </h1>
             <form method="post" >
                 
@@ -24,7 +23,7 @@
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend ">
                             <p class="govuk-fieldset__heading">
-                                What is your nationality?
+                                Select type
                             </p>
                         </legend>
                         <span sfa-gds-error-message-for="SelectedOrganisationType"></span>
@@ -75,7 +74,7 @@
                 <a id="cancelLink" class="govuk-link das-link--button-aligned" asp-controller="Home" asp-action="Index"> Cancel </a>
             </form>
    
-            <p>If you experience any difficulties in completing the form, please call for assistance on <a href="#">01462 341191</a>.</p>
+            <partial name="_DifficultiesFooter"/>
 
         </div>
     </div>

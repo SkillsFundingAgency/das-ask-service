@@ -17,43 +17,41 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
+            <partial name="_ErrorSummary"/>
+
+
             <h1 class="govuk-heading-xl">
                 Submit your request
-                <span class="govuk-caption-xl">
-                    @if (Model.SupportRequestType == SupportRequestType.Manual)
-                    {
-                        <text>Section 4 of 4</text>
-                    }
-                    else
-                    {
-                        <text>Thank you @Model.DisplayName</text>
-                    }
-                </span>
             </h1>
 
             <form method="post" asp-action="Index" asp-controller="OtherDetails" asp-route-requestId="@Model.RequestId">
                 <input type="hidden" asp-for="SupportRequestType"/>
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
+
+                <fieldset class="govuk-fieldset">
+                    <div class="govuk-form-group">
                         <label class="govuk-heading-s no-bottom-margin" asp-for="AdditionalComments">Do you have any more details to share?</label>
                         <span id="additonal-comments-hint" class="govuk-hint">For example, the type of support you’re looking for or the expected audience.</span>
                         <textarea class="govuk-textarea" asp-for="AdditionalComments" rows="5" aria-describedby="more-detail-hint"></textarea>
+                    </div>
 
-                        @if (Model.SupportRequestType == SupportRequestType.Manual)
-                        {
+                    @if (Model.SupportRequestType == SupportRequestType.Manual)
+                    {
+                        <div class="govuk-form-group" sfa-gds-error-class-for="Agree">
                             <div class="govuk-checkboxes__item">
+                                <span sfa-gds-error-message-for="Agree"></span>
                                 <input class="govuk-checkboxes__input" asp-for="Agree" type="checkbox">
                                 <label class="govuk-label govuk-checkboxes__label" asp-for="Agree">
                                     I have read and understand the Privacy and Cookies Policy and agree to receive communications from Amazing Apprenticeships, funded by the Department for Education, by email.
                                 </label>
                             </div>
-                        }
-                        else
-                        {
-                            <input type="hidden" asp-for="Agree"/>
-                        }
-                    </fieldset>
-                </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="Agree"/>
+                    }
+                </fieldset>
+
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Request support
                 </button>

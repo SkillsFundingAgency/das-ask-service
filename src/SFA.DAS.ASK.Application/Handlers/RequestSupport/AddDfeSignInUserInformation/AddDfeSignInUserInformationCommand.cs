@@ -9,13 +9,15 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInUserInform
         public string FirstName { get; }
         public string LastName { get; }
         public Guid RequestId { get; }
+        public Guid DfeSignInId { get; }
 
-        public AddDfeSignInUserInformationCommand(string email, string firstName, string lastName, Guid requestId)
+        public AddDfeSignInUserInformationCommand(string email, string firstName, string lastName, Guid requestId, Guid dfeSignInId)
         {
             Email = email;
             FirstName = firstName;
             LastName = lastName;
             RequestId = requestId;
+            DfeSignInId = dfeSignInId;
         }
     }
 }
