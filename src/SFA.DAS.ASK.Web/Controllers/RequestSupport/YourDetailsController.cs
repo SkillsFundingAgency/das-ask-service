@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SaveSupportRequest;
+using SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer;
 using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
@@ -18,6 +19,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         }
         
         [HttpGet("your-details/{requestId}")]
+        [ImportModelState]
         public async Task<IActionResult> Index(Guid requestId)
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
@@ -28,11 +30,12 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         }
 
         [HttpPost("your-details/{requestId}")]
+        [ExportModelState]
         public async Task<IActionResult> Index(Guid requestId, YourDetailsViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View("~/Views/RequestSupport/YourDetails.cshtml", viewModel);
+                return RedirectToAction("Index", new {requestId});
             }
             
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
