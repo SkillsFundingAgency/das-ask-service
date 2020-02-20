@@ -19,6 +19,8 @@ CREATE TABLE [dbo].[TempSupportRequests](
 	[SupportRequestType] [int] NULL,
 	[ReferenceId] [nvarchar](250) NULL,
 	[Status] [int] NOT NULL,
+	[DfeSignInId] [uniqueidentifier] NULL,
+	[SelectedDfeSignInOrganisationId] [uniqueidentifier] NULL
  CONSTRAINT [PK_TempSupportRequests] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

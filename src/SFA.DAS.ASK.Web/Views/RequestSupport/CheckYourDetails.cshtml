@@ -1,3 +1,4 @@
+@using SFA.DAS.ASK.Application.Handlers.RequestSupport.DfeOrganisationsCheck
 @using SFA.DAS.ASK.Data.Entities
 @model SFA.DAS.ASK.Web.ViewModels.RequestSupport.CheckYourDetailsViewModel
 
@@ -6,7 +7,18 @@
 }
 @if (Model.SupportRequestType == SupportRequestType.DfeSignIn)
 {
-    <a asp-action="Index" asp-controller="SelectOrganisation" asp-route-requestId="@Model.RequestId" class="govuk-back-link">Back</a>
+    if (Model.NumberOfOrgs == DfeOrganisationsStatus.Single)
+    {
+        <a asp-action="Index" asp-controller="HasSignIn" class="govuk-back-link">Back</a>
+    }
+    else if (Model.NumberOfOrgs == DfeOrganisationsStatus.None)
+    {
+        <a asp-action="Index" asp-controller="OrganisationSearch" asp-route-requestId="@Model.RequestId" class="govuk-back-link">Back</a>
+    }
+    else
+    {
+        <a asp-action="Index" asp-controller="SelectOrganisation" asp-route-requestId="@Model.RequestId" class="govuk-back-link">Back</a>
+    }
 }
 else
 {
@@ -28,9 +40,9 @@ else
                         @Model.Name
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="#">
-                            Change<span class="govuk-visually-hidden"> name</span>
-                        </a>
+                        @* <a class="govuk-link" href="#"> *@
+                        @*     Change<span class="govuk-visually-hidden"> name</span> *@
+                        @* </a> *@
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row">
@@ -41,9 +53,9 @@ else
                         @Model.JobRole
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="#">
-                            Change<span class="govuk-visually-hidden"> your job role</span>
-                        </a>
+                        @* <a class="govuk-link" href="#"> *@
+                        @*     Change<span class="govuk-visually-hidden"> your job role</span> *@
+                        @* </a> *@
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row">
@@ -55,9 +67,9 @@ else
                         @Model.Email <br/>
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="#">
-                            Change<span class="govuk-visually-hidden"> contact details</span>
-                        </a>
+                        @* <a class="govuk-link" href="#"> *@
+                        @*     Change<span class="govuk-visually-hidden"> contact details</span> *@
+                        @* </a> *@
                     </dd>
                 </div>
             </dl>
@@ -72,9 +84,9 @@ else
                         @Model.OrganisationType
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="#">
-                            Change<span class="govuk-visually-hidden"> organisation type</span>
-                        </a>
+                        @* <a class="govuk-link" href="#"> *@
+                        @*     Change<span class="govuk-visually-hidden"> organisation type</span> *@
+                        @* </a> *@
                     </dd>
                 </div>
             </dl>
@@ -91,9 +103,9 @@ else
                         </strong>
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="#">
-                            Change<span class="govuk-visually-hidden"> organisation name</span>
-                        </a>
+                        @* <a class="govuk-link" href="#"> *@
+                        @*     Change<span class="govuk-visually-hidden"> organisation name</span> *@
+                        @* </a> *@
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row">
@@ -117,7 +129,7 @@ else
                 <button id="continueButton" class="govuk-button" data-module="govuk-button" type="submit">
                     Continue
                 </button>
-                <a id="cancelLink" asp-action="Index" asp-controller="CancelSupportRequest" class="das-button--link">Cancel</a>
+                <a id="cancelLink" asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="CheckYourDetails" class="das-button--link">Cancel</a>
             </form>
             <p class="govuk-hint">If you experience any difficulties in completing the form, please call for assistance on <a href="tel:01462 341191" class="govuk-link">01462 341191</a>.</p>
         </div>
