@@ -11,6 +11,7 @@ using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 using SFA.DAS.ASK.Application.Services.Session;
 using Newtonsoft.Json;
 using SFA.DAS.ASK.Application.Services.ReferenceData;
+using System.Threading;
 
 namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 {
@@ -31,9 +32,9 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         {
             if (string.IsNullOrEmpty(search))
             {
-                search = _sessionService.Get("Searchstring-" + requestId.ToString());
+                search = _sessionService.Get($"Searchstring-{requestId}");
 
-                var cachedResults = JsonConvert.DeserializeObject<List < ReferenceDataSearchResult >> (_sessionService.Get(requestId.ToString()));
+                var cachedResults = JsonConvert.DeserializeObject<List<ReferenceDataSearchResult >> (_sessionService.Get($"Searchresults-{requestId}"));
 
                 var viewModel = new OrganisationResultsViewModel(cachedResults, requestId, search);
 
@@ -41,22 +42,19 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             } 
             else
             {
-                _sessionService.Set("Searchstring-" + requestId.ToString(), search);
+                _sessionService.Set($"Searchstring-{requestId}", search);
 
-                var nonDfeOrganisations = await _mediator.Send(new GetNonDfeOrganisationsRequest(search));
-
-                var nonDfeOrganisationsList = nonDfeOrganisations.ToList();
+                var nonDfeOrganisationsList = (await _mediator.Send(new GetNonDfeOrganisationsRequest(search), default(CancellationToken))).ToList();
 
                 nonDfeOrganisationsList.ForEach(o => o.Id = Guid.NewGuid());
 
+                _sessionService.Set($"Searchresults-{requestId}", JsonConvert.SerializeObject(nonDfeOrganisationsList));
 
-                _sessionService.Set(requestId.ToString(), JsonConvert.SerializeObject(nonDfeOrganisationsList));
                 var viewModel = new OrganisationResultsViewModel(nonDfeOrganisationsList, requestId, search);
 
                 return View("~/Views/RequestSupport/OrganisationResults.cshtml", viewModel);
             }
 
-           
         }
 
         [HttpPost("organisation-results/{requestId}")]

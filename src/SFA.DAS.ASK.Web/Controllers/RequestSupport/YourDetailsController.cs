@@ -24,7 +24,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
-            var vm = new YourDetailsViewModel(supportRequest);
+            var vm = new YourDetailsViewModel(supportRequest, requestId);
             
             return View("~/Views/RequestSupport/YourDetails.cshtml", vm);
         }

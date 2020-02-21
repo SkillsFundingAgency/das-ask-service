@@ -38,8 +38,8 @@
                     {
                         <div class="govuk-form-group" sfa-gds-error-class-for="Agree">
                             <div class="govuk-checkboxes__item">
-                                <span sfa-gds-error-message-for="Agree"></span>
-                                <input class="govuk-checkboxes__input" asp-for="Agree" type="checkbox">
+                                <span sfa-gds-error-message-for="Agree" aria-describedby="agree-error"></span>
+                                <input id="agree-error"class="govuk-checkboxes__input" asp-for="Agree" type="checkbox">
                                 <label class="govuk-label govuk-checkboxes__label" asp-for="Agree">
                                     I have read and understand the Privacy and Cookies Policy and agree to receive communications from Amazing Apprenticeships, funded by the Department for Education, by email.
                                 </label>

@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using SFA.DAS.ASK.Data.Entities;
 
@@ -6,8 +7,8 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
     public class YourDetailsViewModel
     {
         public YourDetailsViewModel() { }
-        
-        public YourDetailsViewModel(TempSupportRequest supportRequest)
+        public Guid RequestId { get; set; }
+        public YourDetailsViewModel(TempSupportRequest supportRequest, Guid requestId)
         {
             FirstName = supportRequest.FirstName;
             LastName = supportRequest.LastName;
@@ -15,6 +16,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
             PhoneNumber = supportRequest.PhoneNumber;
             Email = supportRequest.Email;
             ConfirmEmail = supportRequest.Email;
+            RequestId = requestId;
         }
 
         [Required(ErrorMessage = "Enter your first name")]

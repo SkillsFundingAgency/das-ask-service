@@ -21,40 +21,40 @@
 
                     <div class="govuk-form-group" sfa-gds-error-class-for="FirstName">
                         <label class="govuk-label" asp-for="FirstName">First name</label>
-                        <span sfa-gds-error-message-for="FirstName"></span>
-                        <input class="govuk-input" type="text" asp-for="FirstName" />
+                        <span id="first-name-error" sfa-gds-error-message-for="FirstName"></span>
+                        <input class="govuk-input" type="text" asp-for="FirstName" aria-describedby="first-name-error"/>
                     </div>
 
                     <div class="govuk-form-group" sfa-gds-error-class-for="LastName">
                         <label class="govuk-label" asp-for="LastName">Last name</label>
-                        <span sfa-gds-error-message-for="LastName"></span>
-                        <input class="govuk-input" type="text" asp-for="LastName" />
+                        <span id="last-name-error" sfa-gds-error-message-for="LastName"></span>
+                        <input class="govuk-input" type="text" asp-for="LastName" aria-describedby="last-name-error" />
                     </div>
 
                     <div class="govuk-form-group" sfa-gds-error-class-for="JobRole">
                         <label class="govuk-label" asp-for="JobRole">Your job role</label>
-                        <span sfa-gds-error-message-for="JobRole"></span>
-                        <input class="govuk-input" type="text" asp-for="JobRole" />
+                        <span id="job-role-error" sfa-gds-error-message-for="JobRole"></span>
+                        <input class="govuk-input" type="text" asp-for="JobRole"aria-describedby="job-role-error" />
                     </div>
 
 
                     <div class="govuk-form-group" sfa-gds-error-class-for="PhoneNumber">
                         <label class="govuk-label" asp-for="PhoneNumber">Phone number</label>
-                        <span sfa-gds-error-message-for="PhoneNumber"></span>
-                        <input class="govuk-input" type="text" asp-for="PhoneNumber" />
+                        <span id="phone-number-error" sfa-gds-error-message-for="PhoneNumber"></span>
+                        <input class="govuk-input" type="text" asp-for="PhoneNumber" aria-describedby="phone-number-error"/>
                     </div>
 
                     <div class="govuk-form-group" sfa-gds-error-class-for="Email">
                         <label class="govuk-label" asp-for="Email">Email address</label>
-                        <span sfa-gds-error-message-for="Email"></span>
-                        <input class="govuk-input" type="text" asp-for="Email" />
+                        <span id="email-error" sfa-gds-error-message-for="Email"></span>
+                        <input class="govuk-input" type="text" asp-for="Email" aria-describedby="email-error"/>
                     </div>
 
 
                     <div class="govuk-form-group" sfa-gds-error-class-for="ConfirmEmail">
                         <label class="govuk-label" asp-for="ConfirmEmail">Confirm email address</label>
-                        <span sfa-gds-error-message-for="ConfirmEmail"></span>
-                        <input class="govuk-input" type="text" asp-for="ConfirmEmail" />
+                        <span id="confirm-email-error" sfa-gds-error-message-for="ConfirmEmail"></span>
+                        <input class="govuk-input" type="text" asp-for="ConfirmEmail" aria-describedby="confirm-email-error" />
                     </div>
 
                 </div>
