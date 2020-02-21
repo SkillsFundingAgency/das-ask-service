@@ -17,8 +17,8 @@
             <h1 class="govuk-heading-xl">
                 Organisation type
             </h1>
-            <form method="post" >
-                
+            <form method="post">
+
                 <div class="govuk-form-group" sfa-gds-error-class-for="SelectedOrganisationType">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend ">
@@ -71,7 +71,7 @@
                 </div>
 
                 <button id="continueButton" class="govuk-button" type="submit">Continue</button>
-                <a id="cancelLink" class="govuk-link das-link--button-aligned" asp-controller="Home" asp-action="Index"> Cancel </a>
+                <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OtherDetails" class="das-button--link">Cancel</a>
             </form>
    
             <partial name="_DifficultiesFooter"/>
