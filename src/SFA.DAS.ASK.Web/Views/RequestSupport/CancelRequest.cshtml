@@ -1,4 +1,4 @@
-@model SFA.DAS.ASK.Web.Controllers.RequestSupport.CancelSupportRequestViewModel
+@model SFA.DAS.ASK.Web.ViewModels.RequestSupport.CancelSupportRequestViewModel
 
 @{
     ViewBag.Title = "Select organisation";
@@ -6,18 +6,61 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl">
-                Are you sure?
-                <span class="govuk-caption-xl"></span>
-            </h1>
 
-            
-            <form method="post" asp-action="Cancel" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId">
-                <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Yes
+
+            <partial name="_ErrorSummary"/>
+
+            <form method="post">
+
+                <input type="hidden" asp-for="ReturnAction"/>
+                <input type="hidden" asp-for="ReturnController"/>
+
+                <div class="govuk-form-group" sfa-gds-error-class-for="ConfirmedCancel">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+
+                            <h1 class="govuk-fieldset__heading">
+                                Are you sure you want to cancel your support request?
+                            </h1>
+
+                        </legend>
+                        <span id="changed-name-hint" class="govuk-hint">
+                            This will remove the information you’ve entered so far.
+                        </span>
+
+
+                        <span sfa-gds-error-message-for="ConfirmedCancel"></span>
+
+                        <div class="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="ConfirmedCancel" id="HasSignInAccount" value="true">
+                                <label class="govuk-label govuk-radios__label" for="HasSignInAccount">
+                                    Yes, cancel my support request
+                                </label>
+                            </div>
+
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="ConfirmedCancel" id="hasSignInAccount_No" value="false">
+                                <label class="govuk-label govuk-radios__label" for="hasSignInAccount_No">
+                                    No, go back to my support request
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button id="continueButton" class="govuk-button" data-module="govuk-button" type="submit">
+                    Confirm
                 </button>
-                <a id="cancelLink" asp-action="@Model.ReturnAction" asp-controller="@Model.ReturnController" asp-route-requestId="@Model.RequestId" class="govuk-link cancel-link">No</a>
             </form>
+            <partial name="_DifficultiesFooter"/>
+
+
+            @* <form method="post" asp-action="Cancel" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId"> *@
+            @*     <button class="govuk-button" data-module="govuk-button" type="submit"> *@
+            @*         Yes *@
+            @*     </button> *@
+            @*     <a id="cancelLink" asp-action="@Model.ReturnAction" asp-controller="@Model.ReturnController" asp-route-requestId="@Model.RequestId" class="govuk-link cancel-link">No</a> *@
+            @* </form> *@
 
         </div>
     </div>

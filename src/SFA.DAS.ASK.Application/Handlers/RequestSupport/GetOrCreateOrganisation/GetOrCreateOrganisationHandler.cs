@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Data.Entities;
 
-namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest
+namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisation
 {
     public class GetOrCreateOrganisationHandler : IRequestHandler<GetOrCreateOrganisationRequest, Organisation>
     {

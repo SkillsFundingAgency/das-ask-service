@@ -2,7 +2,7 @@ using System;
 using MediatR;
 using SFA.DAS.ASK.Data.Entities;
 
-namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest
+namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisationContact
 {
     public class GetOrCreateOrganisationContactRequest : IRequest<OrganisationContact>
     {
