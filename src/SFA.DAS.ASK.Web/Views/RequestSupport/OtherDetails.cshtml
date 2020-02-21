@@ -24,13 +24,15 @@
                 Submit your request
             </h1>
 
+            <p>After you’ve submitted your request, a local ASK delivery partner will get in touch with you. They’ll set up a planning meeting to discuss your needs and choose the most suitable support options available through the ASK programme.</p>
+
             <form method="post" asp-action="Index" asp-controller="OtherDetails" asp-route-requestId="@Model.RequestId">
                 <input type="hidden" asp-for="SupportRequestType"/>
 
                 <fieldset class="govuk-fieldset">
                     <div class="govuk-form-group">
                         <label class="govuk-heading-s no-bottom-margin" asp-for="AdditionalComments">Do you have any more details to share?</label>
-                        <span id="additonal-comments-hint" class="govuk-hint">For example, the type of support you’re looking for or the expected audience.</span>
+                        <span id="additonal-comments-hint" class="govuk-hint">For example, the type of support you’re looking for or the approximate date.</span>
                         <textarea class="govuk-textarea" asp-for="AdditionalComments" rows="5" aria-describedby="more-detail-hint"></textarea>
                     </div>
 
