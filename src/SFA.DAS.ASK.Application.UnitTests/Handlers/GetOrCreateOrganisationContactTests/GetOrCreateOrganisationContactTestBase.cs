@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisationContact;
@@ -14,7 +13,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetOrCreateOrganisationCont
         protected AskContext Context;
         
         [SetUp]
-        public async Task Arrange()
+        public void Arrange()
         {
             var dbContextOptions = new DbContextOptionsBuilder<AskContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())

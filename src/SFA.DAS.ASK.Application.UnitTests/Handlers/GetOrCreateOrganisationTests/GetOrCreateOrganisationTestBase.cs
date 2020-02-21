@@ -11,7 +11,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetOrCreateOrganisationTest
     public class GetOrCreateOrganisationTestBase
     {
         [SetUp]
-        public async Task Arrange()
+        public void Arrange()
         {
             var dbContextOptions = new DbContextOptionsBuilder<AskContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())

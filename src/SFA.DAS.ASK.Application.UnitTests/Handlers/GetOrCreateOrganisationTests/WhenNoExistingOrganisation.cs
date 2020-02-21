@@ -12,17 +12,6 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetOrCreateOrganisationTest
 {
     public class WhenNoExistingOrganisation : GetOrCreateOrganisationTestBase
     {
-        [SetUp]
-        public async Task SetUp()
-        {
-            await Context.Organisations.AddRangeAsync(new List<Organisation>
-            {
-                new Organisation(){Id = Guid.NewGuid(), ReferenceId = "REF1234"},
-                new Organisation(){Id = Guid.NewGuid(), ReferenceId = "REF9999"}
-            });
-            await Context.SaveChangesAsync();
-        }
-
         [Test]
         public async Task ThenANewOrganisationIsSavedAndReturned()
         {
