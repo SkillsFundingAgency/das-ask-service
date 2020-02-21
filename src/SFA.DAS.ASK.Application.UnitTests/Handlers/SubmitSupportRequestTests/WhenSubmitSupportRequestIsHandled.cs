@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using NUnit.Framework;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisation;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisationContact;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest;
 using SFA.DAS.ASK.Data;

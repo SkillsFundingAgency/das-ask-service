@@ -1,7 +1,7 @@
 using MediatR;
 using SFA.DAS.ASK.Data.Entities;
 
-namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest
+namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisation
 {
     public class GetOrCreateOrganisationRequest : IRequest<Organisation>
     {
