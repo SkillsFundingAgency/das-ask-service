@@ -20,11 +20,11 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         
         [HttpGet("your-details/{requestId}")]
         [ImportModelState]
-        public async Task<IActionResult> Index(Guid requestId)
+        public async Task<IActionResult> Index(Guid requestId, bool edit)
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
-            var vm = new YourDetailsViewModel(supportRequest, requestId);
+            var vm = new YourDetailsViewModel(supportRequest, requestId, edit);
             
             return View("~/Views/RequestSupport/YourDetails.cshtml", vm);
         }
@@ -37,10 +37,15 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             {
                 return RedirectToAction("Index", new {requestId});
             }
-            
+
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
-            
+
             await _mediator.Send(new SaveTempSupportRequest(viewModel.ToTempSupportRequest(supportRequest)));
+            
+            if (viewModel.Edit == true)
+            {
+                return RedirectToAction("Index", "CheckYourDetails", new { requestId = requestId });
+            }
             
             return RedirectToAction("Index", "OrganisationType", new {requestId = requestId});
         }

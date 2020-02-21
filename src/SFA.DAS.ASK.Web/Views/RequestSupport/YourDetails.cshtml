@@ -2,9 +2,18 @@
 
 @{
     ViewBag.Title = "TODO: TITLE YOUR DETAILS";
+
+    var heading = (Model.Edit) ? "Change your details" : "Your details";
 }
 
-<a class="govuk-back-link" asp-action="Index" asp-controller="HasSignIn">Back</a>
+@if (!Model.Edit)
+{
+    <a class="govuk-back-link" asp-action="Index" asp-controller="HasSignIn">Back</a>
+}
+else
+{
+    <a class="govuk-back-link" asp-action="Index" asp-controller="CheckYourDetails" asp-route-requestId="@Model.RequestId">Back</a>
+}
 
 <main class="govuk-main-wrapper" id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -13,7 +22,7 @@
             <partial name="_ErrorSummary" />
 
             <h1 class="govuk-heading-xl">
-                Your details
+                @heading
             </h1>
 
             <form method="post">
@@ -22,7 +31,7 @@
                     <div class="govuk-form-group" sfa-gds-error-class-for="FirstName">
                         <label class="govuk-label" asp-for="FirstName">First name</label>
                         <span id="first-name-error" sfa-gds-error-message-for="FirstName"></span>
-                        <input class="govuk-input" type="text" asp-for="FirstName" aria-describedby="first-name-error"/>
+                        <input class="govuk-input" type="text" asp-for="FirstName" aria-describedby="first-name-error" />
                     </div>
 
                     <div class="govuk-form-group" sfa-gds-error-class-for="LastName">
@@ -34,20 +43,20 @@
                     <div class="govuk-form-group" sfa-gds-error-class-for="JobRole">
                         <label class="govuk-label" asp-for="JobRole">Your job role</label>
                         <span id="job-role-error" sfa-gds-error-message-for="JobRole"></span>
-                        <input class="govuk-input" type="text" asp-for="JobRole"aria-describedby="job-role-error" />
+                        <input class="govuk-input" type="text" asp-for="JobRole" aria-describedby="job-role-error" />
                     </div>
 
 
                     <div class="govuk-form-group" sfa-gds-error-class-for="PhoneNumber">
                         <label class="govuk-label" asp-for="PhoneNumber">Phone number</label>
                         <span id="phone-number-error" sfa-gds-error-message-for="PhoneNumber"></span>
-                        <input class="govuk-input" type="text" asp-for="PhoneNumber" aria-describedby="phone-number-error"/>
+                        <input class="govuk-input" type="text" asp-for="PhoneNumber" aria-describedby="phone-number-error" />
                     </div>
 
                     <div class="govuk-form-group" sfa-gds-error-class-for="Email">
                         <label class="govuk-label" asp-for="Email">Email address</label>
                         <span id="email-error" sfa-gds-error-message-for="Email"></span>
-                        <input class="govuk-input" type="text" asp-for="Email" aria-describedby="email-error"/>
+                        <input class="govuk-input" type="text" asp-for="Email" aria-describedby="email-error" />
                     </div>
 
 
@@ -59,12 +68,20 @@
 
                 </div>
 
-                <button id="continueButton" class="govuk-button" type="submit">Continue</button>
-                <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OtherDetails" class="das-button--link">Cancel</a>
-                
+                @if (!Model.Edit)
+                {
+                    <button id="continueButton" class="govuk-button" type="submit">Continue</button>
+                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OtherDetails" class="das-button--link">Cancel</a>
+                }
+                else
+                {
+                    <button id="saveButton" class="govuk-button" type="submit">Save</button>
+                    <a class="das-button--link" asp-action="Index" asp-controller="CheckYourDetails" asp-route-requestId="@Model.RequestId">Cancel</a>
+                }
+
             </form>
 
-            <partial name="_DifficultiesFooter"/>
+            <partial name="_DifficultiesFooter" />
 
         </div>
     </div>

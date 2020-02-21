@@ -40,9 +40,7 @@ else
                         @Model.Name
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        @* <a class="govuk-link" href="#"> *@
-                        @*     Change<span class="govuk-visually-hidden"> name</span> *@
-                        @* </a> *@
+                        <a asp-action="Index" asp-controller="YourDetails" asp-route-requestId="@Model.RequestId" asp-route-edit="true" class="govuk-link">Change</a>
                     </dd>
                 </div>
 

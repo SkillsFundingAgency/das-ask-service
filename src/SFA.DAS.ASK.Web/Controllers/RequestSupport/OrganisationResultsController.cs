@@ -82,7 +82,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 
             // Model Validation ??
 
-            var cachedResults = JsonConvert.DeserializeObject<List<ReferenceDataSearchResult>>(_sessionService.Get(requestId.ToString()));
+            var cachedResults = JsonConvert.DeserializeObject<List<ReferenceDataSearchResult>>(_sessionService.Get($"Searchresults-{requestId}"));
 
             var selectedResult = cachedResults.Where(r => r.Id == selectedSchool).FirstOrDefault();
 

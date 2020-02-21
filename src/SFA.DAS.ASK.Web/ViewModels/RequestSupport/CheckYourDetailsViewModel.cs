@@ -10,7 +10,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         public CheckYourDetailsViewModel(TempSupportRequest tempSupportRequest, string numberOfOrgs)
         {
             RequestId = tempSupportRequest.Id;
-            Name = tempSupportRequest.FirstName + tempSupportRequest.LastName;
+            Name = $"{tempSupportRequest.FirstName} {tempSupportRequest.LastName}";
             JobRole = tempSupportRequest.JobRole;
             PhoneNumber = tempSupportRequest.PhoneNumber;
             Email = tempSupportRequest.Email;
