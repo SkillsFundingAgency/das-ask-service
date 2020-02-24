@@ -14,6 +14,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformatio
         private readonly AskContext _context;
         private readonly IDfeSignInApiClient _dfeClient;
         private readonly IMediator _mediator;
+        private string[] _dfeOrganisationAddress;
 
         public AddDfESignInInformationHandler(AskContext context, IDfeSignInApiClient dfeClient, IMediator mediator)
         {
@@ -34,12 +35,15 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformatio
             tempSupportRequest.Email = command.Email;
             if (dfeOrganisation.Address != null)
             {
-                var dfeOrganisationAddress = dfeOrganisation.Address.Split(new[] {','}, StringSplitOptions.None);
-                tempSupportRequest.BuildingAndStreet1 = dfeOrganisationAddress[0].Trim();
-                tempSupportRequest.BuildingAndStreet2 = dfeOrganisationAddress[1].Trim();
-                tempSupportRequest.TownOrCity = dfeOrganisationAddress[2].Trim();
-                tempSupportRequest.County = dfeOrganisationAddress[3].Trim();
-                tempSupportRequest.Postcode = dfeOrganisationAddress[4].Trim();
+                _dfeOrganisationAddress = dfeOrganisation.Address.Split(new[] {','}, StringSplitOptions.None);
+                if (_dfeOrganisationAddress.Length > 0)
+                {
+                    tempSupportRequest.BuildingAndStreet1 = GetAddressLine(0);
+                    tempSupportRequest.BuildingAndStreet2 = GetAddressLine(1);
+                    tempSupportRequest.TownOrCity = GetAddressLine(2);
+                    tempSupportRequest.County = GetAddressLine(3);
+                    tempSupportRequest.Postcode = _dfeOrganisationAddress[_dfeOrganisationAddress.Length - 1].Trim();    
+                }
             }
             
             tempSupportRequest.FirstName = command.FirstName;
@@ -52,6 +56,11 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformatio
             await _context.SaveChangesAsync(cancellationToken);
 
             return tempSupportRequest;
+        }
+        
+        private string GetAddressLine(int position)
+        {
+            return _dfeOrganisationAddress.Length > position ? _dfeOrganisationAddress[position].Trim() : "";
         }
     }
 }
