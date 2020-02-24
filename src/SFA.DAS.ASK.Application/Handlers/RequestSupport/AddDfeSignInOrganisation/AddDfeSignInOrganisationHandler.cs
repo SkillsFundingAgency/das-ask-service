@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using SFA.DAS.ASK.Application.Services.DfeApi;
 using SFA.DAS.ASK.Data;
 
@@ -13,14 +12,12 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInOrganisati
     {
         private readonly AskContext _context;
         private readonly IDfeSignInApiClient _dfeSignInApiClient;
-        private readonly ILogger<AddDfeSignInOrganisationHandler> _logger;
         private string[] _dfeOrganisationAddress;
 
-        public AddDfeSignInOrganisationHandler(AskContext context, IDfeSignInApiClient dfeSignInApiClient, ILogger<AddDfeSignInOrganisationHandler> logger)
+        public AddDfeSignInOrganisationHandler(AskContext context, IDfeSignInApiClient dfeSignInApiClient)
         {
             _context = context;
             _dfeSignInApiClient = dfeSignInApiClient;
-            _logger = logger;
         }
         public async Task<Unit> Handle(AddDfESignInOrganisationCommand request, CancellationToken cancellationToken)
         {
@@ -32,7 +29,6 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInOrganisati
 
             if (dfeOrganisation.Address != null)
             {
-                _logger.LogInformation("AddDfeOrganisation: Address is " + dfeOrganisation.Address);
                 _dfeOrganisationAddress = dfeOrganisation.Address.Split(new[] {','}, StringSplitOptions.None);
                 if (_dfeOrganisationAddress.Length > 0)
                 {

@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
@@ -12,8 +13,12 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisationsTests
         [Test]
         public async Task ThenSearchIsPassedOnToApiClient()
         {
-            var handler = new GetNonDfeOrganisationsHandler(Substitute.For<IReferenceDataApiClient>());
+            var referenceDataApiClient = Substitute.For<IReferenceDataApiClient>();
+            var handler = new GetNonDfeOrganisationsHandler(referenceDataApiClient);
+            
+            await handler.Handle(new GetNonDfeOrganisationsRequest("theSearchTerm"), CancellationToken.None);
+
+            await referenceDataApiClient.Received(1).Search("theSearchTerm");
         }
-        
     }
 }
