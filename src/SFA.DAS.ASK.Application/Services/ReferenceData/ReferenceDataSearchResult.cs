@@ -12,6 +12,7 @@ namespace SFA.DAS.ASK.Application.Services.ReferenceData
         public string Code { get; set; }
         public ReferenceDataAddress Address { get; set; }
         public string Sector { get; set; }
+        public bool Selected { get; set; }
 
         public string GetAddressString(ReferenceDataAddress address)
         {

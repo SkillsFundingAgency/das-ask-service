@@ -14,7 +14,6 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         public Guid RequestId { get; set; }
         public string Search { get; set; }
         public string OrganisationType { get; set; }
-
         public OrganisationSearchViewModel() { }
         public OrganisationSearchViewModel(TempSupportRequest request, string searchTerms)
         {

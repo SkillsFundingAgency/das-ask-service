@@ -1,8 +1,9 @@
 @model SFA.DAS.ASK.Web.ViewModels.RequestSupport.OrganisationSearchViewModel
 
 @{
-    ViewBag.Title = "Other details";
+    ViewBag.Title = "Organisation search";
 }
+
 <a class="govuk-back-link" asp-action="Index" asp-controller="OrganisationType" asp-route-requestId="@Model.RequestId">Back</a>
 
 <main class="govuk-main-wrapper " id="main-content" role="main">
@@ -20,12 +21,13 @@
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Search
                 </button>
+
                 <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OtherDetails" class="das-button--link">Cancel</a>
 
             </form>
-            <partial name="_DifficultiesFooter"/>
+            <partial name="_DifficultiesFooter" />
         </div>
     </div>
 
-     
+
 </main>

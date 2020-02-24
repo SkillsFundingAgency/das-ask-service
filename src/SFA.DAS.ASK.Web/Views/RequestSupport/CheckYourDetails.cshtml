@@ -53,9 +53,7 @@ else
                         @Model.Email <br/>
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        @* <a class="govuk-link" href="#"> *@
-                        @*     Change<span class="govuk-visually-hidden"> contact details</span> *@
-                        @* </a> *@
+                        <a asp-action="Index" asp-controller="YourDetails" asp-route-requestId="@Model.RequestId" asp-route-edit="true" class="govuk-link">Change</a>
                     </dd>
                 </div>
             </dl>
@@ -72,9 +70,7 @@ else
                         </strong>
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        @* <a class="govuk-link" href="#"> *@
-                        @*     Change<span class="govuk-visually-hidden"> organisation name</span> *@
-                        @* </a> *@
+                        <a asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId" asp-route-edit="true" class="govuk-link">Change</a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row">

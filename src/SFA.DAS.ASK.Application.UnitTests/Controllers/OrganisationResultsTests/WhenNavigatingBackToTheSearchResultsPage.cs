@@ -50,7 +50,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Controllers.OrganisationResultsTests
         [Test]
         public async Task FromTheCheckYourAnswersPage_ThenSearchTermThenCachedResultsAreRetrievedFromSessionStorageAsync()
         {
-            var searchResultsPage = await _sut.Index(requestId, string.Empty);
+            var searchResultsPage = await _sut.Index(requestId, string.Empty, false);
 
             _mockSessionService.Verify(x => x.Get($"Searchstring-{requestId}"), Times.Once);
             _mockSessionService.Verify(x => x.Get($"Searchresults-{requestId}"), Times.Once);
@@ -61,7 +61,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Controllers.OrganisationResultsTests
         {
             _mockMediator.Setup(s => s.Send(It.IsAny<GetNonDfeOrganisationsRequest>(), default(CancellationToken)));
 
-            var searchResultsPage = await _sut.Index(requestId, string.Empty);
+            var searchResultsPage = await _sut.Index(requestId, string.Empty, false);
 
             _mockMediator.Verify(s => s.Send(It.IsAny<GetNonDfeOrganisationsRequest>(), default(CancellationToken)), Times.Never);
         }
@@ -69,7 +69,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Controllers.OrganisationResultsTests
         [Test]
         public async Task FromTheCheckYourAnswersPage_ThenSaveResultsToCacheIsNotCalled()
         {
-            var searchResultsPage = await _sut.Index(requestId, string.Empty);
+            var searchResultsPage = await _sut.Index(requestId, string.Empty, false);
 
             _mockSessionService.Verify(x => x.Set(It.IsAny<string>(), It.IsAny<string>()), Times.Never());
         }

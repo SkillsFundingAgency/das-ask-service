@@ -39,7 +39,6 @@ namespace SFA.DAS.ASK.Application.UnitTests.Controllers.OrganisationResultsTests
             _mockMediator = new Mock<IMediator>();
             _mockSessionService = new Mock<ISessionService>();
 
-
             _sut = new OrganisationResultsController(_mockMediator.Object, _mockSessionService.Object);
         }
 
@@ -48,7 +47,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Controllers.OrganisationResultsTests
         {
             _mockSessionService.Setup(s => s.Set(It.IsAny<string>(), It.IsAny<string>()));
 
-            var searchResultsPage = await _sut.Index(requestId, SEARCH_TERM);
+            var searchResultsPage = await _sut.Index(requestId, SEARCH_TERM, false);
 
             _mockSessionService.Verify(s => s.Set($"Searchstring-{requestId}", It.IsAny<string>()), Times.Once());
         }
@@ -58,7 +57,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Controllers.OrganisationResultsTests
         {
             _mockSessionService.Setup(s => s.Set(It.IsAny<string>(), It.IsAny<string>()));
             
-            var searchResultsPage = await _sut.Index(requestId, SEARCH_TERM);
+            var searchResultsPage = await _sut.Index(requestId, SEARCH_TERM, false);
 
             _mockSessionService.Verify(s => s.Set($"Searchresults-{requestId}", It.IsAny<string>()), Times.Once());
         }
@@ -68,7 +67,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Controllers.OrganisationResultsTests
         {
             _mockMediator.Setup(s => s.Send(It.IsAny<GetNonDfeOrganisationsRequest>(), It.IsAny<CancellationToken>())).ReturnsAsync(GetResultsList());
 
-            var results = await _sut.Index(requestId, SEARCH_TERM) as ViewResult;
+            var results = await _sut.Index(requestId, SEARCH_TERM, false) as ViewResult;
 
             var model = results.Model as OrganisationResultsViewModel;
 
