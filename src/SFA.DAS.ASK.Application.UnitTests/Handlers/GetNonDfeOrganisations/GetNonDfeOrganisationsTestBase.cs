@@ -29,9 +29,9 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
             sessionService = Substitute.For<ISessionService>();
             referenceDataApi = Substitute.For<IReferenceDataApiClient>();
 
-            referenceDataApi.Search("Test School").Returns(Task.FromResult<IEnumerable<ReferenceDataSearchResult>>(new List<ReferenceDataSearchResult>() { new ReferenceDataSearchResult { Name = "Test Result" } }));             //new Task<IEnumerable<ReferenceDataSearchResult>>());
+            referenceDataApi.Search("Test School").Returns(Task.FromResult<IEnumerable<ReferenceDataSearchResult>>(GetSearchResults()));            
             sessionService.Get(Arg.Any<string>()).Returns(GetCachedSearchResults());
-
+            
 
             Handler = new GetNonDfeOrganisationsHandler(referenceDataApi, sessionService);
         }

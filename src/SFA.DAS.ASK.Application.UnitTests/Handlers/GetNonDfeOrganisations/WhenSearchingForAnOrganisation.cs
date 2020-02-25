@@ -24,6 +24,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
             var result = (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid(), false), default(CancellationToken))).ToList();
 
             result.Count.Should().Be(1);
+            result[0].Name.Should().Be("Test School Search Result");
         }
 
         public async Task ThenAGuidShouldBeAdded()

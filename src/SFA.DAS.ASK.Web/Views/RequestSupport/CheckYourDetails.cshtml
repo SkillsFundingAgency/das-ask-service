@@ -85,7 +85,7 @@ else
                         @Model.Postcode <br/>
                     </dd>
                     <dd class="govuk-summary-list__actions">
-
+                        <a asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId" asp-route-edit="true" class="govuk-link">Change</a>
                     </dd>
                 </div>
             </dl>
