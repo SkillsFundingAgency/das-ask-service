@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.ASK.Application.Utils;
 using SFA.DAS.ASK.Data.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 {
@@ -12,6 +13,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
     public class OrganisationSearchViewModel
     {
         public Guid RequestId { get; set; }
+        [Required]
         public string Search { get; set; }
         public string OrganisationType { get; set; }
         public OrganisationSearchViewModel() { }

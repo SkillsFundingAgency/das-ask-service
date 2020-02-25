@@ -34,8 +34,8 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             var fromCache = false;
-
-            if (string.IsNullOrEmpty(search))
+            
+            if (HttpContext.Request.QueryString.Value.ToLower().Contains("edit"))
             {
                 search = _sessionService.Get($"Searchstring-{requestId}");
                 fromCache = true;

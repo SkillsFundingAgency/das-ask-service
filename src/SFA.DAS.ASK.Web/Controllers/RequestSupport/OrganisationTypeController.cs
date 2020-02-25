@@ -38,7 +38,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 
             if (viewModel.SelectedOrganisationType == OrganisationType.Other && string.IsNullOrWhiteSpace(viewModel.Other))
             {
-                ModelState.AddModelError("organisationType_other_details", "Please enter something for other");
+                ModelState.AddModelError("Other", "Please enter something for other");
                 return View("~/Views/RequestSupport/OrganisationType.cshtml", viewModel);
             }
             

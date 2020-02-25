@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Handlers\GetNonDfeOrganisations\" />
+      <Folder Include="Controllers\OrganisationResultsTests\" />
     </ItemGroup>
 
 </Project>
