@@ -30,6 +30,12 @@ namespace SFA.DAS.ASK.Application.Services.Session
         {
             _httpContextAccessor.HttpContext.Session.SetString(key, JsonConvert.SerializeObject(value));
         }
+
+        public void Remove(string key)
+        {
+            _httpContextAccessor.HttpContext.Session.Remove(key);
+        }
+
         public T Get<T>(string key)
         {
             return JsonConvert.DeserializeObject<T>(_httpContextAccessor.HttpContext.Session.GetString(key));

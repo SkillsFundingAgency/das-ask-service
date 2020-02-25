@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisation;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisationContact;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
+using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Data.Entities;
 
@@ -21,12 +22,14 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
         private readonly AskContext _context;
         private readonly ILogger<SubmitSupportRequestHandler> _logger;
         private readonly IMediator _mediator;
+        private readonly ISessionService _sessionService;
 
-        public SubmitSupportRequestHandler(AskContext context, ILogger<SubmitSupportRequestHandler> logger, IMediator mediator)
+        public SubmitSupportRequestHandler(AskContext context, ILogger<SubmitSupportRequestHandler> logger, IMediator mediator, ISessionService sessionService)
         {
             _context = context;
             _logger = logger;
             _mediator = mediator;
+            _sessionService = sessionService;
         }
         
         public async Task<Unit> Handle(SubmitSupportRequest request, CancellationToken cancellationToken)
@@ -72,6 +75,11 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
             
             await _context.SupportRequests.AddAsync(supportRequest, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+
+            _sessionService.Remove("HasSignIn");
+            _sessionService.Remove("TempSupportRequestId");
+            _sessionService.Remove($"Searchstring-{request.TempSupportRequest.Id}");
+            _sessionService.Remove($"Searchresults-{request.TempSupportRequest.Id}");
             
             // Send email(s).
             
