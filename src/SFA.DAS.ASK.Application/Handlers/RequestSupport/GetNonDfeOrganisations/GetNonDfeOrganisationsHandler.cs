@@ -28,7 +28,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations
 
             if (request.FromCache)
             {
-                return JsonConvert.DeserializeObject<List<ReferenceDataSearchResult>>(_sessionService.Get($"Searchresults-{request.RequestId}"));
+                return _sessionService.Get<List<ReferenceDataSearchResult>>($"Searchresults-{request.RequestId}");
             }
             else
             {

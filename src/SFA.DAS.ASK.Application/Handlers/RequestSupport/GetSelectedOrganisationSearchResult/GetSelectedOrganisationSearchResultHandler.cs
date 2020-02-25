@@ -22,7 +22,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSelectedOrganisatio
 
         public async Task<ReferenceDataSearchResult> Handle(GetSelectedOrganisationSearchResultRequest request, CancellationToken cancellationToken)
         {
-            var cachedResults = JsonConvert.DeserializeObject<List<ReferenceDataSearchResult>>(_sessionService.Get($"Searchresults-{request.RequestId}"));
+            var cachedResults = _sessionService.Get<List<ReferenceDataSearchResult>>($"Searchresults-{request.RequestId}");
 
             return cachedResults.Where(r => r.Id == request.SelectedResult).FirstOrDefault();
         }

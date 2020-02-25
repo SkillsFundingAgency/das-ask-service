@@ -29,7 +29,6 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         }
 
         [HttpGet("organisation-results/{requestId}")]
-        [ImportModelState]
         public async Task<IActionResult> Index(Guid requestId, string search, bool edit)
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
@@ -54,7 +53,6 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         }
 
         [HttpPost("organisation-results/{requestId}")]
-        [ExportModelState]
         public async Task<IActionResult> Index(Guid requestId, OrganisationResultsViewModel viewModel)
         {
             var selectedResult = await _mediator.Send(new GetSelectedOrganisationSearchResultRequest(viewModel.SelectedResult, requestId));

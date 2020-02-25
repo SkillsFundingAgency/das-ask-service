@@ -26,7 +26,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         {
             (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid(), true), default(CancellationToken))).ToList();
 
-            referenceDataApi.DidNotReceive().Search(Arg.Is("Test School"));
+            ReferenceDataApi.DidNotReceive().Search(Arg.Is("Test School"));
         }
 
         [Test]

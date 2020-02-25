@@ -14,31 +14,34 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
     [TestFixture]
     public class GetNonDfeOrganisationsTestBase
     {
-
-
         public GetNonDfeOrganisationsHandler Handler { get; set; }
 
-        public ISessionService sessionService { get; set; }
-        public IReferenceDataApiClient referenceDataApi { get; set; }
+        protected ISessionService SessionService;
+        protected IReferenceDataApiClient ReferenceDataApi;
 
         private Guid requestId = Guid.Parse("63be476e-0593-40c5-9b8d-8f0358a4d195");
 
         [SetUp]
         public void Arrange()
         {           
-            sessionService = Substitute.For<ISessionService>();
-            referenceDataApi = Substitute.For<IReferenceDataApiClient>();
+            SessionService = Substitute.For<ISessionService>();
+            ReferenceDataApi = Substitute.For<IReferenceDataApiClient>();
 
-            referenceDataApi.Search("Test School").Returns(Task.FromResult<IEnumerable<ReferenceDataSearchResult>>(GetSearchResults()));            
-            sessionService.Get(Arg.Any<string>()).Returns(GetCachedSearchResults());
+            ReferenceDataApi.Search("Test School").Returns(Task.FromResult<IEnumerable<ReferenceDataSearchResult>>(GetSearchResults()));            
+            SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
             
 
-            Handler = new GetNonDfeOrganisationsHandler(referenceDataApi, sessionService);
+            Handler = new GetNonDfeOrganisationsHandler(ReferenceDataApi, SessionService);
         }
 
-        private string GetCachedSearchResults()
+        private List<ReferenceDataSearchResult> GetCachedSearchResults()
         {
-            return "[{\"Name\": \"Test School\"}]";
+            return new List<ReferenceDataSearchResult>() {
+                new ReferenceDataSearchResult {
+                    Name = "Test School",
+                    Address = new ReferenceDataAddress { Line1 = "School Road"}
+                }
+            };
         }
 
         private List<ReferenceDataSearchResult> GetSearchResults()

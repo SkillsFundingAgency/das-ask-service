@@ -39,7 +39,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         {
             var result = (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", requestId, false), default(CancellationToken))).ToList();
 
-            sessionService.Received().Set(Arg.Is($"Searchresults-{requestId}"), Arg.Any<string>());
+            SessionService.Received().Set(Arg.Is($"Searchresults-{requestId}"), Arg.Any<string>());
            
         }
 
@@ -48,7 +48,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         {
             var result = (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", requestId, false), default(CancellationToken))).ToList();
 
-            sessionService.Received().Set(Arg.Is<string>($"Searchstring-{requestId}"), Arg.Any<string>());
+            SessionService.Received().Set(Arg.Is<string>($"Searchstring-{requestId}"), Arg.Any<string>());
 
         }
 
