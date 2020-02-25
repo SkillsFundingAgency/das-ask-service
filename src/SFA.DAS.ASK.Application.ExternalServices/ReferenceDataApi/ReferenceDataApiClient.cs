@@ -5,8 +5,9 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using SFA.DAS.ASK.Application.Services.ReferenceData;
 
-namespace SFA.DAS.ASK.Application.Services.ReferenceData
+namespace SFA.DAS.ASK.Application.ExternalServices.ReferenceDataApi
 {
     public class ReferenceDataApiClient : IReferenceDataApiClient
     {

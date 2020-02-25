@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ASK.Data", "SFA.DAS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ASK.Application.UnitTests", "SFA.DAS.ASK.Application.UnitTests\SFA.DAS.ASK.Application.UnitTests.csproj", "{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ASK.Application.ExternalServices", "SFA.DAS.ASK.Application.ExternalServices\SFA.DAS.ASK.Application.ExternalServices.csproj", "{4227660F-B193-476F-A989-1460ACFEC1F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,18 @@ Global
 		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Release|x64.Build.0 = Release|Any CPU
 		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Release|x86.ActiveCfg = Release|Any CPU
 		{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}.Release|x86.Build.0 = Release|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Debug|x64.Build.0 = Debug|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Debug|x86.Build.0 = Debug|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Release|x64.ActiveCfg = Release|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Release|x64.Build.0 = Release|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Release|x86.ActiveCfg = Release|Any CPU
+		{4227660F-B193-476F-A989-1460ACFEC1F7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

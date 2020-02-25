@@ -7,8 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SFA.DAS.ASK.Application.Services.DfeApi;
 
-namespace SFA.DAS.ASK.Application.Services.DfeApi
+namespace SFA.DAS.ASK.Application.ExternalServices.DfeSignInApi
 {
     public class DfeSignInApiClient : IDfeSignInApiClient
     {

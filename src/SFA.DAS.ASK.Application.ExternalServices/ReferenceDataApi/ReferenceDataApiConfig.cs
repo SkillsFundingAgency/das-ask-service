@@ -1,4 +1,4 @@
-namespace SFA.DAS.ASK.Application.Services.ReferenceData
+namespace SFA.DAS.ASK.Application.ExternalServices.ReferenceDataApi
 {
     public class ReferenceDataApiConfig
     {

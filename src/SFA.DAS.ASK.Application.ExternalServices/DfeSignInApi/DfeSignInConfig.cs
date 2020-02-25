@@ -1,4 +1,4 @@
-namespace SFA.DAS.ASK.Application.Services.DfeApi
+namespace SFA.DAS.ASK.Application.ExternalServices.DfeSignInApi
 {
     public class DfeSignInConfig
     {

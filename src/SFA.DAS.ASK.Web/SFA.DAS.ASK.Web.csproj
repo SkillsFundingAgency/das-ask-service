@@ -18,6 +18,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.ASK.Application.ExternalServices\SFA.DAS.ASK.Application.ExternalServices.csproj" />
     <ProjectReference Include="..\SFA.DAS.ASK.Application\SFA.DAS.ASK.Application.csproj" />
     <ProjectReference Include="..\SFA.DAS.Boilerplate\SFA.DAS.Boilerplate.csproj" />
   </ItemGroup>
