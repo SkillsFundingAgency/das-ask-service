@@ -40,19 +40,19 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             
             var dfeOrganisationsCheckResponse = await _mediator.Send(new DfeOrganisationsCheckRequest(dfeSignInId));
             
-            _sessionService.Set("NumberOfOrgs",((int)dfeOrganisationsCheckResponse.DfeOrganisationsStatus).ToString());
+            _sessionService.Set("NumberOfOrgs",((int)dfeOrganisationsCheckResponse.DfeOrganisationCheckResult).ToString());
             
-            switch (dfeOrganisationsCheckResponse.DfeOrganisationsStatus)
+            switch (dfeOrganisationsCheckResponse.DfeOrganisationCheckResult)
             {
-                case DfeOrganisationsStatus.Multiple:
+                case DfeOrganisationCheckResult.Multiple:
                     await _mediator.Send(new AddDfeSignInUserInformationCommand(email, firstname, lastname, startRequestResponse.RequestId, dfeSignInId));
                     return RedirectToAction("Index", "SelectOrganisation", new {requestId = startRequestResponse.RequestId});
                     
-                case DfeOrganisationsStatus.None:
+                case DfeOrganisationCheckResult.None:
                     await _mediator.Send(new AddDfeSignInUserInformationCommand(email, firstname, lastname, startRequestResponse.RequestId, dfeSignInId));
                     return RedirectToAction("Index", "OrganisationSearch", new {requestId = startRequestResponse.RequestId});
                 
-                case DfeOrganisationsStatus.Single:
+                case DfeOrganisationCheckResult.Single:
                     await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, dfeOrganisationsCheckResponse.Id, email, firstname, lastname, startRequestResponse.RequestId, dfeSignInId));
             
                     return RedirectToAction("Index", "CheckYourDetails", new {requestId = startRequestResponse.RequestId});
