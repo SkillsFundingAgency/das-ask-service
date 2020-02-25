@@ -34,7 +34,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         {
             (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid(), true), default(CancellationToken))).ToList();
 
-            sessionService.DidNotReceive().Set(Arg.Any<string>(), Arg.Any<string>());
+            SessionService.DidNotReceive().Set(Arg.Any<string>(), Arg.Any<string>());
         }
     }
 
