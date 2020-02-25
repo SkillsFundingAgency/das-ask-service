@@ -1,20 +1,25 @@
 @model SFA.DAS.ASK.Web.ViewModels.RequestSupport.OrganisationSearchViewModel
 
 @{
-    ViewBag.Title = "Other details";
+    ViewBag.Title = "Organisation search";
 }
+
 <a class="govuk-back-link" asp-action="Index" asp-controller="OrganisationType" asp-route-requestId="@Model.RequestId">Back</a>
 
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl">
-                Search for @Model.OrganisationType
-            </h1>
 
-            <form method="get" asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId">
-                <div class="govuk-form-group">
-                    <input class="govuk-input" asp-for="Search" type="text">
+            <partial name="_ErrorSummary" />
+
+            <form method="post" asp-action="Search" asp-controller="OrganisationSearch" asp-route-requestId="@Model.RequestId" sfa-gds-error-class-for="Search">
+                <h1 class="govuk-heading-xl">
+                    Search for @Model.OrganisationType
+                </h1>
+
+                <div class="govuk-form-group" >
+                    <span id="organisation-search-error" sfa-gds-error-message-for="Search"></span>
+                    <input class="govuk-input" asp-for="Search" type="text" aria-describedby="organisation-search-error">
                 </div>
 
                 <button class="govuk-button" data-module="govuk-button" type="submit">
@@ -23,9 +28,7 @@
                 <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OrganisationSearch" class="das-button--link">Cancel</a>
 
             </form>
-            <partial name="_DifficultiesFooter"/>
+            <partial name="_DifficultiesFooter" />
         </div>
     </div>
-
-     
 </main>

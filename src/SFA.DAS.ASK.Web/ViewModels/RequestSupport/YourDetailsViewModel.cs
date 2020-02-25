@@ -8,7 +8,8 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
     {
         public YourDetailsViewModel() { }
         public Guid RequestId { get; set; }
-        public YourDetailsViewModel(TempSupportRequest supportRequest, Guid requestId)
+        public bool Edit { get; set; }
+        public YourDetailsViewModel(TempSupportRequest supportRequest, Guid requestId, bool edit)
         {
             FirstName = supportRequest.FirstName;
             LastName = supportRequest.LastName;
@@ -17,6 +18,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
             Email = supportRequest.Email;
             ConfirmEmail = supportRequest.Email;
             RequestId = requestId;
+            Edit = edit;
         }
 
         [Required(ErrorMessage = "Enter your first name")]

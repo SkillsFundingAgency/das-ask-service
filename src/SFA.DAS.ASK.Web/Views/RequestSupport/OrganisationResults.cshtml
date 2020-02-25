@@ -1,10 +1,18 @@
 ﻿@model SFA.DAS.ASK.Web.ViewModels.RequestSupport.OrganisationResultsViewModel
 @{
-    ViewData["Title"] = "OrganisationResults";
+    ViewData["Title"] = "Organisation search results";
 
     var resultsCount = Model.Results.Count == 1 ? "1 results found" : Model.Results.Count.ToString() + " results found";
 }
+
+@if (Model.Edit)
+{
+    <a class="govuk-back-link" asp-action="Index" asp-controller="CheckYourDetails" asp-route-requestId="@Model.RequestId" >Back</a>
+}
+else
+{
     <a class="govuk-back-link" asp-action="Index" asp-controller="OrganisationSearch" asp-route-requestId="@Model.RequestId" asp-route-search="@Model.Search">Back</a>
+}
 <main class="govuk-main-wrapper" id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -15,8 +23,6 @@
             <form method="get" asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId">
 
                 <div class="govuk-form-group">
-
-
                     <input class="govuk-input" asp-for="Search" type="text">
                 </div>
 
@@ -24,7 +30,14 @@
                     Search
                 </button>
 
-                <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OrganisationSearch" class="govuk-link das-link--button-aligned">Cancel</a>
+                @if (Model.Edit)
+                {
+                    <a class="govuk-link das-link--button-aligned" asp-action="Index" asp-controller="CheckYourDetails" asp-route-requestId="@Model.RequestId">Cancel</a>
+                }
+                else
+                {
+                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OrganisationSearch" class="govuk-link das-link--button-aligned">Cancel</a>
+                }
 
             </form>
 
@@ -37,24 +50,30 @@
 
                 @foreach (var result in Model.Results)
                 {
-                   
 
-                        <a class="govuk-heading-m govuk-link" asp-controller="OrganisationResults" asp-action="Select" asp-route-requestId="@Model.RequestId" asp-route-selectedSchool="@result.Id"> @result.Name</a>
+                    
+                    @*<a class="govuk-heading-m govuk-link" asp-controller="OrganisationResults" asp-action="Select" asp-route-requestId="@Model.RequestId" asp-route-selectedSchool="@result.Id"> @result.Name</a>
+                    <p> @result.GetAddressString(result.Address)</p>
+
+                    <hr />*@
+
+                    <form method="post" asp-controller="OrganisationResults" asp-action="Index">
+                         <input type="hidden" asp-for="SelectedResult" value="@result.Id" />
+                        
+                         <span>
+                             @if (result.Code == Model.SelectedReferenceId)
+                             {
+                                 <strong class="govuk-tag">
+                                     Selected
+                                 </strong>
+                             }
+                             <button class="das-button--link" type="submit"> @result.Name</button>
+                         </span>
+                       
                         <p> @result.GetAddressString(result.Address)</p>
 
                         <hr />
-
-                    @*<form method="get" asp-controller="OrganisationResults" asp-action="Index">
-
-                        <input type="hidden" asp-for="SelectedResult" value="@result.Id" />
-
-                        <button class="govuk-heading-m govuk-link" type="submit"> @result.Name</button>
-
-                        <p> @result.GetAddressString(result.Address)</p>
-
-                        <hr />
-
-                    </form>*@
+                    </form>
                 }
             }
         </div>

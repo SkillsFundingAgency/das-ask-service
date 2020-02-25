@@ -25,6 +25,29 @@ else
     <a asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId" class="govuk-back-link">Back</a>
 }
 
+@{ 
+    string changeAddressAction;
+    string changeAddressController;
+} 
+@if (Model.SupportRequestType == SupportRequestType.Manual)
+{
+    changeAddressAction = "Index";
+    changeAddressController = "OrganisationResults";
+}
+else
+{
+    if (Model.NumberOfOrgs == DfeOrganisationCheckResult.Multiple)
+    {
+        changeAddressAction = "Index";
+        changeAddressController = "SelectOrganisation";
+    }
+    else
+    {
+        changeAddressAction = "";
+        changeAddressController = "";
+    }
+}
+
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -40,9 +63,7 @@ else
                         @Model.Name
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        @* <a class="govuk-link" href="#"> *@
-                        @*     Change<span class="govuk-visually-hidden"> name</span> *@
-                        @* </a> *@
+                        <a asp-action="Index" asp-controller="YourDetails" asp-route-requestId="@Model.RequestId" asp-route-edit="true" class="govuk-link">Change</a>
                     </dd>
                 </div>
 
@@ -55,9 +76,7 @@ else
                         @Model.Email <br/>
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        @* <a class="govuk-link" href="#"> *@
-                        @*     Change<span class="govuk-visually-hidden"> contact details</span> *@
-                        @* </a> *@
+                        <a asp-action="Index" asp-controller="YourDetails" asp-route-requestId="@Model.RequestId" asp-route-edit="true" class="govuk-link">Change</a>
                     </dd>
                 </div>
             </dl>
@@ -74,9 +93,10 @@ else
                         </strong>
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        @* <a class="govuk-link" href="#"> *@
-                        @*     Change<span class="govuk-visually-hidden"> organisation name</span> *@
-                        @* </a> *@
+                        @if (Model.SupportRequestType == SupportRequestType.Manual || Model.NumberOfOrgs == DfeOrganisationCheckResult.Multiple)
+                        {
+                            <a asp-action="@changeAddressAction" asp-controller="@changeAddressController" asp-route-requestId="@Model.RequestId" asp-route-edit="true" class="govuk-link">Change</a>
+                        }
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row">
@@ -91,7 +111,10 @@ else
                         @Model.Postcode <br/>
                     </dd>
                     <dd class="govuk-summary-list__actions">
-
+                        @if (Model.SupportRequestType == SupportRequestType.Manual || Model.NumberOfOrgs == DfeOrganisationCheckResult.Multiple)
+                        {
+                            <a asp-action="@changeAddressAction" asp-controller="@changeAddressController" asp-route-requestId="@Model.RequestId" asp-route-edit="true" class="govuk-link">Change</a>
+                        }
                     </dd>
                 </div>
             </dl>
