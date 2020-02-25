@@ -22,8 +22,4 @@
       <ProjectReference Include="..\SFA.DAS.ASK.Web\SFA.DAS.ASK.Web.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Controllers\OrganisationResultsTests\" />
-    </ItemGroup>
-
 </Project>

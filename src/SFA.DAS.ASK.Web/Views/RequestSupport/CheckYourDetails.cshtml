@@ -7,11 +7,11 @@
 }
 @if (Model.SupportRequestType == SupportRequestType.DfeSignIn)
 {
-    if (Model.NumberOfOrgs == DfeOrganisationsStatus.Single)
+    if (Model.NumberOfOrgs == DfeOrganisationCheckResult.Single)
     {
         <a asp-action="Index" asp-controller="HasSignIn" class="govuk-back-link">Back</a>
     }
-    else if (Model.NumberOfOrgs == DfeOrganisationsStatus.None)
+    else if (Model.NumberOfOrgs == DfeOrganisationCheckResult.None)
     {
         <a asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId" class="govuk-back-link">Back</a>
     }

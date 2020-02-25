@@ -5,6 +5,7 @@ namespace SFA.DAS.ASK.Data
 {
     public class AskContext : DbContext
     {
+        public AskContext() { }
         public AskContext(DbContextOptions<AskContext> dbContextOptions) : base(dbContextOptions) {}
         
         public DbSet<SupportRequest> SupportRequests { get; set; }

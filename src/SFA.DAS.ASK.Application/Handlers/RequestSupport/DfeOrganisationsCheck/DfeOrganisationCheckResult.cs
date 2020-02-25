@@ -1,6 +1,6 @@
 namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.DfeOrganisationsCheck
 {
-    public enum DfeOrganisationsStatus
+    public enum DfeOrganisationCheckResult
     {
         Multiple,
         None,

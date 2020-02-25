@@ -3,8 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.ASK.Application.Services.DfeApi;
-using SFA.DAS.ASK.Data;
-using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.DfeOrganisationsCheck
 {
@@ -24,7 +22,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.DfeOrganisationsCheck
             {
                 return new DfeOrganisationsCheckResponse()
                 {
-                    DfeOrganisationsStatus = DfeOrganisationsStatus.None
+                    DfeOrganisationCheckResult = DfeOrganisationCheckResult.None
                 };
             }
 
@@ -32,13 +30,13 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.DfeOrganisationsCheck
             {
                 return new DfeOrganisationsCheckResponse()
                 {
-                    DfeOrganisationsStatus = DfeOrganisationsStatus.Multiple
+                    DfeOrganisationCheckResult = DfeOrganisationCheckResult.Multiple
                 };
             }
 
             return new DfeOrganisationsCheckResponse()
             {
-                DfeOrganisationsStatus = DfeOrganisationsStatus.Single,
+                DfeOrganisationCheckResult = DfeOrganisationCheckResult.Single,
                 Id = dfeOrganisations.Single().Id
             };
         }

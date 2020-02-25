@@ -24,7 +24,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
             SupportRequestType = tempSupportRequest.SupportRequestType;
             if (numberOfOrgs != null)
             {
-                NumberOfOrgs = (DfeOrganisationsStatus) int.Parse(numberOfOrgs);
+                NumberOfOrgs = (DfeOrganisationCheckResult) int.Parse(numberOfOrgs);
             }
         }
 
@@ -41,6 +41,6 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         public string County { get; set; }
         public string Postcode { get; set; }
         public SupportRequestType SupportRequestType { get; set; }
-        public DfeOrganisationsStatus NumberOfOrgs { get; set; }
+        public DfeOrganisationCheckResult NumberOfOrgs { get; set; }
     }
 }

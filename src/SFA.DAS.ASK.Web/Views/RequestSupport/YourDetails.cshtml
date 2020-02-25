@@ -71,7 +71,7 @@ else
                 @if (!Model.Edit)
                 {
                     <button id="continueButton" class="govuk-button" type="submit">Continue</button>
-                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OtherDetails" class="das-button--link">Cancel</a>
+                    <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="YourDetails" class="das-button--link">Cancel</a>
                 }
                 else
                 {
