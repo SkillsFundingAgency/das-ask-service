@@ -27,7 +27,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformatio
         {
             var dfeOrganisations = await _dfeClient.GetOrganisations(command.DfeSignInId);
 
-            var dfeOrganisation = dfeOrganisations.Single(o => o.Id == command.Id);
+            var dfeOrganisation = dfeOrganisations.Single(o => o.Id == command.DfeOrganisationId);
 
             var tempSupportRequest = _context.TempSupportRequests.Single(tsr => tsr.Id == command.RequestId);
 
@@ -60,6 +60,10 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformatio
         
         private string GetAddressLine(int position)
         {
+            if (_dfeOrganisationAddress.Length <= position + 1)
+            {
+                return "";
+            }
             return _dfeOrganisationAddress.Length > position ? _dfeOrganisationAddress[position].Trim() : "";
         }
     }
