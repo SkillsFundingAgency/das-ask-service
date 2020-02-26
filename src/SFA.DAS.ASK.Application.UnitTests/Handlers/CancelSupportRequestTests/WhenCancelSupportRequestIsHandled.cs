@@ -4,8 +4,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
+using NSubstitute;
 using NUnit.Framework;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.CancelSupportRequest;
+using SFA.DAS.ASK.Application.Services.Session;
+using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Application.UnitTests.Handlers.CancelSupportRequestTests
@@ -13,30 +16,54 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.CancelSupportRequestTests
     [TestFixture]
     public class WhenCancelSupportRequestIsHandled
     {
-        [Test]
-        public async Task ThenCorrectSupportRequestIsCancelled()
+        private AskContext _dbContext;
+        private Guid _cancelledTempSupportRequestId;
+        private ISessionService _sessionService;
+
+        [SetUp]
+        public async Task SetUp()
         {
-            var dbContext = ContextHelper.GetInMemoryContext();
-            var cancelledTempSupportRequestId = Guid.NewGuid();
-            await dbContext.TempSupportRequests.AddRangeAsync(new List<TempSupportRequest>()
+            _dbContext = ContextHelper.GetInMemoryContext();
+            _cancelledTempSupportRequestId = Guid.NewGuid();
+            await _dbContext.TempSupportRequests.AddRangeAsync(new List<TempSupportRequest>
             {
-                new TempSupportRequest(){Id = Guid.NewGuid(), Status = TempSupportRequestStatus.Active},
-                new TempSupportRequest(){Id = Guid.NewGuid(), Status = TempSupportRequestStatus.Active},
-                new TempSupportRequest(){Id = Guid.NewGuid(), Status = TempSupportRequestStatus.Active},
-                new TempSupportRequest(){Id = cancelledTempSupportRequestId, Status = TempSupportRequestStatus.Active},
-                new TempSupportRequest(){Id = Guid.NewGuid(), Status = TempSupportRequestStatus.Active},
+                new TempSupportRequest{Id = Guid.NewGuid(), Status = TempSupportRequestStatus.Active},
+                new TempSupportRequest{Id = Guid.NewGuid(), Status = TempSupportRequestStatus.Active},
+                new TempSupportRequest{Id = Guid.NewGuid(), Status = TempSupportRequestStatus.Active},
+                new TempSupportRequest{Id = _cancelledTempSupportRequestId, Status = TempSupportRequestStatus.Active},
+                new TempSupportRequest{Id = Guid.NewGuid(), Status = TempSupportRequestStatus.Active},
             });
-            await dbContext.SaveChangesAsync();
-            
-            var handler = new CancelSupportRequestHandler(dbContext);
+            await _dbContext.SaveChangesAsync();
 
-            await handler.Handle(new CancelSupportRequestCommand(cancelledTempSupportRequestId, ""), CancellationToken.None);
-
-            dbContext.TempSupportRequests.Count(tsr => tsr.Status == TempSupportRequestStatus.Active).Should().Be(4);
-            dbContext.TempSupportRequests.Count(tsr => tsr.Status == TempSupportRequestStatus.Cancelled).Should().Be(1);
-            var cancelledTempSupportRequest = dbContext.TempSupportRequests.Single(tsr => tsr.Status == TempSupportRequestStatus.Cancelled);
+            _sessionService = Substitute.For<ISessionService>();
             
-            cancelledTempSupportRequest.Id.Should().Be(cancelledTempSupportRequestId);
+            var handler = new CancelSupportRequestHandler(_dbContext, _sessionService);
+
+            await handler.Handle(new CancelSupportRequestCommand(_cancelledTempSupportRequestId, ""), CancellationToken.None);
+        }
+        
+        [Test]
+        public void ThenCorrectSupportRequestIsCancelled()
+        {
+            _dbContext.TempSupportRequests.Count(tsr => tsr.Status == TempSupportRequestStatus.Active).Should().Be(4);
+            _dbContext.TempSupportRequests.Count(tsr => tsr.Status == TempSupportRequestStatus.Cancelled).Should().Be(1);
+            var cancelledTempSupportRequest = _dbContext.TempSupportRequests.Single(tsr => tsr.Status == TempSupportRequestStatus.Cancelled);
+            
+            cancelledTempSupportRequest.Id.Should().Be(_cancelledTempSupportRequestId);
+        }
+
+        [Test]
+        public void ThenSessionIsClearedOut()
+        {
+            // _sessionService.Remove("HasSignIn");
+            // _sessionService.Remove("TempSupportRequestId");
+            // _sessionService.Remove($"Searchstring-{request.TempSupportRequest.Id}");
+            // _sessionService.Remove($"Searchresults-{request.TempSupportRequest.Id}")
+            
+            _sessionService.Received().Remove("HasSignIn");
+            _sessionService.Received().Remove("TempSupportRequestId");
+            _sessionService.Received().Remove($"Searchstring-{_cancelledTempSupportRequestId}");
+            _sessionService.Received().Remove($"Searchresults-{_cancelledTempSupportRequestId}");
         }
     }
 }

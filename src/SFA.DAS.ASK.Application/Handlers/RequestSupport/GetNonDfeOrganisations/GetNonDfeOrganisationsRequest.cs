@@ -10,10 +10,14 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations
     public class GetNonDfeOrganisationsRequest : IRequest<IEnumerable<ReferenceDataSearchResult>>
     {
         public string SearchTerm { get; set; }
+        public Guid RequestId { get; set; }
+        public bool FromCache { get; set; }
 
-        public GetNonDfeOrganisationsRequest(string search)
+        public GetNonDfeOrganisationsRequest(string search, Guid requestId, bool fromCache)
         {
             SearchTerm = search;
+            RequestId = requestId;
+            FromCache = fromCache;
         }
 
     }

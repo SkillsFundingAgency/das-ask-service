@@ -12,6 +12,7 @@ using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisation;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisationContact;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest;
+using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Data.Entities;
 
@@ -70,7 +71,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.SubmitSupportRequestTests
             mediator.Send(Arg.Any<GetOrCreateOrganisationRequest>()).Returns(new Organisation(){Id = Guid.NewGuid()});
             mediator.Send(Arg.Any<GetOrCreateOrganisationContactRequest>()).Returns(new OrganisationContact{Id = Guid.NewGuid()});
             
-            var handler = new SubmitSupportRequestHandler(_context, Substitute.For<ILogger<SubmitSupportRequestHandler>>(), mediator);
+            var handler = new SubmitSupportRequestHandler(_context, Substitute.For<ILogger<SubmitSupportRequestHandler>>(), mediator, Substitute.For<ISessionService>());
             await handler.Handle(new SubmitSupportRequest(new TempSupportRequest() {Id = tempSupportRequestId}, "dave@email.com"), CancellationToken.None);
         }
         
