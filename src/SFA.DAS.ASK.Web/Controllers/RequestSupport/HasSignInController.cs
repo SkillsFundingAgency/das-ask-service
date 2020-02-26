@@ -44,17 +44,18 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                 return RedirectToAction("Index");
             }
             
+            _sessionService.Set("HasSignIn", viewModel.HasSignInAccount.GetValueOrDefault().ToString());
+            
             if (viewModel.HasSignInAccount.GetValueOrDefault())
             {
                 return RedirectToAction("SignIn", "RequestSupportSignIn");
             }
 
             var cachedRequestIdString = _sessionService.Get("TempSupportRequestId");
-            var requestId = cachedRequestIdString == null 
-                ? (await  _mediator.Send(new StartTempSupportRequestCommand(SupportRequestType.Manual))).RequestId 
+            var requestId = cachedRequestIdString == null
+                ? (await _mediator.Send(new StartTempSupportRequestCommand(SupportRequestType.Manual))).RequestId
                 : Guid.Parse(cachedRequestIdString);
 
-            _sessionService.Set("HasSignIn", viewModel.HasSignInAccount.GetValueOrDefault().ToString());
             _sessionService.Set("TempSupportRequestId", requestId.ToString());
             
             return RedirectToAction("Index", "YourDetails", new {requestId = requestId});
