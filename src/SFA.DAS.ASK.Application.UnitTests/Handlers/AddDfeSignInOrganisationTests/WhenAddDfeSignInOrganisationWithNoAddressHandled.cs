@@ -10,15 +10,15 @@ using SFA.DAS.ASK.Application.Services.DfeApi;
 
 namespace SFA.DAS.ASK.Application.UnitTests.Handlers.AddDfeSignInOrganisationTests
 {
-    public class WhenAddDfeSignInOrganisationHandled : AddDfeSignInOrganisationTestBase
+    public class WhenAddDfeSignInOrganisationWithNoAddressHandled : AddDfeSignInOrganisationTestBase
     {
         [Test]
-        public async Task ThenTheTempSupportRequestIsUpdated()
+        public async Task ThenTheTempSupportRequestAddressFieldsAreUpdated()
         {
             DfeSignInApiClient.GetOrganisations(DfeSignInId).Returns(new List<DfeOrganisation>{new DfeOrganisation
             {
                 Id = SelectedOrganisationId,
-                Address = "School Road, Village, Town, Staffs, WS12 4YQ",
+                Address = null,
                 Telephone = "029292929",
                 Name = "Org1",
                 Urn = "121212"
@@ -28,15 +28,11 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.AddDfeSignInOrganisationTes
 
             var updatedTempSupportRequest = await DbContext.TempSupportRequests.SingleAsync(tsr => tsr.Id == TempSupportRequestId);
 
-            updatedTempSupportRequest.BuildingAndStreet1.Should().Be("School Road");
-            updatedTempSupportRequest.BuildingAndStreet2.Should().Be("Village");
-            updatedTempSupportRequest.TownOrCity.Should().Be("Town");
-            updatedTempSupportRequest.County.Should().Be("Staffs");
-            updatedTempSupportRequest.Postcode.Should().Be("WS12 4YQ");
-            updatedTempSupportRequest.PhoneNumber.Should().Be("029292929");
-            updatedTempSupportRequest.OrganisationName.Should().Be("Org1");
-            updatedTempSupportRequest.ReferenceId.Should().Be("121212");
-            updatedTempSupportRequest.SelectedDfeSignInOrganisationId.Should().Be(SelectedOrganisationId);
+            updatedTempSupportRequest.BuildingAndStreet1.Should().Be("");
+            updatedTempSupportRequest.BuildingAndStreet2.Should().Be("");
+            updatedTempSupportRequest.TownOrCity.Should().Be("");
+            updatedTempSupportRequest.County.Should().Be("");
+            updatedTempSupportRequest.Postcode.Should().Be("");
         }
     }
 }
