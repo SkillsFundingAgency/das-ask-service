@@ -44,7 +44,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.AddDfeSignInInformationTest
         {
             _dfeSignInApiClient.GetOrganisations(Arg.Any<Guid>()).Returns(new List<DfeOrganisation>(){new DfeOrganisation(){Address = "34 Meadow Way, WS12 4RT", Id = _dfeOrganisationId}});
             
-            await _handler.Handle(new AddDfESignInInformationCommand(Guid.NewGuid(), _dfeOrganisationId, "email", "firstname", "lastname", _requestId, Guid.NewGuid()), CancellationToken.None);
+            await _handler.Handle(new AddDfESignInInformationCommand(Guid.NewGuid(), _dfeOrganisationId, "email", "firstname", "lastname", _requestId), CancellationToken.None);
 
             var savedTempSupportRequest = await _dbContext.TempSupportRequests.SingleAsync();
             savedTempSupportRequest.BuildingAndStreet1.Should().Be("34 Meadow Way");
@@ -58,7 +58,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.AddDfeSignInInformationTest
         {
             _dfeSignInApiClient.GetOrganisations(Arg.Any<Guid>()).Returns(new List<DfeOrganisation>(){new DfeOrganisation(){Address = "34 Meadow Way, Heath Hayes, Cannock, Staffs, WS12 4RT", Id = _dfeOrganisationId}});
             
-            await _handler.Handle(new AddDfESignInInformationCommand(Guid.NewGuid(), _dfeOrganisationId, "email", "firstname", "lastname", _requestId, Guid.NewGuid()), CancellationToken.None);
+            await _handler.Handle(new AddDfESignInInformationCommand(Guid.NewGuid(), _dfeOrganisationId, "email", "firstname", "lastname", _requestId), CancellationToken.None);
 
             var savedTempSupportRequest = await _dbContext.TempSupportRequests.SingleAsync();
             savedTempSupportRequest.BuildingAndStreet1.Should().Be("34 Meadow Way");
@@ -72,7 +72,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.AddDfeSignInInformationTest
         {
             _dfeSignInApiClient.GetOrganisations(Arg.Any<Guid>()).Returns(new List<DfeOrganisation>(){new DfeOrganisation(){Address = "34 Meadow Way, Heath Hayes, Another field, Cannock, Staffs, WS12 4RT", Id = _dfeOrganisationId}});
             
-            await _handler.Handle(new AddDfESignInInformationCommand(Guid.NewGuid(), _dfeOrganisationId, "email", "firstname", "lastname", _requestId, Guid.NewGuid()), CancellationToken.None);
+            await _handler.Handle(new AddDfESignInInformationCommand(Guid.NewGuid(), _dfeOrganisationId, "email", "firstname", "lastname", _requestId), CancellationToken.None);
 
             var savedTempSupportRequest = await _dbContext.TempSupportRequests.SingleAsync();
             savedTempSupportRequest.BuildingAndStreet1.Should().Be("34 Meadow Way");

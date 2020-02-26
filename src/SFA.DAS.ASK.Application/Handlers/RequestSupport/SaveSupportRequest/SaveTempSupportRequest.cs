@@ -5,11 +5,5 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SaveSupportRequest
 {
     public class SaveTempSupportRequest : IRequest
     {
-        public TempSupportRequest TempSupportRequest { get; }
-
-        public SaveTempSupportRequest(TempSupportRequest tempSupportRequest)
-        {
-            TempSupportRequest = tempSupportRequest;
-        }
     }
 }

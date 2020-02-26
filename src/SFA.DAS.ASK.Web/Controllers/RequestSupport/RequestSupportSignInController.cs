@@ -53,7 +53,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                     return RedirectToAction("Index", "OrganisationSearch", new {requestId = startRequestResponse.RequestId});
                 
                 case DfeOrganisationCheckResult.Single:
-                    await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, dfeOrganisationsCheckResponse.Id, email, firstname, lastname, startRequestResponse.RequestId, dfeSignInId));
+                    await _mediator.Send(new AddDfESignInInformationCommand(dfeSignInId, dfeOrganisationsCheckResponse.Id, email, firstname, lastname, startRequestResponse.RequestId));
             
                     return RedirectToAction("Index", "CheckYourDetails", new {requestId = startRequestResponse.RequestId});
                     

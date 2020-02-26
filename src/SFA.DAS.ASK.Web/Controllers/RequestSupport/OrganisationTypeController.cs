@@ -44,7 +44,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             
-            await _mediator.Send(new SaveTempSupportRequest(viewModel.ToSupportRequest(supportRequest)));
+            await _mediator.Send(new SaveTempSupportRequest());
            
             return RedirectToAction("Index", "OrganisationSearch", new {requestId = requestId});
         }

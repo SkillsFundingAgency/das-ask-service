@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
+using FluentAssertions.Common;
 using NSubstitute;
 using NUnit.Framework;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.CancelSupportRequest;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Data.Entities;
+using SFA.DAS.ASK.Web.ViewModels.RequestSupport;
 
 namespace SFA.DAS.ASK.Application.UnitTests.Handlers.CancelSupportRequestTests
 {
@@ -39,7 +42,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.CancelSupportRequestTests
             
             var handler = new CancelSupportRequestHandler(_dbContext, _sessionService);
 
-            await handler.Handle(new CancelSupportRequestCommand(_cancelledTempSupportRequestId, ""), CancellationToken.None);
+            await handler.Handle(new CancelSupportRequestCommand(_cancelledTempSupportRequestId), CancellationToken.None);
         }
         
         [Test]
@@ -55,11 +58,6 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.CancelSupportRequestTests
         [Test]
         public void ThenSessionIsClearedOut()
         {
-            // _sessionService.Remove("HasSignIn");
-            // _sessionService.Remove("TempSupportRequestId");
-            // _sessionService.Remove($"Searchstring-{request.TempSupportRequest.Id}");
-            // _sessionService.Remove($"Searchresults-{request.TempSupportRequest.Id}")
-            
             _sessionService.Received().Remove("HasSignIn");
             _sessionService.Received().Remove("TempSupportRequestId");
             _sessionService.Received().Remove($"Searchstring-{_cancelledTempSupportRequestId}");

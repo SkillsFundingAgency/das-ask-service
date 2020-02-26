@@ -4,7 +4,6 @@ using NSubstitute;
 using NUnit.Framework;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SaveSupportRequest;
 using SFA.DAS.ASK.Data;
-using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Application.UnitTests.Handlers.SaveTempSupportTests
 {
@@ -17,7 +16,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.SaveTempSupportTests
             var context = Substitute.For<AskContext>();
 
             var handler = new SaveTempSupportHandler(context);
-            await handler.Handle(new SaveTempSupportRequest(new TempSupportRequest()), CancellationToken.None);
+            await handler.Handle(new SaveTempSupportRequest(), CancellationToken.None);
             await context.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
         }
     }

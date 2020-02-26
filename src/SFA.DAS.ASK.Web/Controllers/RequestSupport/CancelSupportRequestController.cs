@@ -42,8 +42,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
                 return RedirectToAction(vm.ReturnAction, vm.ReturnController, new {requestId = requestId});
             }
 
-            var email = User.FindFirst("email").Value;
-            await _mediator.Send(new CancelSupportRequestCommand(requestId, email));
+            await _mediator.Send(new CancelSupportRequestCommand(requestId));
             return RedirectToAction("Index", "Home");
 
         }
