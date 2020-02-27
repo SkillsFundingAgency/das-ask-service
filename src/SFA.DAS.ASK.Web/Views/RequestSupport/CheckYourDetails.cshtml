@@ -25,29 +25,6 @@ else
     <a asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId" asp-route-search="@Model.SearchTerm" class="govuk-back-link">Back</a>
 }
 
-@{ 
-    string changeAddressAction;
-    string changeAddressController;
-} 
-@if (Model.SupportRequestType == SupportRequestType.Manual)
-{
-    changeAddressAction = "Index";
-    changeAddressController = "OrganisationResults";
-}
-else
-{
-    if (Model.NumberOfOrgs == DfeOrganisationCheckResult.Multiple)
-    {
-        changeAddressAction = "Index";
-        changeAddressController = "SelectOrganisation";
-    }
-    else
-    {
-        changeAddressAction = "";
-        changeAddressController = "";
-    }
-}
-
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -93,9 +70,13 @@ else
                         </strong>
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        @if (Model.SupportRequestType == SupportRequestType.Manual || Model.NumberOfOrgs == DfeOrganisationCheckResult.Multiple)
+                        @if (Model.SupportRequestType == SupportRequestType.Manual)
                         {
-                            <a asp-action="@changeAddressAction" asp-controller="@changeAddressController" asp-route-requestId="@Model.RequestId" asp-route-search="@Model.SearchTerm" asp-route-edit="true" class="govuk-link">Change</a>
+                            <a asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId" asp-route-search="@Model.SearchTerm" asp-route-edit="true" class="govuk-link">Change</a>
+                        }
+                        else if (Model.NumberOfOrgs == DfeOrganisationCheckResult.Multiple)
+                        {
+                            <a asp-action="Index" asp-controller="SelectOrganisation" asp-route-requestId="@Model.RequestId" asp-route-edit="true" class="govuk-link">Change</a>
                         }
                     </dd>
                 </div>
@@ -111,9 +92,13 @@ else
                         @Model.Postcode <br/>
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        @if (Model.SupportRequestType == SupportRequestType.Manual || Model.NumberOfOrgs == DfeOrganisationCheckResult.Multiple)
+                        @if (Model.SupportRequestType == SupportRequestType.Manual)
                         {
-                            <a asp-action="@changeAddressAction" asp-controller="@changeAddressController" asp-route-requestId="@Model.RequestId" asp-route-search="@Model.SearchTerm" asp-route-edit="true" class="govuk-link">Change</a>
+                            <a asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId" asp-route-search="@Model.SearchTerm" asp-route-edit="true" class="govuk-link">Change</a>
+                        }
+                        else if (Model.NumberOfOrgs == DfeOrganisationCheckResult.Multiple)
+                        {
+                            <a asp-action="Index" asp-controller="SelectOrganisation" asp-route-requestId="@Model.RequestId" asp-route-edit="true" class="govuk-link">Change</a>
                         }
                     </dd>
                 </div>
