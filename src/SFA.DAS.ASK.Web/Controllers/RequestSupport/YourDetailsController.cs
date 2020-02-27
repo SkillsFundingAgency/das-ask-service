@@ -37,7 +37,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index", new {requestId});
+                return RedirectToAction("Index", "YourDetails", new {requestId});
             }
 
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
