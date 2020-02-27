@@ -1,6 +1,6 @@
+using SFA.DAS.ASK.Data.Entities;
 using System;
 using System.ComponentModel.DataAnnotations;
-using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 {
@@ -21,7 +21,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         
         public string Other { get; set; }
 
-        public TempSupportRequest ToSupportRequest(TempSupportRequest supportRequest)
+        public TempSupportRequest UpdateTempSupportRequest(TempSupportRequest supportRequest)
         {
             supportRequest.OrganisationType = SelectedOrganisationType;
             supportRequest.OtherOrganisationType = Other;
