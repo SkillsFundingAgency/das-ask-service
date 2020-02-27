@@ -42,6 +42,8 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
 
+            viewModel.UpdateTempSupportRequest(supportRequest);
+            
             await _mediator.Send(new SaveTempSupportRequest());
             
             if (viewModel.Edit == true)
