@@ -60,11 +60,12 @@
                         Address
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.BuildingAndStreet1 <br/>
-                        @Model.BuildingAndStreet2 <br/>
-                        @Model.TownOrCity <br/>
-                        @Model.County <br/>
-                        @Model.Postcode <br/>
+                        @Html.PartialAsync("_addressLine", Model.BuildingAndStreet1).Result
+                        @Html.PartialAsync("_addressLine", Model.BuildingAndStreet2).Result
+                        @Html.PartialAsync("_addressLine", Model.TownOrCity).Result
+                        @Html.PartialAsync("_addressLine", Model.County).Result
+                        @Html.PartialAsync("_addressLine", Model.Postcode).Result
+                       
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId" asp-route-search="@Model.SearchTerm" asp-route-edit="true" class="govuk-link">Change</a>
