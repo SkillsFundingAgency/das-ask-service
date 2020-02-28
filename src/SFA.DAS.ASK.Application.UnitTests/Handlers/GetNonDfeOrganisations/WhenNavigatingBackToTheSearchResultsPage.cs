@@ -19,7 +19,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         {
             SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
 
-            var result = (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
+            var result = (await Handler.Handle(new GetOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
 
             result[0].Name.Should().Be("Test School");
         }
@@ -29,7 +29,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         {
             SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
 
-            (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
+            (await Handler.Handle(new GetOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
 
             ReferenceDataApi.DidNotReceive().Search(Arg.Is("Test School"));
         }
@@ -39,7 +39,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         {
             SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
 
-            (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
+            (await Handler.Handle(new GetOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
 
             SessionService.DidNotReceive().Set(Arg.Any<string>(), Arg.Any<string>());
         }

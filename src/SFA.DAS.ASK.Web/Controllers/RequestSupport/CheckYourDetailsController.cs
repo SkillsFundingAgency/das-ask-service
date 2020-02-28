@@ -28,7 +28,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         public async Task<IActionResult> Index(Guid requestId)
         {
             var tempSupportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
-            var numberOfOrgs = _sessionService.Get("NumberOfOrgs");
+
             var searchTerms = _sessionService.Get($"Searchstring-{requestId}");
 
             var vm = new CheckYourDetailsViewModel(tempSupportRequest, searchTerms);

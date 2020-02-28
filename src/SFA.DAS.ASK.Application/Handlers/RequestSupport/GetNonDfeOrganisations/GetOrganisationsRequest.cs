@@ -7,12 +7,12 @@ using SFA.DAS.ASK.Application.Services.ReferenceData;
 
 namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations
 {
-    public class GetNonDfeOrganisationsRequest : IRequest<IEnumerable<ReferenceDataSearchResult>>
+    public class GetOrganisationsRequest : IRequest<IEnumerable<ReferenceDataSearchResult>>
     {
         public string SearchTerm { get; set; }
         public Guid RequestId { get; set; }
 
-        public GetNonDfeOrganisationsRequest(string search, Guid requestId)
+        public GetOrganisationsRequest(string search, Guid requestId)
         {
             SearchTerm = search;
             RequestId = requestId;

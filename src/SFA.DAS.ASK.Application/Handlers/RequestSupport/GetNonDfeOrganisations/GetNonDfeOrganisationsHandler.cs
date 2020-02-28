@@ -11,18 +11,18 @@ using SFA.DAS.ASK.Application.Services.Session;
 
 namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations
 {
-    public class GetNonDfeOrganisationsHandler : IRequestHandler<GetNonDfeOrganisationsRequest, IEnumerable<ReferenceDataSearchResult>>
+    public class GetOrganisationsHandler : IRequestHandler<GetOrganisationsRequest, IEnumerable<ReferenceDataSearchResult>>
     {
         private readonly IReferenceDataApiClient _referenceDataApiClient;
         private readonly ISessionService _sessionService;
 
-        public GetNonDfeOrganisationsHandler(IReferenceDataApiClient referenceDataApiClient, ISessionService sessionService)
+        public GetOrganisationsHandler(IReferenceDataApiClient referenceDataApiClient, ISessionService sessionService)
         {
             _referenceDataApiClient = referenceDataApiClient;
             _sessionService = sessionService;
         }
 
-        public async Task<IEnumerable<ReferenceDataSearchResult>> Handle(GetNonDfeOrganisationsRequest request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ReferenceDataSearchResult>> Handle(GetOrganisationsRequest request, CancellationToken cancellationToken)
         {
             List<ReferenceDataSearchResult> results = _sessionService.Get<List<ReferenceDataSearchResult>>($"Searchresults-{request.RequestId}");
             

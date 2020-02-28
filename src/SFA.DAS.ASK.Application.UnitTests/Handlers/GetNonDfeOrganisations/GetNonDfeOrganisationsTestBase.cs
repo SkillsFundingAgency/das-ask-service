@@ -14,7 +14,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
     [TestFixture]
     public class GetNonDfeOrganisationsTestBase
     {
-        public GetNonDfeOrganisationsHandler Handler { get; set; }
+        public GetOrganisationsHandler Handler { get; set; }
 
         protected ISessionService SessionService;
         protected IReferenceDataApiClient ReferenceDataApi;
@@ -29,7 +29,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
 
             ReferenceDataApi.Search("Test School").Returns(Task.FromResult<IEnumerable<ReferenceDataSearchResult>>(GetSearchResults()));            
             
-            Handler = new GetNonDfeOrganisationsHandler(ReferenceDataApi, SessionService);
+            Handler = new GetOrganisationsHandler(ReferenceDataApi, SessionService);
         }
 
         public List<ReferenceDataSearchResult> GetCachedSearchResults()

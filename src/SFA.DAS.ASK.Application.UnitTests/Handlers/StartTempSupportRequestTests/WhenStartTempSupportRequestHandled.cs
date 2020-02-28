@@ -24,13 +24,13 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.StartTempSupportRequestTest
 
             var handler = new StartTempSupportRequestHandler(context);
 
-            var result = await handler.Handle(new StartTempSupportRequestCommand(SupportRequestType.DfeSignIn), CancellationToken.None);
+            var result = await handler.Handle(new StartTempSupportRequestCommand(), CancellationToken.None);
 
             (await context.TempSupportRequests.CountAsync()).Should().Be(1);
 
             var savedSupportRequest = await context.TempSupportRequests.SingleAsync();
 
-            savedSupportRequest.SupportRequestType.Should().Be(SupportRequestType.DfeSignIn);
+            savedSupportRequest.SupportRequestType.Should().Be(SupportRequestType.Manual);
 
             result.RequestId.Should().Be(savedSupportRequest.Id);
         }

@@ -21,7 +21,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         [Test]
         public async Task ThenResultsShouldBeFound()
         {
-            var result = (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
+            var result = (await Handler.Handle(new GetOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
 
             result.Count.Should().Be(1);
             result[0].Name.Should().Be("Test School Search Result");
@@ -29,7 +29,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
 
         public async Task ThenAGuidShouldBeAdded()
         {
-            var result = (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
+            var result = (await Handler.Handle(new GetOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
 
             result[0].Id.HasValue.Should().Be(true);
         }
@@ -37,7 +37,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         [Test]
         public async Task ThenSearchResultsAreSavedToCache()
         {
-            var result = (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", requestId), default(CancellationToken))).ToList();
+            var result = (await Handler.Handle(new GetOrganisationsRequest("Test School", requestId), default(CancellationToken))).ToList();
 
             SessionService.Received().Set(Arg.Is($"Searchresults-{requestId}"), Arg.Any<string>());
            
@@ -46,7 +46,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         [Test]
         public async Task ThenSearchTermIsSavedToCache()
         {
-            var result = (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", requestId), default(CancellationToken))).ToList();
+            var result = (await Handler.Handle(new GetOrganisationsRequest("Test School", requestId), default(CancellationToken))).ToList();
 
             SessionService.Received().Set(Arg.Is<string>($"Searchstring-{requestId}"), Arg.Any<string>());
 

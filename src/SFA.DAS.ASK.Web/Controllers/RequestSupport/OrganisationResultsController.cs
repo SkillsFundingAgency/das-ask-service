@@ -33,7 +33,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
 
-            var results = (await _mediator.Send(new GetNonDfeOrganisationsRequest(search, requestId), default(CancellationToken))).ToList();
+            var results = (await _mediator.Send(new GetOrganisationsRequest(search, requestId), default(CancellationToken))).ToList();
 
             var viewModel = new OrganisationResultsViewModel(results, requestId, search, edit, supportRequest.ReferenceId);
 
