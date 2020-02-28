@@ -30,7 +30,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.CancelSupportRequestTests
             
             var handler = new CancelSupportRequestHandler(dbContext);
 
-            await handler.Handle(new CancelSupportRequestCommand(cancelledTempSupportRequestId, ""), CancellationToken.None);
+            await handler.Handle(new CancelSupportRequestCommand(cancelledTempSupportRequestId), CancellationToken.None);
 
             dbContext.TempSupportRequests.Count(tsr => tsr.Status == TempSupportRequestStatus.Active).Should().Be(4);
             dbContext.TempSupportRequests.Count(tsr => tsr.Status == TempSupportRequestStatus.Cancelled).Should().Be(1);

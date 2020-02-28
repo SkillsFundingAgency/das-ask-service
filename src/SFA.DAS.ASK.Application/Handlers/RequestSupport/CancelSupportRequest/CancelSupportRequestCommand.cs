@@ -8,10 +8,9 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.CancelSupportRequest
         public Guid RequestId { get; }
         public string Email { get; }
 
-        public CancelSupportRequestCommand(Guid requestId, string email)
+        public CancelSupportRequestCommand(Guid requestId)
         {
             RequestId = requestId;
-            Email = email;
         }
     }
 }

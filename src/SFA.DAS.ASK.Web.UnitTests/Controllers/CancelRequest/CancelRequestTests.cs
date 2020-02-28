@@ -17,6 +17,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.CancelRequest
 
         private CancelSupportRequestController sut;
         public  ClaimsPrincipal User;
+
         [SetUp]
         public void Arrange()
         {

@@ -13,7 +13,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
     public class CancelSupportRequestController : Controller
     {
         private readonly IMediator _mediator;
-
+        
         public CancelSupportRequestController(IMediator mediator)
         {
             _mediator = mediator;
@@ -41,9 +41,8 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             {
                 return RedirectToAction(vm.ReturnAction, vm.ReturnController, new {requestId = requestId});
             }
-            var _claim = User.FindFirst("email");
-            var email = User.FindFirst("email").Value;
-            await _mediator.Send(new CancelSupportRequestCommand(requestId, email));
+
+            await _mediator.Send(new CancelSupportRequestCommand(requestId));
             return RedirectToAction("Index", "Home");
 
         }

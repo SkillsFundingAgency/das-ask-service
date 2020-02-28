@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 namespace SFA.DAS.ASK.Web.UnitTests.Controllers
 {
     
+    [TestFixture]
     public class YourDetailsControllerTests : ControllersTestBase
     {
         
@@ -22,7 +23,6 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
         [SetUp]
         public void Arrange()
         {
-            
             Mediator.Send(Arg.Any<GetTempSupportRequest>()).Returns(new TempSupportRequest { FirstName = FIRST_NAME, Id = REQUEST_ID });
 
             sut = new YourDetailsController(Mediator);
@@ -31,7 +31,6 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
         [Test]
         public async Task WhenViewingTheYourDetailsPage_ThenTheCorrectViewIsRendered()
         {
-
             var actual = await sut.Index(REQUEST_ID, false);
 
             var viewResult = actual as ViewResult;
