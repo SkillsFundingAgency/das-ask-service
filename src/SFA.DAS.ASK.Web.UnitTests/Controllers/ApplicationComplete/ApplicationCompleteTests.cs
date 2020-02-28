@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using NUnit.Framework;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
@@ -19,7 +20,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.ApplicationComplete
         [SetUp]
         public void Arrange()
         {
-            Mediator.Send(Arg.Any<GetTempSupportRequest>()).Returns(new TempSupportRequest { FirstName = FIRST_NAME, Id = REQUEST_ID });
+            Mediator.Send(Arg.Any<GetTempSupportRequest>()).Returns(new TempSupportRequest { FirstName = FIRST_NAME, Id = REQUEST_ID, Email = "test@email.co.uk" });
 
             sut = new ApplicationCompleteController(Mediator);
         }
