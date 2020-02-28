@@ -28,13 +28,11 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
             ReferenceDataApi = Substitute.For<IReferenceDataApiClient>();
 
             ReferenceDataApi.Search("Test School").Returns(Task.FromResult<IEnumerable<ReferenceDataSearchResult>>(GetSearchResults()));            
-            SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
             
-
             Handler = new GetNonDfeOrganisationsHandler(ReferenceDataApi, SessionService);
         }
 
-        private List<ReferenceDataSearchResult> GetCachedSearchResults()
+        public List<ReferenceDataSearchResult> GetCachedSearchResults()
         {
             return new List<ReferenceDataSearchResult>() {
                 new ReferenceDataSearchResult {

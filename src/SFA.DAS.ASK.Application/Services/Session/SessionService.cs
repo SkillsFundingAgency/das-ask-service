@@ -38,7 +38,14 @@ namespace SFA.DAS.ASK.Application.Services.Session
 
         public T Get<T>(string key)
         {
-            return JsonConvert.DeserializeObject<T>(_httpContextAccessor.HttpContext.Session.GetString(key));
+            var cachedString = _httpContextAccessor.HttpContext.Session.GetString(key);
+            
+            if (cachedString == null)
+            {
+                return default(T);
+            }  
+
+            return JsonConvert.DeserializeObject<T>(cachedString);
         }
     }
 }
