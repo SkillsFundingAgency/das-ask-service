@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
 {
     [TestFixture]
-    public class WhenSearchingForAnOrganisation : GetNonDfeOrganisationsTestBase
+    public class WhenSearchingForAnOrganisation : GetOrganisationsTestBase
     {
         private Guid requestId = Guid.Parse("63be476e-0593-40c5-9b8d-8f0358a4d195");
 

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
 {
     [TestFixture]
-    public class GetNonDfeOrganisationsTestBase
+    public class GetOrganisationsTestBase
     {
         public GetOrganisationsHandler Handler { get; set; }
 

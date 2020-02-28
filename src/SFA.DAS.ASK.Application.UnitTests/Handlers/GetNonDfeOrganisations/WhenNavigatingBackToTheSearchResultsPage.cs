@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
 {
-    public class WhenNavigatingBackToTheSearchResultsPage : GetNonDfeOrganisationsTestBase
+    public class WhenNavigatingBackToTheSearchResultsPage : GetOrganisationsTestBase
     {
         [Test]
         public async Task ThenSearchResultsShouldBeRetrievedFromTheCache()
