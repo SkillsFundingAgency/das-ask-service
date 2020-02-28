@@ -20,7 +20,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Home
         {
             Mediator.Send(Arg.Any<GetTempSupportRequest>()).Returns(new TempSupportRequest { FirstName = FIRST_NAME, Id = REQUEST_ID });
 
-            sut = new HomeController();
+            sut = new HomeController(Mediator, SessionService);
         }
 
         [Test]
