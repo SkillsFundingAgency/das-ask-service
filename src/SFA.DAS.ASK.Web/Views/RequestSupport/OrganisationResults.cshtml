@@ -20,9 +20,13 @@ else
                 Search results for @Model.Search
             </h1>
 
-            <form method="get" asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId">
+            <form method="get" asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId" >
 
                 <div class="govuk-form-group">
+                    @if (Model.Edit)
+                    {
+                        <input type="hidden" asp-for="Edit" value="true" />
+                    }
                     <input class="govuk-input" asp-for="Search" type="text">
                 </div>
 

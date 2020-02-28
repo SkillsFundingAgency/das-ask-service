@@ -2,6 +2,7 @@
 using NSubstitute;
 using NUnit.Framework;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations;
+using SFA.DAS.ASK.Application.Services.ReferenceData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,9 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         [Test]
         public async Task ThenSearchResultsShouldBeRetrievedFromTheCache()
         {
-            var result = (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid(), true), default(CancellationToken))).ToList();
+            SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
+
+            var result = (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
 
             result[0].Name.Should().Be("Test School");
         }
@@ -24,7 +27,9 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         [Test]
         public async Task FromTheCheckYourAnswersPage_ThenTheGetNonDfeOrganisationRequestIsNeverCalled()
         {
-            (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid(), true), default(CancellationToken))).ToList();
+            SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
+
+            (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
 
             ReferenceDataApi.DidNotReceive().Search(Arg.Is("Test School"));
         }
@@ -32,7 +37,9 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         [Test]
         public async Task FromTheCheckYourAnswersPage_ThenSaveToCacheIsNever()
         {
-            (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid(), true), default(CancellationToken))).ToList();
+            SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
+
+            (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
 
             SessionService.DidNotReceive().Set(Arg.Any<string>(), Arg.Any<string>());
         }
