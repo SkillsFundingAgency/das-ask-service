@@ -31,7 +31,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             var numberOfOrgs = _sessionService.Get("NumberOfOrgs");
             var searchTerms = _sessionService.Get($"Searchstring-{requestId}");
 
-            var vm = new CheckYourDetailsViewModel(tempSupportRequest, numberOfOrgs, searchTerms);
+            var vm = new CheckYourDetailsViewModel(tempSupportRequest, searchTerms);
 
             return View("~/Views/RequestSupport/CheckYourDetails.cshtml", vm);
         }

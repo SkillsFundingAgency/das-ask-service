@@ -24,7 +24,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportReques
             {
                 Id = requestId, 
                 StartDate = DateTime.UtcNow,
-                SupportRequestType = tempSupportRequest.Type
+                SupportRequestType = SupportRequestType.Manual
             });
             await _askContext.SaveChangesAsync(cancellationToken);
             

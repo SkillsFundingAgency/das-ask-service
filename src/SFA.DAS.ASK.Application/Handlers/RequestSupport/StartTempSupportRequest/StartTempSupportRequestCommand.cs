@@ -5,11 +5,10 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportReques
 {
     public class StartTempSupportRequestCommand : IRequest<StartTempSupportRequestResponse>
     {
-        public SupportRequestType Type { get; }
 
-        public StartTempSupportRequestCommand(SupportRequestType type)
+        public StartTempSupportRequestCommand()
         {
-            Type = type;
+           
         }
     }
 }
