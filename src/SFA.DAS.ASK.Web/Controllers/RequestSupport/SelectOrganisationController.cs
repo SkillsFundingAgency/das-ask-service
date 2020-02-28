@@ -1,9 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInInformation;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.AddDfeSignInOrganisation;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetDfeOrganisations;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
@@ -15,12 +13,10 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
     public class SelectOrganisationController : Controller
     {
         private readonly IMediator _mediator;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public SelectOrganisationController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
+        public SelectOrganisationController(IMediator mediator)
         {
             _mediator = mediator;
-            _httpContextAccessor = httpContextAccessor;
         }
         
         [HttpGet("select-organisation/{requestId}")]
@@ -28,7 +24,6 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         public async Task<IActionResult> Index(Guid requestId)
         {
             var tempSupportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
-            //var dfeSignInId = Guid.Parse(_httpContextAccessor.HttpContext.User.FindFirst("sub").Value);
             
             var dfeOrganisations = await _mediator.Send(new GetDfeOrganisationsRequest(tempSupportRequest.DfeSignInId.Value));
             
@@ -45,17 +40,6 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             {
                 return RedirectToAction("Index", new {requestId});
             }
-            
-            // //var email = User.FindFirst(ClaimTypes.Email);
-            // var email = "davegouge@myschool.org.uk.edu.com";
-            // //var dfeSignInId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            // var dfeSignInId = Guid.NewGuid();
-            // string name = "David Gouge";
-            //
-            // var email = User.FindFirst("email").Value;
-            // var dfeSignInId = Guid.Parse(User.FindFirst("sub").Value);
-            // var firstname = User.FindFirst("given_name").Value;
-            // var lastname = User.FindFirst("family_name").Value;
             
             await _mediator.Send(new AddDfESignInOrganisationCommand(requestId, viewModel.SelectedId.Value));
             
