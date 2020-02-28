@@ -13,13 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ASK.Functions", "SF
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SFA.DAS.ASK.Database", "SFA.DAS.ASK.Database\SFA.DAS.ASK.Database.sqlproj", "{9DE92C1A-406D-45A6-89BD-86038DF1D87D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ASK.Application", "SFA.DAS.ASK.Application\SFA.DAS.ASK.Application.csproj", "{0D413240-1BFA-4357-A09C-2DBFEA41BB86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ASK.Application", "SFA.DAS.ASK.Application\SFA.DAS.ASK.Application.csproj", "{0D413240-1BFA-4357-A09C-2DBFEA41BB86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ASK.Data", "SFA.DAS.ASK.Data\SFA.DAS.ASK.Data.csproj", "{0055F2E7-235B-4636-A1DC-CF55199579FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ASK.Data", "SFA.DAS.ASK.Data\SFA.DAS.ASK.Data.csproj", "{0055F2E7-235B-4636-A1DC-CF55199579FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ASK.Application.UnitTests", "SFA.DAS.ASK.Application.UnitTests\SFA.DAS.ASK.Application.UnitTests.csproj", "{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ASK.Application.UnitTests", "SFA.DAS.ASK.Application.UnitTests\SFA.DAS.ASK.Application.UnitTests.csproj", "{86FF0F3C-9BC0-43C5-B7E5-38A9E6CD5B7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.ASK.Application.ExternalServices", "SFA.DAS.ASK.Application.ExternalServices\SFA.DAS.ASK.Application.ExternalServices.csproj", "{4227660F-B193-476F-A989-1460ACFEC1F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ASK.Application.ExternalServices", "SFA.DAS.ASK.Application.ExternalServices\SFA.DAS.ASK.Application.ExternalServices.csproj", "{4227660F-B193-476F-A989-1460ACFEC1F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.ASK.Web.UnitTests", "SFA.DAS.ASK.Web.UnitTests\SFA.DAS.ASK.Web.UnitTests.csproj", "{13BE39EF-4DD5-4557-A162-4B15B1E32D82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +147,18 @@ Global
 		{4227660F-B193-476F-A989-1460ACFEC1F7}.Release|x64.Build.0 = Release|Any CPU
 		{4227660F-B193-476F-A989-1460ACFEC1F7}.Release|x86.ActiveCfg = Release|Any CPU
 		{4227660F-B193-476F-A989-1460ACFEC1F7}.Release|x86.Build.0 = Release|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Debug|x64.Build.0 = Debug|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Debug|x86.Build.0 = Debug|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Release|x64.ActiveCfg = Release|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Release|x64.Build.0 = Release|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Release|x86.ActiveCfg = Release|Any CPU
+		{13BE39EF-4DD5-4557-A162-4B15B1E32D82}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
