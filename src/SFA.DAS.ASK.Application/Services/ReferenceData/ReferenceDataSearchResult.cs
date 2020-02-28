@@ -7,23 +7,19 @@ namespace SFA.DAS.ASK.Application.Services.ReferenceData
     {
         public Guid? Id { get; set; }
         public string Name { get; set; }
-        public ReferenceDataOrganisationType Type { get; set; }
-        public int SubType { get; set; }
         public string Code { get; set; }
         public ReferenceDataAddress Address { get; set; }
-        public string Sector { get; set; }
-        public bool Selected { get; set; }
 
-        public string GetAddressString(ReferenceDataAddress address)
+        public string GetAddressString()
         {
             var addressParts = new List<string>(6);
 
-            if (!string.IsNullOrWhiteSpace(address.Line1)) addressParts.Add(address.Line1);
-            if (!string.IsNullOrWhiteSpace(address.Line2)) addressParts.Add(address.Line2);
-            if (!string.IsNullOrWhiteSpace(address.Line3)) addressParts.Add(address.Line3);
-            if (!string.IsNullOrWhiteSpace(address.Line4)) addressParts.Add(address.Line4);
-            if (!string.IsNullOrWhiteSpace(address.Line5)) addressParts.Add(address.Line5);
-            if (!string.IsNullOrWhiteSpace(address.Postcode)) addressParts.Add(address.Postcode);
+            if (!string.IsNullOrWhiteSpace(Address.Line1)) addressParts.Add(Address.Line1);
+            if (!string.IsNullOrWhiteSpace(Address.Line2)) addressParts.Add(Address.Line2);
+            if (!string.IsNullOrWhiteSpace(Address.Line3)) addressParts.Add(Address.Line3);
+            if (!string.IsNullOrWhiteSpace(Address.Line4)) addressParts.Add(Address.Line4);
+            if (!string.IsNullOrWhiteSpace(Address.Line5)) addressParts.Add(Address.Line5);
+            if (!string.IsNullOrWhiteSpace(Address.Postcode)) addressParts.Add(Address.Postcode);
 
             return string.Join(", ", addressParts);
         }
