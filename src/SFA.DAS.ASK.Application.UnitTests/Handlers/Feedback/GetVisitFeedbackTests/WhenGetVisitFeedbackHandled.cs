@@ -34,7 +34,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.Feedback.GetVisitFeedbackTe
             await dbContext.SaveChangesAsync();
             
             var handler = new GetVisitFeedbackHandler(dbContext);
-            var result = await handler.Handle(new GetVisitFeedbackRequest(requestedFeedbackId), CancellationToken.None);
+            var result = await handler.Handle(new GetVisitFeedbackRequest(requestedFeedbackId, true), CancellationToken.None);
             
             result.Id.Should().Be(requestedFeedbackId);
         }
