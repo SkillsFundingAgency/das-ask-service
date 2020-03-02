@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -18,11 +19,17 @@ namespace SFA.DAS.ASK.Application.Handlers.Feedback.GetVisitFeedback
 
         public async Task<VisitFeedback> Handle(GetVisitFeedbackRequest request, CancellationToken cancellationToken)
         {
-            return await _dbContext.VisitFeedback
-                .Include(vf => vf.Visit.Activities)
-                .Include(vf=> vf.Visit.SupportRequest.Organisation)
-                .Include(vf=> vf.Visit.SupportRequest.OrganisationContact)
-                .SingleOrDefaultAsync(f => f.Id == request.FeedbackId, cancellationToken);
+            var feedback = _dbContext.VisitFeedback.Where(f => f.Id == request.FeedbackId);
+                
+            if (request.IncludeSubTables)
+            {
+                feedback = feedback
+                    .Include(vf => vf.Visit.Activities)
+                    .Include(vf => vf.Visit.SupportRequest.Organisation)
+                    .Include(vf => vf.Visit.SupportRequest.OrganisationContact);
+            }
+            
+            return await feedback.SingleOrDefaultAsync(cancellationToken);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
         [HttpGet("feedback/start/{feedbackId}")]
         public async Task<IActionResult> Index(Guid feedbackId)
         {
-            var visitFeedback = await _mediator.Send(new GetVisitFeedbackRequest(feedbackId));
+            var visitFeedback = await _mediator.Send(new GetVisitFeedbackRequest(feedbackId, true));
             return View(visitFeedback.Status == FeedbackStatus.Complete ? "~/Views/Feedback/Complete.cshtml" : "~/Views/Feedback/Start.cshtml");
         }
     }

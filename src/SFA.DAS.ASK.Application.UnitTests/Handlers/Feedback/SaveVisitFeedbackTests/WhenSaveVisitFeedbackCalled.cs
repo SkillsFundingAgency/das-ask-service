@@ -42,7 +42,6 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.Feedback.SaveVisitFeedbackT
             savedFeedback.FeedbackAnswers.InformationAndCommunicationBeforeVisit.Should().BeNull();
             savedFeedback.FeedbackAnswers.ActivitiesDelivered.Should().Be(FeedbackRating.Poor);
             savedFeedback.FeedbackAnswers.AskDeliveryPartnerWhoVisited.Should().Be(FeedbackRating.Good);
-            
         }
     }
 }
