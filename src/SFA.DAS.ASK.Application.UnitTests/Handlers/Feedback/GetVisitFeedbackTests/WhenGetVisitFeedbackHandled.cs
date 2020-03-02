@@ -20,7 +20,16 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.Feedback.GetVisitFeedbackTe
             await dbContext.VisitFeedback.AddRangeAsync(new List<VisitFeedback>
             {
                 new VisitFeedback{Status = FeedbackStatus.NotStarted, Id = Guid.NewGuid()},
-                new VisitFeedback{Status = FeedbackStatus.NotStarted, Id = requestedFeedbackId, Visit = new Visit(){Activities = new List<VisitActivity>(), SupportRequest = new SupportRequest()}},
+                new VisitFeedback{Status = FeedbackStatus.NotStarted, Id = requestedFeedbackId, 
+                    Visit = new Visit() 
+                    {
+                        Activities = new List<VisitActivity>(), 
+                        SupportRequest = new SupportRequest()
+                        {
+                            Organisation = new Organisation(),
+                            OrganisationContact = new OrganisationContact()
+                        }
+                    }},
             });
             await dbContext.SaveChangesAsync();
             

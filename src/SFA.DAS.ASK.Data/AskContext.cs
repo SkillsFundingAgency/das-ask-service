@@ -29,5 +29,7 @@ namespace SFA.DAS.ASK.Data
         public DbSet<DeliveryPartner> DeliveryPartners { get; set; }
         public DbSet<DeliveryArea> DeliveryAreas { get; set; }
         public DbSet<VisitFeedback> VisitFeedback { get; set; }
+        public DbSet<Visit> Visits { get; set; }
+        public DbSet<VisitActivity> VisitActivities { get; set; }
     }
 }

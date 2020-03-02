@@ -20,7 +20,8 @@ namespace SFA.DAS.ASK.Application.Handlers.Feedback.GetVisitFeedback
         {
             return await _dbContext.VisitFeedback
                 .Include(vf => vf.Visit.Activities)
-                .Include(vf=> vf.Visit.SupportRequest)
+                .Include(vf=> vf.Visit.SupportRequest.Organisation)
+                .Include(vf=> vf.Visit.SupportRequest.OrganisationContact)
                 .SingleOrDefaultAsync(f => f.Id == request.FeedbackId, cancellationToken);
         }
     }

@@ -15,9 +15,9 @@ namespace SFA.DAS.ASK.Data.Entities
 
     public class FeedbackAnswers
     {
-        public FeedbackRating InformationAndCommunicationBeforeVisit { get; set; }
-        public FeedbackRating AskDeliveryPartnerWhoVisited { get; set; }
-        public FeedbackRating ActivitiesDelivered { get; set; }
+        public FeedbackRating? InformationAndCommunicationBeforeVisit { get; set; }
+        public FeedbackRating? AskDeliveryPartnerWhoVisited { get; set; }
+        public FeedbackRating? ActivitiesDelivered { get; set; }
     }
 
     public enum FeedbackRating
