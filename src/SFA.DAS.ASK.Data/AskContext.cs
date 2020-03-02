@@ -16,5 +16,6 @@ namespace SFA.DAS.ASK.Data
         public DbSet<PostcodeRegion> PostcodeRegions { get; set; }
         public DbSet<DeliveryPartner> DeliveryPartners { get; set; }
         public DbSet<DeliveryArea> DeliveryAreas { get; set; }
+        public DbSet<VisitFeedback> VisitFeedback { get; set; }
     }
 }
