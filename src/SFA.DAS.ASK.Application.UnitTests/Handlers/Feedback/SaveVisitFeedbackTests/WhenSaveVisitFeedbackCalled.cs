@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using SFA.DAS.ASK.Application.Handlers.Feedback.GetVisitFeedback;
+using SFA.DAS.ASK.Application.Handlers.Feedback.SaveVisitFeedback;
 using SFA.DAS.ASK.Data.Entities;
 
-namespace SFA.DAS.ASK.Application.UnitTests.Handlers.Feedback.GetVisitFeedbackTests
+namespace SFA.DAS.ASK.Application.UnitTests.Handlers.Feedback.SaveVisitFeedbackTests
 {
     [TestFixture]
-    public class WhenGetVisitFeedbackHandled
+    public class WhenSaveVisitFeedbackCalled
     {
         [Test]
-        public async Task ThenTheCorrectVisitFeedbackIsReturned()
+        public async Task ThenFeedbackIsSaved()
         {
             var dbContext = ContextHelper.GetInMemoryContext();
             var requestedFeedbackId = Guid.NewGuid();
@@ -33,10 +34,15 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.Feedback.GetVisitFeedbackTe
             });
             await dbContext.SaveChangesAsync();
             
-            var handler = new GetVisitFeedbackHandler(dbContext);
-            var result = await handler.Handle(new GetVisitFeedbackRequest(requestedFeedbackId), CancellationToken.None);
+            var handler = new SaveVisitFeedbackHandler(dbContext);
+
+            await handler.Handle(new SaveVisitFeedbackRequest(requestedFeedbackId, new FeedbackAnswers{ ActivitiesDelivered = FeedbackRating.Poor, AskDeliveryPartnerWhoVisited = FeedbackRating.Good}), CancellationToken.None);
+
+            var savedFeedback = await dbContext.VisitFeedback.SingleAsync(f => f.Id == requestedFeedbackId);
+            savedFeedback.FeedbackAnswers.InformationAndCommunicationBeforeVisit.Should().BeNull();
+            savedFeedback.FeedbackAnswers.ActivitiesDelivered.Should().Be(FeedbackRating.Poor);
+            savedFeedback.FeedbackAnswers.AskDeliveryPartnerWhoVisited.Should().Be(FeedbackRating.Good);
             
-            result.Id.Should().Be(requestedFeedbackId);
         }
     }
 }
