@@ -1,9 +1,11 @@
 using System;
+using System.Security;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using SFA.DAS.ASK.Application.Handlers.Feedback.GetVisitFeedback;
 using SFA.DAS.ASK.Data.Entities;
@@ -36,6 +38,13 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.StartPageTests
         }
 
         [Test]
+        public async Task ThenFeedbackIdIsPassedToHandler()
+        {
+            _result = await _controller.Index(_feedbackId);
+            await _mediator.Received().Send(Arg.Is<GetVisitFeedbackRequest>(req => req.FeedbackId == _feedbackId));
+        }
+        
+        [Test]
         public async Task AndFeedbackIsNotComplete_ThenViewResultHasStartViewName()
         {
             _result = await _controller.Index(_feedbackId);
@@ -43,18 +52,22 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.StartPageTests
         }
         
         [Test]
-        public async Task AndFeedbackIsComplete_ThenViewResultHasStartViewName()
+        public async Task AndFeedbackIsComplete_ThenResultIsRedirectToCompletePage()
         {
             _mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(new VisitFeedback() {Status = FeedbackStatus.Complete});
             _result = await _controller.Index(_feedbackId);
-            _result.As<ViewResult>().ViewName.Should().Be("~/Views/Feedback/Complete.cshtml");
-        }
 
+            _result.Should().BeOfType<RedirectToActionResult>();
+            _result.As<RedirectToActionResult>().ActionName.Should().Be("Index");
+            _result.As<RedirectToActionResult>().ControllerName.Should().Be("FeedbackComplete");
+        }
+        
         [Test]
-        public async Task ThenFeedbackIdIsPassedToHandler()
+        public async Task AndFeedbackIdIsNotValid_ThenSecurityExceptionThrown()
         {
-            _result = await _controller.Index(_feedbackId);
-            await _mediator.Received().Send(Arg.Is<GetVisitFeedbackRequest>(req => req.FeedbackId == _feedbackId));
+            _mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(default(VisitFeedback));
+
+            _controller.Invoking(c => c.Index(_feedbackId)).Should().Throw<SecurityException>().WithMessage($"Feedback ID {_feedbackId} is not valid.");
         }
     }
 }
