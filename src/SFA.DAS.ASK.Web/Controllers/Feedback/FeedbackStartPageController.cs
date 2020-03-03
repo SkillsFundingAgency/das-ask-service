@@ -1,4 +1,5 @@
 using System;
+using System.Security;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,16 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
         public async Task<IActionResult> Index(Guid feedbackId)
         {
             var visitFeedback = await _mediator.Send(new GetVisitFeedbackRequest(feedbackId, true));
-            return View(visitFeedback.Status == FeedbackStatus.Complete ? "~/Views/Feedback/Complete.cshtml" : "~/Views/Feedback/Start.cshtml");
+            if (visitFeedback is null)
+            {
+                throw new SecurityException($"Feedback ID {feedbackId} is not valid.");
+            }
+
+            if (visitFeedback.Status == FeedbackStatus.Complete)
+            {
+                return RedirectToAction("Index", "FeedbackComplete", new {feedbackId});
+            }
+            return View("~/Views/Feedback/Start.cshtml");
         }
     }
 }
