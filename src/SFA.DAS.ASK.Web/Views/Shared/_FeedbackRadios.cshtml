@@ -1,0 +1,36 @@
+@using SFA.DAS.ASK.Application.Utils
+@using SFA.DAS.ASK.Data.Entities
+@model SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels.FeedbackRadioViewModel
+
+<div class="govuk-form-group radios-horizontal" sfa-gds-error-class-for-name="@Model.Id">
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+            <h1 class="govuk-fieldset__heading">@Model.Title</h1>
+        </legend>
+        
+        <span id="has-sign-in-error" sfa-gds-error-message-for-name="@Model.Id"></span>
+        
+        <div class="govuk-radios govuk-radios--small govuk-radios--inline">
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="@Model.Id" type="radio" asp-for="Rating" value="@FeedbackRating.Excellent">
+                <label class="govuk-label govuk-radios__label" for="@Model.Id">@EnumHelper.GetEnumDescription(FeedbackRating.Excellent)</label>
+            </div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="@(Model.Id + "_" + (int)FeedbackRating.Good)" type="radio" asp-for="Rating" value="@FeedbackRating.Good">
+                <label class="govuk-label govuk-radios__label" for="@(Model.Id + "_" + (int)FeedbackRating.Good)">@EnumHelper.GetEnumDescription(FeedbackRating.Good)</label>
+            </div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="@(Model.Id + "_" + (int)FeedbackRating.Satisfactory)" type="radio" asp-for="Rating" value="@FeedbackRating.Satisfactory">
+                <label class="govuk-label govuk-radios__label" for="@(Model.Id + "_" + (int)FeedbackRating.Satisfactory)">@EnumHelper.GetEnumDescription(FeedbackRating.Satisfactory)</label>
+            </div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="@(Model.Id + "_" + (int)FeedbackRating.Poor)" type="radio" asp-for="Rating" value="@FeedbackRating.Poor">
+                <label class="govuk-label govuk-radios__label" for="@(Model.Id + "_" + (int)FeedbackRating.Poor)">@EnumHelper.GetEnumDescription(FeedbackRating.Poor)</label>
+            </div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="@(Model.Id + "_" + (int)FeedbackRating.VeryPoor)" type="radio" asp-for="Rating" value="@FeedbackRating.VeryPoor">
+                <label class="govuk-label govuk-radios__label" for="@(Model.Id + "_" + (int)FeedbackRating.VeryPoor)">@EnumHelper.GetEnumDescription(FeedbackRating.VeryPoor)</label>
+            </div>
+        </div>
+    </fieldset>
+</div>
