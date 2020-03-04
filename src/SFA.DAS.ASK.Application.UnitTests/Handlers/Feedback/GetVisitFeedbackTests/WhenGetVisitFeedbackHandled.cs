@@ -28,7 +28,8 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.Feedback.GetVisitFeedbackTe
                         {
                             Organisation = new Organisation(),
                             OrganisationContact = new OrganisationContact()
-                        }
+                        },
+                        OrganisationContact = new OrganisationContact()
                     }},
             });
             await dbContext.SaveChangesAsync();
