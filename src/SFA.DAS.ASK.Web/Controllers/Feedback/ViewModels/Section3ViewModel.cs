@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels
@@ -9,9 +10,9 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels
         public void Load(Guid feedbackId, VisitFeedback feedback)
         {
             FeedbackId = feedbackId;
-            DemonstratingDifferentTypesOfEmployers = new FeedbackRadioViewModel(feedback.FeedbackAnswers.DemonstratingDifferentTypesOfEmployers, "Demonstrating the different types of employers that offer apprenticeships", "DemonstratingDifferentTypesOfEmployers");
-            IncreasingAwarenessOfHigherAndDegree = new FeedbackRadioViewModel(feedback.FeedbackAnswers.IncreasingAwarenessOfHigherAndDegree, "Increasing awareness of higher and degree apprenticeships", "IncreasingAwarenessOfHigherAndDegree");
-            MakingStaffMoreConfident = new FeedbackRadioViewModel(feedback.FeedbackAnswers.MakingStaffMoreConfident, "Making staff more confident to discuss apprenticeships with students and parents", "MakingStaffMoreConfident");
+            DemonstratingDifferentTypesOfEmployers = new FeedbackRatingRadioViewModel(feedback.FeedbackAnswers.DemonstratingDifferentTypesOfEmployers, "Demonstrating the different types of employers that offer apprenticeships", "DemonstratingDifferentTypesOfEmployers");
+            IncreasingAwarenessOfHigherAndDegree = new FeedbackRatingRadioViewModel(feedback.FeedbackAnswers.IncreasingAwarenessOfHigherAndDegree, "Increasing awareness of higher and degree apprenticeships", "IncreasingAwarenessOfHigherAndDegree");
+            MakingStaffMoreConfident = new FeedbackRatingRadioViewModel(feedback.FeedbackAnswers.MakingStaffMoreConfident, "Making staff more confident to discuss apprenticeships with students and parents", "MakingStaffMoreConfident");
         }
 
         public FeedbackAnswers ToFeedbackAnswers(FeedbackAnswers answers)
@@ -23,11 +24,16 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels
         }
 
         public Guid FeedbackId { get; set; }
+        public bool ExecuteCustomValidation(ModelStateDictionary modelState)
+        {
+            return true;
+        }
+
         [Required(ErrorMessage = "Please select a rating")]
-        public FeedbackRadioViewModel DemonstratingDifferentTypesOfEmployers { get; set; }
+        public FeedbackRatingRadioViewModel DemonstratingDifferentTypesOfEmployers { get; set; }
         [Required(ErrorMessage = "Please select a rating")]
-        public FeedbackRadioViewModel IncreasingAwarenessOfHigherAndDegree { get; set; }
+        public FeedbackRatingRadioViewModel IncreasingAwarenessOfHigherAndDegree { get; set; }
         [Required(ErrorMessage = "Please select a rating")]
-        public FeedbackRadioViewModel MakingStaffMoreConfident { get; set; }
+        public FeedbackRatingRadioViewModel MakingStaffMoreConfident { get; set; }
     }
 }

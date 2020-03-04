@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels
@@ -9,9 +10,9 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels
         public void Load(Guid feedbackId, VisitFeedback feedback)
         {
             FeedbackId = feedbackId;
-            InformationAndCommunicationBeforeVisit = new FeedbackRadioViewModel(feedback.FeedbackAnswers.InformationAndCommunicationBeforeVisit, "Information and communication before the visit", "InformationAndCommunicationBeforeVisit");
-            AskDeliveryPartnerWhoVisited = new FeedbackRadioViewModel(feedback.FeedbackAnswers.AskDeliveryPartnerWhoVisited, "The ASK delivery partner who visited", "AskDeliveryPartnerWhoVisited");
-            ActivitiesDelivered = new FeedbackRadioViewModel(feedback.FeedbackAnswers.ActivitiesDelivered, "The activities they delivered", "ActivitiesDelivered");
+            InformationAndCommunicationBeforeVisit = new FeedbackRatingRadioViewModel(feedback.FeedbackAnswers.InformationAndCommunicationBeforeVisit, "Information and communication before the visit", "InformationAndCommunicationBeforeVisit");
+            AskDeliveryPartnerWhoVisited = new FeedbackRatingRadioViewModel(feedback.FeedbackAnswers.AskDeliveryPartnerWhoVisited, "The ASK delivery partner who visited", "AskDeliveryPartnerWhoVisited");
+            ActivitiesDelivered = new FeedbackRatingRadioViewModel(feedback.FeedbackAnswers.ActivitiesDelivered, "The activities they delivered", "ActivitiesDelivered");
         }
 
         public FeedbackAnswers ToFeedbackAnswers(FeedbackAnswers answers)
@@ -23,11 +24,16 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels
         }
 
         public Guid FeedbackId { get; set; }
+        public bool ExecuteCustomValidation(ModelStateDictionary modelState)
+        {
+            return true;
+        }
+
         [Required(ErrorMessage = "Please select a rating")]
-        public FeedbackRadioViewModel InformationAndCommunicationBeforeVisit { get; set; }
+        public FeedbackRatingRadioViewModel InformationAndCommunicationBeforeVisit { get; set; }
         [Required(ErrorMessage = "Please select a rating")]
-        public FeedbackRadioViewModel AskDeliveryPartnerWhoVisited { get; set; }
+        public FeedbackRatingRadioViewModel AskDeliveryPartnerWhoVisited { get; set; }
         [Required(ErrorMessage = "Please select a rating")]
-        public FeedbackRadioViewModel ActivitiesDelivered { get; set; }
+        public FeedbackRatingRadioViewModel ActivitiesDelivered { get; set; }
     }
 }

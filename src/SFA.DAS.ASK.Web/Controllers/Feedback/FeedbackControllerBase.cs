@@ -36,7 +36,7 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
         [ExportModelState]
         public async Task<IActionResult> Index(Guid feedbackId, TViewModel viewModel)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || viewModel.ExecuteCustomValidation(ModelState))
             {
                 return RedirectToAction("Index", new {feedbackId});
             }
