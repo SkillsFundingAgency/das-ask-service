@@ -1,0 +1,56 @@
+﻿@model SFA.DAS.ASK.Web.ViewModels.Feedback.ConfirmDetailsViewModel
+
+@using SFA.DAS.ASK.Application.Utils;
+@{
+    ViewData["Title"] = "Confirm the details";
+}
+
+<a asp-action="Index" asp-controller="FeedbackStartPage" asp-route-feedbackId="@Model.FeedbackId" class="govuk-back-link">Back</a>
+
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">
+                Confirm the details
+                <span class="govuk-caption-xl">Check the details of your ASK visit and change anything that is incorrect.</span>
+            </h1>
+
+            <h2 class="govuk-heading-m">The visit</h2>
+
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key"> Establishment name </dt>
+                    <dd class="govuk-summary-list__value"> @Model.EstablishmentName </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key"> Your name </dt>
+                    <dd class="govuk-summary-list__value"> @Model.YourFullName </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key"> Date of the activity </dt>
+                    <dd class="govuk-summary-list__value"> @Model.DateOfActivity </dd>
+                </div>
+            </dl>
+
+            <h2 class="govuk-heading-m">The activities</h2>
+
+            <dl class="govuk-summary-list">
+                @foreach (var activity in Model.Activities)
+                {
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key"> Type of activity </dt>
+                        <dd class="govuk-summary-list__value"> @EnumHelper.GetEnumDescription(@activity.ActivityType) </dd>
+                    </div>
+                }
+            </dl>
+
+            <button id="continueButton" class="govuk-button" asp-controller="FeedbackSection1" asp-action="Index" asp-route-feedbackId="@Model.FeedbackId">Continue</button>
+
+            <a asp-action="Index" asp-controller="FeedbackStartPage" asp-route-feedbackId="@Model.FeedbackId" class="das-button--link">Cancel</a>
+
+            <partial name="_DifficultiesFooter" />
+
+        </div>
+    </div>
+</main>
