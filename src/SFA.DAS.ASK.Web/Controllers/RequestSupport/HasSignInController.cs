@@ -23,16 +23,18 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         
         [HttpGet("has-signin")]
         [ImportModelState]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var vm = new HasSignInViewModel();
-            var hasSignIn = _sessionService.Get("HasSignIn");
-            if (hasSignIn != null)
-            {
-                vm.HasSignInAccount = bool.Parse(hasSignIn);
-            }
-            
-            return View("~/Views/RequestSupport/HasSignIn.cshtml", vm);
+            return await Index(new HasSignInViewModel() {HasSignInAccount = false});
+
+            // var vm = new HasSignInViewModel();
+            // var hasSignIn = _sessionService.Get("HasSignIn");
+            // if (hasSignIn != null)
+            // {
+            //     vm.HasSignInAccount = bool.Parse(hasSignIn);
+            // }
+            //
+            // return View("~/Views/RequestSupport/HasSignIn.cshtml", vm);
         }
 
         [HttpPost("has-signin")]
