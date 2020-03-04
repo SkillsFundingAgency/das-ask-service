@@ -26,7 +26,7 @@ namespace SFA.DAS.ASK.Application.Handlers.Feedback.GetVisitFeedback
                 feedback = feedback
                     .Include(vf => vf.Visit.Activities)
                     .Include(vf => vf.Visit.SupportRequest.Organisation)
-                    .Include(vf => vf.Visit.SupportRequest.OrganisationContact);
+                    .Include(vf => vf.Visit.OrganisationContact);
             }
             
             return await feedback.SingleOrDefaultAsync(cancellationToken);
