@@ -14,13 +14,14 @@ namespace SFA.DAS.ASK.Web.ViewModels.Feedback
         public List<VisitActivity> Activities { get; set; }
         public Guid FeedbackId { get; set; }
 
-        public ConfirmDetailsViewModel(VisitFeedback fullVisit)
+        public ConfirmDetailsViewModel(VisitFeedback feedback)
         {
-            FeedbackId = fullVisit.Id;
-            var visit = fullVisit.Visit;
+            FeedbackId = feedback.Id;
+
+            var visit = feedback.Visit;
 
             EstablishmentName = visit.SupportRequest.Organisation.OrganisationName;
-            YourFullName = $"{visit.SupportRequest.OrganisationContact.FirstName} {visit.SupportRequest.OrganisationContact.LastName}";
+            YourFullName = $"{visit.OrganisationContact.FirstName} {visit.OrganisationContact.LastName}";
             DateOfActivity = visit.VisitDate.ToString("dd/MM/yyyy");
             Activities = visit.Activities;
             

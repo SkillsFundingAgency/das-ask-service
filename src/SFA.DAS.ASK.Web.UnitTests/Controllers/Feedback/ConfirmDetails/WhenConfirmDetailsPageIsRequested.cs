@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using MediatR;
 using NUnit.Framework;
 using SFA.DAS.ASK.Web.Controllers.Feedback;
 using System;
@@ -13,18 +14,21 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.ConfirmDetails
     public class WhenConfirmDetailsPageIsRequested
     {
         private FeedbackConfirmDetailsController _controller;
+        private IMediator _mediator;
+        private Guid feedbackId;
 
         [SetUp]
         public void Arrange()
         {
-            //_controller = new FeedbackConfirmDetailsController();
+            feedbackId = Guid.Parse("BC2BFFD8-6B20-4BEC-BF33-F83C970DD73E");
+            _controller = new FeedbackConfirmDetailsController(_mediator);
         }
 
         [Test]
-        public void ThenAViewResultSReturned()
+        public void ThenAViewResultIsReturned()
         {
-           // var result = _controller.Index();
-          //  result.As<ViewResult>().ViewName.Should().Be("~/Views/Feedback/ConfirmDetails.cshtml");
+            var result = _controller.Index(feedbackId);
+            result.As<ViewResult>().ViewName.Should().Be("~/Views/Feedback/ConfirmDetails.cshtml");
         }
     }
 }
