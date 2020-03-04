@@ -16,15 +16,6 @@ namespace SFA.DAS.ASK.Data.Entities
 
     public class FeedbackAnswers
     {
-        public FeedbackAnswers() { }
-        
-        public FeedbackAnswers(FeedbackAnswers answers)
-        {
-            InformationAndCommunicationBeforeVisit = answers.InformationAndCommunicationBeforeVisit;
-            AskDeliveryPartnerWhoVisited = answers.AskDeliveryPartnerWhoVisited;
-            ActivitiesDelivered = answers.ActivitiesDelivered;
-        }
-
         public FeedbackRating? InformationAndCommunicationBeforeVisit { get; set; }
         public FeedbackRating? AskDeliveryPartnerWhoVisited { get; set; }
         public FeedbackRating? ActivitiesDelivered { get; set; }
