@@ -29,7 +29,7 @@
                                 <input class="govuk-radios__input" id="ApprenticeOrEmployerParticipateInVisit" asp-for="ApprenticeOrEmployerParticipateInVisit" type="radio" value="Yes" aria-controls="conditional-participation" aria-expanded="false">
                                 <label class="govuk-label govuk-radios__label" for="ApprenticeOrEmployerParticipateInVisit">Yes</label>
                             </div>
-                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-participation">
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-participation" sfa-gds-show-conditional-if-error-for="ApprenticeOrEmployerParticipationRating" show-conditional-if-model="ApprenticeOrEmployerParticipateInVisit" show-conditional-if-model-value="Yes">    
                                 <partial name="_FeedbackRadios" for="ApprenticeOrEmployerParticipationRating"/>
 
                                 <div class="govuk-form-group">

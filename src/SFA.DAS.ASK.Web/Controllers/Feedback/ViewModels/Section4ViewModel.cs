@@ -18,8 +18,17 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels
         public FeedbackAnswers ToFeedbackAnswers(FeedbackAnswers answers)
         {
             answers.ApprenticeOrEmployerParticipateInVisit = ApprenticeOrEmployerParticipateInVisit;
-            answers.ApprenticeOrEmployerParticipationRating = ApprenticeOrEmployerParticipationRating.Rating;
-            answers.ApprenticeOrEmployerParticipateComments = ApprenticeOrEmployerParticipateComments;
+
+            if (answers.ApprenticeOrEmployerParticipateInVisit == "No")
+            {
+                answers.ApprenticeOrEmployerParticipationRating = null;
+                answers.ApprenticeOrEmployerParticipateComments = "";
+            }
+            else
+            {
+                answers.ApprenticeOrEmployerParticipationRating = ApprenticeOrEmployerParticipationRating.Rating;
+                answers.ApprenticeOrEmployerParticipateComments = ApprenticeOrEmployerParticipateComments;    
+            }
 
             return answers;
         }
