@@ -28,6 +28,8 @@ namespace SFA.DAS.ASK.Data.Entities
         public FeedbackRating? ApprenticeOrEmployerParticipationRating { get; set; }
         public string ApprenticeOrEmployerParticipateInVisit { get; set; }
         public string ApprenticeOrEmployerParticipateComments { get; set; }
+        public string WouldYouRecommendAskVisits { get; set; }
+        public string WouldNotRecommendAskVisitsComments { get; set; }
     }
 
     public enum FeedbackRating
