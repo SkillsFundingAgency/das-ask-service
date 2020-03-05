@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SFA.DAS.ASK.Data.Entities
@@ -18,6 +19,17 @@ namespace SFA.DAS.ASK.Data.Entities
         public FeedbackRating? InformationAndCommunicationBeforeVisit { get; set; }
         public FeedbackRating? AskDeliveryPartnerWhoVisited { get; set; }
         public FeedbackRating? ActivitiesDelivered { get; set; }
+        public FeedbackRating? RaisingKnowledgeAndAwareness { get; set; }
+        public FeedbackRating? DemonstratingTheRangeAndOptions { get; set; }
+        public FeedbackRating? ExplainingApplicationAndRecruitmentProcess { get; set; }
+        public FeedbackRating? DemonstratingDifferentTypesOfEmployers { get; set; }
+        public FeedbackRating? IncreasingAwarenessOfHigherAndDegree { get; set; }
+        public FeedbackRating? MakingStaffMoreConfident { get; set; }
+        public FeedbackRating? ApprenticeOrEmployerParticipationRating { get; set; }
+        public string ApprenticeOrEmployerParticipateInVisit { get; set; }
+        public string ApprenticeOrEmployerParticipateComments { get; set; }
+        public string WouldYouRecommendAskVisits { get; set; }
+        public string WouldNotRecommendAskVisitsComments { get; set; }
     }
 
     public enum FeedbackRating
@@ -26,6 +38,7 @@ namespace SFA.DAS.ASK.Data.Entities
         Good,
         Satisfactory,
         Poor,
+        [Description("Very poor")]
         VeryPoor
     }
 
