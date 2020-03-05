@@ -1,0 +1,35 @@
+@model SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels.Section1ViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+<a asp-action="Index" asp-controller="FeedbackConfirmDetails" asp-route-feedbackId="@Model.FeedbackId" class="govuk-back-link">Back</a>
+
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">
+                Please rate each part of the ASK support you received
+                <span class="govuk-caption-xl">Section 1 of 7</span>
+            </h1>
+        </div>
+    </div>
+
+    <partial name="_ErrorSummary"/>
+    
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form method="post">
+                <partial name="_FeedbackRadios" for="InformationAndCommunicationBeforeVisit"/>
+                <partial name="_FeedbackRadios" for="AskDeliveryPartnerWhoVisited"/>
+                <partial name="_FeedbackRadios" for="ActivitiesDelivered"/>
+                
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+
+                <a href="/feedback-form/index" class="das-button--link">Cancel</a>
+            </form>
+            <p class="govuk-hint">If you experience any difficulties in completing the form, please call for assistance on <a href="tel:01462 341191">01462 341191</a>.</p>
+        </div>
+    </div>
+</main>

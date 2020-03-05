@@ -1,0 +1,61 @@
+@model SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels.Section4ViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+<a asp-action="Index" asp-controller="FeedbackSection3" asp-route-feedbackId="@Model.FeedbackId" class="govuk-back-link">Back</a>
+
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">
+                Did an apprentice or employer participate in this visit?
+                <span class="govuk-caption-xl">Section 4 of 7</span>
+            </h1>
+        </div>
+    </div>
+
+    <partial name="_ErrorSummary"/>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form method="post">
+
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="ApprenticeOrEmployerParticipateInVisit" asp-for="ApprenticeOrEmployerParticipateInVisit" type="radio" value="Yes" aria-controls="conditional-participation" aria-expanded="false">
+                                <label class="govuk-label govuk-radios__label" for="ApprenticeOrEmployerParticipateInVisit">Yes</label>
+                            </div>
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-participation" sfa-gds-show-conditional-if-error-for="ApprenticeOrEmployerParticipationRating" show-conditional-if-model="ApprenticeOrEmployerParticipateInVisit" show-conditional-if-model-value="Yes">    
+                                <partial name="_FeedbackRadios" for="ApprenticeOrEmployerParticipationRating"/>
+
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label" for="participation-detail">
+                                        Please add any other comments you have about their participation.
+                                    </label>
+
+
+                                    <textarea class="govuk-textarea" asp-for="ApprenticeOrEmployerParticipateComments" rows="5"></textarea>
+                                </div>
+
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="ApprenticeOrEmployerParticipateInVisit_No" asp-for="ApprenticeOrEmployerParticipateInVisit" type="radio" value="No">
+                                <label class="govuk-label govuk-radios__label" for="ApprenticeOrEmployerParticipateInVisit_No">No</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+
+                <a href="/feedback-form/index" class="das-button--link">Cancel</a>
+            </form>
+            <p class="govuk-hint">If you experience any difficulties in completing the form, please call for assistance on <a href="tel:01462 341191">01462 341191</a>.</p>
+        </div>
+    </div>
+</main>

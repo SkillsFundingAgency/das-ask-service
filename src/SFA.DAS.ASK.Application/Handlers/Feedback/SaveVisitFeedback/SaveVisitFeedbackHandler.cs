@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SFA.DAS.ASK.Data;
 
 namespace SFA.DAS.ASK.Application.Handlers.Feedback.SaveVisitFeedback
@@ -21,6 +22,21 @@ namespace SFA.DAS.ASK.Application.Handlers.Feedback.SaveVisitFeedback
             feedback.FeedbackAnswers = request.FeedbackAnswers;
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
+        }
+    }
+
+    public static class ObjectCopier
+    {
+        public static T CloneJson<T>(this T source)
+        {            
+            if (ReferenceEquals(source, null))
+            {
+                return default;
+            }
+
+            var deserializeSettings = new JsonSerializerSettings {ObjectCreationHandling = ObjectCreationHandling.Replace};
+
+            return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(source), deserializeSettings);
         }
     }
 }
