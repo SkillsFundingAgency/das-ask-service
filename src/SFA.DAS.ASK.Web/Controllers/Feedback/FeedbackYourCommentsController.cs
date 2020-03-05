@@ -1,37 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.Feedback.GetVisitFeedback;
-using SFA.DAS.ASK.Web.ViewModels.Feedback;
+using SFA.DAS.ASK.Application.Handlers.Feedback.SetVisitComplete;
+using SFA.DAS.ASK.Data.Entities;
+using SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels;
 
 namespace SFA.DAS.ASK.Web.Controllers.Feedback
 {
-    public class FeedbackYourCommentsController : Controller
+    [Route("feedback/your-comments/")]
+    public class FeedbackYourCommentsController : FeedbackControllerBase<YourCommentsViewModel>
     {
-        private IMediator _mediator;
-
-        public FeedbackYourCommentsController(IMediator mediator)
+        public FeedbackYourCommentsController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
+            ViewName = "~/Views/Feedback/YourComments.cshtml";
+            NextPageController = "FeedbackComplete";
+            PostSubmitAction = feedbackId => { 
+                UpdateFeedbackStatus(feedbackId, mediator);
+            };
         }
 
-        [HttpGet("/feedback/your-comments/{feedbackId}")]
-        public async Task<IActionResult> Index(Guid feedbackId)
+        private async Task UpdateFeedbackStatus(Guid feedbackId, IMediator mediator)
         {
-            var feedback = await _mediator.Send(new GetVisitFeedbackRequest(feedbackId, true));
+            var feedback = await mediator.Send(new GetVisitFeedbackRequest(feedbackId, false));
 
-            var viewModel = new YourCommentsViewModel(feedback);
+            feedback.Status = FeedbackStatus.Complete;
 
-            return View("~/Views/Feedback/YourComments.cshtml", viewModel);
-        }
+            await mediator.Send(new SetVisitFeedbackCompleteCommand(feedbackId, feedback.Status));
 
-        [HttpPost("feedback/your-comments/{feedbackId}")]
-        public async Task<IActionResult> SubmitFeedback(YourCommentsViewModel yourComments)
-        {
-            return RedirectToAction("Index", "FeedbackComplete", new { feedbackId = yourComments.FeedbackId });
         }
     }
 }

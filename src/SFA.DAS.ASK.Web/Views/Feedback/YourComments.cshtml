@@ -1,9 +1,9 @@
-﻿@model SFA.DAS.ASK.Web.ViewModels.Feedback.YourCommentsViewModel
+﻿@model SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels.YourCommentsViewModel
 @{
     ViewData["Title"] = "Your comments";
 }
 
-<a asp-action="Index" asp-controller="FeedbackStartPage" asp-route-feedbackId="@Model.FeedbackId" class="govuk-back-link">Back</a>
+<a asp-action="Index" asp-controller="FeedbackSection6" asp-route-feedbackId="@Model.FeedbackId" class="govuk-back-link">Back</a>
 
 <main class="govuk-main-wrapper" id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -16,17 +16,17 @@
             <form method="post" asp-route-feedbackId="@Model.FeedbackId">
                 <div class="govuk-form-group">
                     <label class="govuk-label" for=""> What were the best things about your ASK visit? </label>
-                    <textarea class="govuk-textarea" asp-for="@Model.CommentsBestThings" rows="5"></textarea>
+                    <textarea class="govuk-textarea" asp-for="@Model.BestThingsAboutYourVisit" rows="5"></textarea>
                 </div>
 
                 <div class="govuk-form-group">
                     <label class="govuk-label" for=""> Was there anything that didn't work or could be improved? </label>
-                    <textarea class="govuk-textarea" asp-for="@Model.CommentsCouldBeImproved" rows="5"></textarea>
+                    <textarea class="govuk-textarea" asp-for="@Model.WhatCouldBeImprovedAboutYourVisit" rows="5"></textarea>
                 </div>
 
                 <div class="govuk-form-group">
                     <label class="govuk-label" for=""> Please let us know any other comments you have </label>
-                    <textarea class="govuk-textarea" asp-for="@Model.CommentsAdditional" rows="5"></textarea>
+                    <textarea class="govuk-textarea" asp-for="@Model.AddAnyOtherComments" rows="5"></textarea>
                 </div>
 
                 <button class="govuk-button" data-module="govuk-button" type="submit">
