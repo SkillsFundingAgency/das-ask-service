@@ -17,6 +17,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         [Test]
         public async Task ThenSearchResultsShouldBeRetrievedFromTheCache()
         {
+            SessionService.Get(Arg.Any<string>()).Returns("Test School");
             SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
 
             var result = (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
@@ -27,6 +28,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         [Test]
         public async Task FromTheCheckYourAnswersPage_ThenTheGetNonDfeOrganisationRequestIsNeverCalled()
         {
+            SessionService.Get(Arg.Any<string>()).Returns("Test School");
             SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
 
             (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
@@ -37,6 +39,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetNonDfeOrganisations
         [Test]
         public async Task FromTheCheckYourAnswersPage_ThenSaveToCacheIsNever()
         {
+            SessionService.Get(Arg.Any<string>()).Returns("Test School");
             SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
 
             (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
