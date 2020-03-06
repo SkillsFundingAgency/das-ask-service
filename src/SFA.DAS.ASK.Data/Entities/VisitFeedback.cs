@@ -30,6 +30,19 @@ namespace SFA.DAS.ASK.Data.Entities
         public string ApprenticeOrEmployerParticipateComments { get; set; }
         public string WouldYouRecommendAskVisits { get; set; }
         public string WouldNotRecommendAskVisitsComments { get; set; }
+
+        public TypeOfSupportInTheFuture TypeOfSupportInTheFuture { get; set; }
+    }
+
+    public class TypeOfSupportInTheFuture
+    {
+        public bool SupportForStudents { get; set; }
+        public bool ContactWithTrainingProviders { get; set; }
+        public bool GuestSpeakers { get; set; }
+        public bool StaffCpd { get; set; }
+        public bool Resources { get; set; }
+        public bool Other { get; set; }
+        public string OtherDetails { get; set; }
     }
 
     public enum FeedbackRating

@@ -18,10 +18,12 @@ namespace SFA.DAS.ASK.Web.Infrastructure.TagHelpers
 
         [HtmlAttributeName(ModelValueAttributeName)]
         public string Value { get; set; }
-
+ 
         public override void Process(TagHelperContext context, TagHelperOutput output) 
         {
-            if (For.Model != null && For.Model.ToString() == Value) output.RemoveClass("govuk-radios__conditional--hidden", HtmlEncoder.Default);
+            if (For.Model == null || For.Model.ToString() != Value) return;
+            output.RemoveClass("govuk-radios__conditional--hidden", HtmlEncoder.Default);
+            output.RemoveClass("govuk-checkboxes__conditional--hidden", HtmlEncoder.Default);
         }
     }
 }

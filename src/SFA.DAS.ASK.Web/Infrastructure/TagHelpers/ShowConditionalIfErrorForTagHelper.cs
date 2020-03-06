@@ -27,6 +27,7 @@ namespace SFA.DAS.ASK.Web.Infrastructure.TagHelpers
             if (entry == null || !entry.Errors.Any()) return;
             
             output.RemoveClass("govuk-radios__conditional--hidden", HtmlEncoder.Default);
+            output.RemoveClass("govuk-checkboxes__conditional--hidden", HtmlEncoder.Default);
         }
     }
 }
