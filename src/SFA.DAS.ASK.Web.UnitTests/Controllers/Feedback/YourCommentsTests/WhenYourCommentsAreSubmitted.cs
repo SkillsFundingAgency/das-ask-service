@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.YourCommentsTests
 {
     [TestFixture]
-    public class WhenYourCommentsAreSubmitted
+    public class WhenYourCommentsAreSubmitted : FeedbackTestBase
     {
         private IMediator _mediator;
         private Guid feedbackId;
@@ -39,25 +39,6 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.YourCommentsTests
             result.As<ViewResult>().ViewName.Should().Be("~/Views/Feedback/Complete.cshtml");
         }
 
-        private VisitFeedback GetVisitFeedback()
-        {
-            return new VisitFeedback()
-            {
-                Id = Guid.NewGuid(),
-                FeedbackAnswers = { },
-                Status = 0,
-                Visit = new Visit()
-                {
-                    OrganisationContact = new OrganisationContact() { FirstName = "First", LastName = "Last" },
-                    SupportRequest = new SupportRequest() { Organisation = new Organisation() { OrganisationName = "Test Organisation" } },
-                    Activities = new List<VisitActivity>()
-                                     {
-                                        new VisitActivity() { ActivityType = ActivityType.AwarenessAssembly, Id = Guid.NewGuid(), VisitId = Guid.NewGuid() }
-                                     },
-                    VisitDate = new DateTime()
-                },
-                VisitId = Guid.NewGuid()
-            };
-        }
+    
     }
 }
