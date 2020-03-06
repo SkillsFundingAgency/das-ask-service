@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SFA.DAS.ASK.Application.Handlers.Feedback.AddAmmendmentComment;
 using SFA.DAS.ASK.Application.Handlers.Feedback.GetVisitFeedback;
 using SFA.DAS.ASK.Web.ViewModels.Feedback;
 
@@ -33,7 +34,7 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
         {
             if (vm.IncorrectDetailsComments != null)
             {
-
+                await _mediator.Send(new AddAmmendmentCommentCommand(feedbackId, vm.IncorrectDetailsComments));
             }
 
             return RedirectToAction("Index", "FeedbackSection1", new { feedbackId = feedbackId });
