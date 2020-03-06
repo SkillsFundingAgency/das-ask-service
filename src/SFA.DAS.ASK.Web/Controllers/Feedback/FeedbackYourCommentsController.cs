@@ -12,23 +12,22 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
     [Route("feedback/your-comments/")]
     public class FeedbackYourCommentsController : FeedbackControllerBase<YourCommentsViewModel>
     {
-        public FeedbackYourCommentsController(IMediator mediator) : base(mediator)
+        private readonly IMediator _mediator;
+
+        public  FeedbackYourCommentsController(IMediator mediator) : base(mediator)
         {
+            _mediator = mediator;
             ViewName = "~/Views/Feedback/YourComments.cshtml";
             NextPageController = "FeedbackComplete";
-            PostSubmitAction = feedbackId => { 
-                UpdateFeedbackStatus(feedbackId, mediator);
-            };
         }
 
-        private async Task UpdateFeedbackStatus(Guid feedbackId, IMediator mediator)
+        protected override async Task PostSubmitAction(Guid feedbackId)
         {
-            var feedback = await mediator.Send(new GetVisitFeedbackRequest(feedbackId, false));
+            var feedback = await _mediator.Send(new GetVisitFeedbackRequest(feedbackId, false));
 
             feedback.Status = FeedbackStatus.Complete;
 
-            await mediator.Send(new SetVisitFeedbackCompleteCommand(feedbackId, feedback.Status));
-
+            await _mediator.Send(new SetVisitFeedbackCompleteCommand(feedbackId, feedback.Status));
         }
     }
 }

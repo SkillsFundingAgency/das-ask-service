@@ -15,12 +15,15 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
         protected string NextPageController { get; set; }
         private readonly IMediator _mediator;
 
-        protected Action<Guid> PostSubmitAction { get; set; }
+        //protected Action<Guid> PostSubmitAction { get; set; }
+
+        protected virtual async Task PostSubmitAction(Guid feedbackId)    
+        {
+        }
         
         protected FeedbackControllerBase(IMediator mediator)
         {
             _mediator = mediator;
-            PostSubmitAction = guid => { };
         }
         
         [HttpGet("{feedbackId}")]
@@ -52,7 +55,7 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
             
             await _mediator.Send(new SaveVisitFeedbackRequest(feedbackId, updatedAnswers));
 
-            PostSubmitAction(feedbackId);
+            await PostSubmitAction(feedbackId);
             
             return RedirectToAction("Index", NextPageController, new { feedbackId });
         }
