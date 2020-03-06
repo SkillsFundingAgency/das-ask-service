@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ASK.Application.UnitTests.Handlers.Feedback.AddAmmendmentCommentTests
 {
-    [TextFixture]
+    [TestFixture]
     public class WhenAddAmmendmentCommentHandled
     {
         private string ADDITIONAL_COMMENT;
