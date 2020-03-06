@@ -12,8 +12,14 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback
     public class FeedbackTestBase
     {
         protected Guid FEEDBACK_ID = Guid.NewGuid();
+        protected Guid VISIT_ID = Guid.NewGuid();
+        protected Guid VISIT_ACTIVITY_ID = Guid.NewGuid();
+        protected DateTime TEST_DATE = new DateTime();
         protected const string FIRST_NAME = "FirstName";
-        
+        protected const string LAST_NAME = "LastName";
+        protected const string ORGANISATION_NAME = "Test Organisation";
+
+
         protected IMediator Mediator;
         protected ISessionService SessionService;
 
@@ -33,15 +39,15 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback
                 Status = 0,
                 Visit = new Visit()
                 {
-                    OrganisationContact = new OrganisationContact() { FirstName = "First", LastName = "Last" },
-                    SupportRequest = new SupportRequest() { Organisation = new Organisation() { OrganisationName = "Test Organisation" } },
+                    OrganisationContact = new OrganisationContact() { FirstName = FIRST_NAME, LastName = LAST_NAME},
+                    SupportRequest = new SupportRequest() { Organisation = new Organisation() { OrganisationName = ORGANISATION_NAME } },
                     Activities = new List<VisitActivity>()
                                      {
-                                        new VisitActivity() { ActivityType = ActivityType.AwarenessAssembly, Id = Guid.NewGuid(), VisitId = Guid.NewGuid() }
+                                        new VisitActivity() { ActivityType = ActivityType.AwarenessAssembly, Id = VISIT_ACTIVITY_ID, VisitId = VISIT_ID }
                                      },
-                    VisitDate = new DateTime()
+                    VisitDate = TEST_DATE
                 },
-                VisitId = Guid.NewGuid()
+                VisitId = VISIT_ID
             };
         }
 

@@ -31,7 +31,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.YourCommentsTests
         {
             _mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(GetVisitFeedback());
    
-            var result = await controller.Index(Guid.NewGuid());
+            var result = await controller.Index(FEEDBACK_ID);
 
             result.Should().BeOfType<ViewResult>();
             result.As<ViewResult>().ViewName.Should().Be("~/Views/Feedback/YourComments.cshtml");
