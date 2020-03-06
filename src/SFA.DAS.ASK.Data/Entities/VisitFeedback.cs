@@ -30,6 +30,10 @@ namespace SFA.DAS.ASK.Data.Entities
         public string ApprenticeOrEmployerParticipateComments { get; set; }
         public string WouldYouRecommendAskVisits { get; set; }
         public string WouldNotRecommendAskVisitsComments { get; set; }
+        public string BestThingsAboutYourVisit { get; set; }
+        public string WhatCouldBeImprovedAboutYourVisit { get; set; }
+        public string AddAnyOtherComments { get; set; }
+
 
         public TypeOfSupportInTheFuture TypeOfSupportInTheFuture { get; set; }
     }
@@ -43,6 +47,7 @@ namespace SFA.DAS.ASK.Data.Entities
         public bool Resources { get; set; }
         public bool Other { get; set; }
         public string OtherDetails { get; set; }
+
     }
 
     public enum FeedbackRating
