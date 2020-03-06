@@ -14,31 +14,31 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.YourCommentsTests
 {
-    [TestFixture]
-    public class WhenYourCommentsAreSubmitted : FeedbackTestBase
-    {
-        private IMediator _mediator;
-        private Guid feedbackId;
-        private FeedbackYourCommentsController _controller;
+    //[TestFixture]
+    //public class WhenYourCommentsAreSubmitted : FeedbackTestBase
+    //{
+    //    private IMediator _mediator;
+    //    private Guid feedbackId;
+    //    private FeedbackYourCommentsController _controller;
 
-        [SetUp]
-        public void Arrange()
-        {
-            _mediator = Substitute.For<IMediator>();
-            feedbackId = Guid.Parse("BC2BFFD8-6B20-4BEC-BF33-F83C970DD73E");
-            _controller = new FeedbackYourCommentsController(_mediator);
-        }
+    //    [SetUp]
+    //    public void Arrange()
+    //    {
+    //        _mediator = Substitute.For<IMediator>();
+    //        feedbackId = Guid.Parse("BC2BFFD8-6B20-4BEC-BF33-F83C970DD73E");
+    //        _controller = new FeedbackYourCommentsController(_mediator);
+    //    }
 
-        [Test]
-        public async Task ThenUserIsRedirectedToTheFeedbackCompletePage()
-        {
-            _mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(GetVisitFeedback());
+    //    [Test]
+    //    public async Task ThenUserIsRedirectedToTheFeedbackCompletePage()
+    //    {
+    //        _mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(GetVisitFeedback());
 
-            var result = await _controller.Index(feedbackId, new YourCommentsViewModel());
+    //        var result = await _controller.Index(feedbackId, new YourCommentsViewModel());
 
-            result.As<ViewResult>().ViewName.Should().Be("~/Views/Feedback/Complete.cshtml");
-        }
+    //        result.As<ViewResult>().ViewName.Should().Be("~/Views/Feedback/Complete.cshtml");
+    //    }
 
     
-    }
+    //}
 }

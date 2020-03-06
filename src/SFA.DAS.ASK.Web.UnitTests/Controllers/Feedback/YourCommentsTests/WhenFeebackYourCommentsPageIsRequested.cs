@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.YourCommentsTests
 {
     [TestFixture]
-    public class WhenFeebackYourCommentsPageIsRequested
+    public class WhenFeebackYourCommentsPageIsRequested : FeedbackTestBase
     {
         private FeedbackYourCommentsController controller;
         private IMediator _mediator;
@@ -29,7 +29,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.YourCommentsTests
         [Test]
         public async Task ThenTheCorrectViewIsDisplayed()
         {
-            _mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(new VisitFeedback());
+            _mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(GetVisitFeedback());
    
             var result = await controller.Index(Guid.NewGuid());
 

@@ -29,7 +29,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback
             return new VisitFeedback()
             {
                 Id = FEEDBACK_ID,
-                FeedbackAnswers = { },
+                FeedbackAnswers = new FeedbackAnswers() { },
                 Status = 0,
                 Visit = new Visit()
                 {
