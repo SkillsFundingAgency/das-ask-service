@@ -27,5 +27,16 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
 
             return View("~/Views/Feedback/ConfirmDetails.cshtml", vm);
         }
+
+        [HttpPost("feedback/confirm-details/{feedbackId}")]
+        public async Task<IActionResult> StartFeedback(Guid feedbackId, ConfirmDetailsViewModel vm)
+        {
+            if (vm.IncorrectDetailsComments != null)
+            {
+
+            }
+
+            return RedirectToAction("Index", "FeedbackSection1", new { feedbackId = feedbackId });
+        }
     }
 }

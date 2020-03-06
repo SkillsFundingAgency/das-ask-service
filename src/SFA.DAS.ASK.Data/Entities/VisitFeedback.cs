@@ -12,6 +12,7 @@ namespace SFA.DAS.ASK.Data.Entities
         public Visit Visit { get; set; }
         public FeedbackStatus Status { get; set; }
         public FeedbackAnswers FeedbackAnswers { get; set; }
+        public string IncorrectDetailsComments { get; set; }
     }
 
     public class FeedbackAnswers

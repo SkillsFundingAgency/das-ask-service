@@ -45,8 +45,29 @@
                 }
             </dl>
 
-            <a id="continueButton" class="govuk-button" asp-controller="FeedbackSection1" asp-action="Index" asp-route-feedbackId="@Model.FeedbackId">Continue</a>
+            <form method="post">
+                <details class="govuk-details" data-module="govuk-details">
+                    <summary class="govuk-details__summary">
+                        <span class="govuk-details__summary-text">
+                            Is something incorrect?
+                        </span>
+                    </summary>
+                    <div class="govuk-details__text">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label" for="more-detail" id="more-detail-label">
+                                Please describe which details are incorrect and why.
+                            </label>
 
+                            <textarea class="govuk-textarea" asp-for="IncorrectDetailsComments" rows="5" aria-describedby="more-detail-label"></textarea>
+                        </div>
+                    </div>
+
+                </details>
+
+                <button id="continueButton" class="govuk-button" asp-controller="FeedbackConfirmDetails" asp-action="StartFeedback" asp-route-feedbackId="@Model.FeedbackId" type="submit">Continue</button>
+
+            </form>
+            
             <a asp-action="Index" asp-controller="FeedbackStartPage" asp-route-feedbackId="@Model.FeedbackId" class="das-button--link">Cancel</a>
 
             <partial name="_DifficultiesFooter" />
