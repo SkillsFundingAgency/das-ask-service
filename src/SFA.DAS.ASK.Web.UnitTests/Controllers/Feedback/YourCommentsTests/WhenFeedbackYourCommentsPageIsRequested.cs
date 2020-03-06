@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.YourCommentsTests
 {
     [TestFixture]
-    public class WhenFeebackYourCommentsPageIsRequested : FeedbackTestBase
+    public class WhenFeedbackYourCommentsPageIsRequested : FeedbackTestBase
     {
         private FeedbackYourCommentsController controller;
         private IMediator _mediator;

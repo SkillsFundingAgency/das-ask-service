@@ -24,7 +24,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.Feedback.SetVisitFeedbackCo
             var handler = new SetVisitFeedbackCompleteHandler(dbContext);
             var updatedDb = await handler.Handle(new SetVisitFeedbackCompleteCommand(requestFeedbackId, FeedbackStatus.Complete), CancellationToken.None);
 
-            dbContext.VisitFeedback.Where(visit => visit.Id == requestFeedbackId).FirstOrDefault().Id.Should().Be(requestFeedbackId); 
+            dbContext.VisitFeedback.Where(visit => visit.Id == requestFeedbackId).FirstOrDefault().Status.Should().Be(FeedbackStatus.Complete); 
         }
     }
 }
