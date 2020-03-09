@@ -63,6 +63,7 @@ namespace SFA.DAS.ASK.Data.Entities
     public enum FeedbackStatus
     {
         NotStarted,
+        InProgress,
         Complete
     }
 }

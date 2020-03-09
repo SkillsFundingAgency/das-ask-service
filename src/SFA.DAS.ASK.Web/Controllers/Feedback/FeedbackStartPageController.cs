@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.Feedback.GetVisitFeedback;
+using SFA.DAS.ASK.Application.Handlers.Feedback.StartFeedback;
 using SFA.DAS.ASK.Data.Entities;
 
 namespace SFA.DAS.ASK.Web.Controllers.Feedback
@@ -31,6 +32,14 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
                 return RedirectToAction("Index", "FeedbackComplete", new {feedbackId});
             }
             return View("~/Views/Feedback/Start.cshtml", feedbackId);
+        }
+
+        [HttpPost("feedback/start/{feedbackId}")]
+        public async Task<IActionResult> StartFeedback(Guid feedbackId)
+        {
+            await _mediator.Send(new StartFeedbackCommand(feedbackId));
+
+            return RedirectToAction("Index", "FeedbackConfirmDetails", new {feedbackId});
         }
     }
 }
