@@ -26,12 +26,13 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
             {
                 throw new SecurityException($"Feedback ID {feedbackId} is not valid.");
             }
-
+            
             if (visitFeedback.Status == FeedbackStatus.Complete)
             {
                 return RedirectToAction("Index", "FeedbackComplete", new {feedbackId});
             }
-            return View("~/Views/Feedback/Start.cshtml", feedbackId);
+
+            return await StartFeedback(feedbackId);
         }
 
         [HttpPost("feedback/start/{feedbackId}")]
