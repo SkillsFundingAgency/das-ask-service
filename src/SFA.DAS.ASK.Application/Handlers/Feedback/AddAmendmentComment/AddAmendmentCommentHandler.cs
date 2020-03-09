@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ASK.Application.Handlers.Feedback.AddAmmendmentComment
 {
-    public class AddAmmendmentCommentHandler : IRequestHandler<AddAmmendmentCommentCommand>
+    public class AddAmendmentCommentHandler : IRequestHandler<AddAmendmentCommentCommand>
     {
         private readonly AskContext _dbContext;
 
-        public AddAmmendmentCommentHandler(AskContext dbContext)
+        public AddAmendmentCommentHandler(AskContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<Unit> Handle(AddAmmendmentCommentCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddAmendmentCommentCommand request, CancellationToken cancellationToken)
         {
-            var feedback = await _dbContext.VisitFeedback.SingleAsync(f => f.Id == request.FeedbackId, CancellationToken.None);
+            var feedback = await _dbContext.VisitFeedback.SingleAsync(f => f.Id == request.FeedbackId, cancellationToken);
             feedback.IncorrectDetailsComments = request.Comment;
             await _dbContext.SaveChangesAsync(cancellationToken);
 

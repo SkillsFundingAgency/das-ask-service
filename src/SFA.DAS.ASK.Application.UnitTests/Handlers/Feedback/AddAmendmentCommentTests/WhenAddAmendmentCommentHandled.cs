@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace SFA.DAS.ASK.Application.UnitTests.Handlers.Feedback.AddAmmendmentCommentTests
 {
     [TestFixture]
-    public class WhenAddAmmendmentCommentHandled
+    public class WhenAddAmendmentCommentHandled
     {
         private string ADDITIONAL_COMMENT;
 
@@ -30,8 +30,8 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.Feedback.AddAmmendmentComme
             await dbContext.VisitFeedback.AddAsync(new VisitFeedback() { Id = requestFeedbackId, Status = FeedbackStatus.NotStarted, IncorrectDetailsComments = null});
             await dbContext.SaveChangesAsync();
 
-            var handler = new AddAmmendmentCommentHandler(dbContext);
-            var updatedDb = await handler.Handle(new AddAmmendmentCommentCommand(requestFeedbackId, ADDITIONAL_COMMENT), CancellationToken.None);
+            var handler = new AddAmendmentCommentHandler(dbContext);
+            var updatedDb = await handler.Handle(new AddAmendmentCommentCommand(requestFeedbackId, ADDITIONAL_COMMENT), CancellationToken.None);
 
             dbContext.VisitFeedback.Where(visit => visit.Id == requestFeedbackId).FirstOrDefault().IncorrectDetailsComments.Should().Be(ADDITIONAL_COMMENT);
         }

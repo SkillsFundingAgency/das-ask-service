@@ -28,7 +28,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.ConfirmDetails
         {
             var result = await controller.StartFeedback(FEEDBACK_ID, new ConfirmDetailsViewModel());
 
-            Mediator.DidNotReceive().Send(Arg.Any<AddAmmendmentCommentCommand>());
+            Mediator.DidNotReceive().Send(Arg.Any<AddAmendmentCommentCommand>());
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.ConfirmDetails
         {
             var result = await controller.StartFeedback(FEEDBACK_ID, new ConfirmDetailsViewModel() { IncorrectDetailsComments = "Additional Comment"});
 
-            Mediator.Received().Send(Arg.Any<AddAmmendmentCommentCommand>());
+            Mediator.Received().Send(Arg.Any<AddAmendmentCommentCommand>());
         }
 
         [Test]

@@ -34,7 +34,7 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
         {
             if (vm.IncorrectDetailsComments != null)
             {
-                await _mediator.Send(new AddAmmendmentCommentCommand(feedbackId, vm.IncorrectDetailsComments));
+                await _mediator.Send(new AddAmendmentCommentCommand(feedbackId, vm.IncorrectDetailsComments));
             }
 
             return RedirectToAction("Index", "FeedbackSection1", new { feedbackId = feedbackId });
