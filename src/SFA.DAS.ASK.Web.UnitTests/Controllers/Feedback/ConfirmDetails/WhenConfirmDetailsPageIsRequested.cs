@@ -16,48 +16,28 @@ using ViewResult = Microsoft.AspNetCore.Mvc.ViewResult;
 namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.ConfirmDetails
 {
     [TestFixture]
-    public class WhenConfirmDetailsPageIsRequested
+    public class WhenConfirmDetailsPageIsRequested : FeedbackTestBase
     {
         private FeedbackConfirmDetailsController _controller;
-        private IMediator _mediator;
-        private Guid feedbackId;
+        
 
         [SetUp]
         public void Arrange()
         {
-            _mediator = Substitute.For<IMediator>();
-            feedbackId = Guid.Parse("BC2BFFD8-6B20-4BEC-BF33-F83C970DD73E");
-            _controller = new FeedbackConfirmDetailsController(_mediator);
+            _controller = new FeedbackConfirmDetailsController(Mediator);
         }
 
         [Test]
         public async Task ThenAViewResultIsReturned()
         {
-            _mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(GetVisitFeedback());
+            Mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(GetVisitFeedback());
 
-            var result = await _controller.Index(feedbackId);
+            var result = await _controller.Index(FEEDBACK_ID);
 
             result.Should().BeOfType<ViewResult>();
             result.As<ViewResult>().ViewName.Should().Be("~/Views/Feedback/ConfirmDetails.cshtml");
         }
 
-        private VisitFeedback GetVisitFeedback()
-        {
-            return new VisitFeedback()
-            {
-                Id = Guid.NewGuid(),
-                FeedbackAnswers = { },
-                Status = 0,
-                Visit = new Visit() {
-                    OrganisationContact = new OrganisationContact() { FirstName = "First", LastName = "Last" },
-                    SupportRequest = new SupportRequest() { Organisation = new Organisation() { OrganisationName = "Test Organisation" } },
-                    Activities = new List<VisitActivity>()
-                                     {
-                                        new VisitActivity() { ActivityType = ActivityType.AwarenessAssembly, Id = Guid.NewGuid(), VisitId = Guid.NewGuid() }
-                                     },
-                    VisitDate = new DateTime()},
-                    VisitId = Guid.NewGuid()
-            };
-        }
+        
     }
 }
