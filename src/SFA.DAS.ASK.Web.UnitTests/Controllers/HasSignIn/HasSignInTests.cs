@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using FluentAssertions;
 
 namespace SFA.DAS.ASK.Web.UnitTests.Controllers.HasSignIn
 {
@@ -25,15 +26,26 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.HasSignIn
         }
 
         [Test]
+        [Ignore("Ignoring as the has sign in page is bypassed for the time being")]
         public async Task WhenNavigatingToTheHasSignInPage_ThenTheCorrectViewIsDisplayed()
         {
             SessionService.Get(Arg.Is("HasSignIn")).Returns("true");
 
-            var actual = sut.Index();
+            var actual = await sut.Index();
 
             var viewResult = actual as ViewResult;
 
             Assert.AreEqual("~/Views/RequestSupport/HasSignIn.cshtml", viewResult.ViewName);
+        }
+        
+        [Test]
+        public async Task WhenNavigatingToTheHasSignInPage_ThenTheARedirectToYourDetailsIsReturned()
+        {
+            SessionService.Get(Arg.Is("TempSupportRequestId")).Returns(REQUEST_ID.ToString());
+
+            var actual = await sut.Index();
+
+            actual.Should().BeOfType<RedirectToActionResult>();
         }
 
         [Test]
