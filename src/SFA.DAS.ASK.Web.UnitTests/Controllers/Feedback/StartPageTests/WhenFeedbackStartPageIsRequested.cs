@@ -34,7 +34,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.StartPageTests
         public async Task ThenViewResultIsReturned()
         {
             _result = await _controller.Index(_feedbackId);
-            _result.Should().BeOfType<ViewResult>();
+            _result.Should().BeOfType<RedirectToActionResult>();
         }
 
         [Test]
@@ -45,10 +45,13 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.StartPageTests
         }
         
         [Test]
-        public async Task AndFeedbackIsNotComplete_ThenViewResultHasStartViewName()
+        public async Task AndFeedbackIsNotComplete_ThenResultIdRedirectToConfirmDetailsPage()
         {
             _result = await _controller.Index(_feedbackId);
-            _result.As<ViewResult>().ViewName.Should().Be("~/Views/Feedback/Start.cshtml");
+
+            _result.Should().BeOfType<RedirectToActionResult>();
+            _result.As<RedirectToActionResult>().ActionName.Should().Be("Index");
+            _result.As<RedirectToActionResult>().ControllerName.Should().Be("FeedbackConfirmDetails");
         }
         
         [Test]
