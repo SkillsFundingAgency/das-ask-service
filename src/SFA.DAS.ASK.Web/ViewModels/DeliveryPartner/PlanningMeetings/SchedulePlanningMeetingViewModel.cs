@@ -15,10 +15,10 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
         public DateTime TimeOfMeeting { get; set; }
         public MeetingType Type { get; set; }
 
-        public SchedulePlanningMeetingViewModel(PlanningMeeting meeting)
+        public SchedulePlanningMeetingViewModel(PlanningMeeting meeting, SupportRequest supportRequest)
         {
             MeetingId = meeting.Id;
-            //TimeOfMeeting = meeting.
+            OrganisationName = supportRequest.Organisation.OrganisationName;
         }
     }
 

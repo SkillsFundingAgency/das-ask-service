@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetOrCreatePlanningMeeting;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer;
 using SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings;
 
@@ -25,8 +26,9 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
         
         {
             var meeting = await _mediator.Send(new GetPlanningMeetingRequest(meetingId));
+            var request = await _mediator.Send(new GetSupportRequest(meeting.SupportRequestId));
 
-            var viewModel = new SchedulePlanningMeetingViewModel(meeting);
+            var viewModel = new SchedulePlanningMeetingViewModel(meeting, request);
 
             return View("~/Views/DeliveryPartner/PlanningMeetings/SchedulePlanningMeeting.cshtml", viewModel);
         }

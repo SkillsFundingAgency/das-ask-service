@@ -1,4 +1,4 @@
-﻿
+﻿@model SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings.SchedulePlanningMeetingViewModel
 @{
     ViewData["Title"] = "Schedule planning meeting";
 }
@@ -12,7 +12,7 @@
 
             <h1 class="govuk-heading-xl">
                 Schedule a planning meeting
-                <span class="govuk-caption-xl"> School Name  </span>
+                <span class="govuk-caption-xl"> @Model.OrganisationName </span>
             </h1>
 
             <form method="post">
