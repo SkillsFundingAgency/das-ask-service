@@ -2,8 +2,8 @@
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
     [SupportRequestId] UNIQUEIDENTIFIER NULL, 
-    [ContactId] UNIQUEIDENTIFIER NULL, 
-    [DeliveryPartnerId] UNIQUEIDENTIFIER NULL, 
+    [OrganisationContactId] UNIQUEIDENTIFIER NULL, 
+    [DeliveryPartnerContactId] UNIQUEIDENTIFIER NULL, 
     [MeetingType] INT NULL, 
     [MeetingTimeAndDate] DATETIME NULL
 )

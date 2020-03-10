@@ -23,8 +23,8 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.Star
             {
                 Id = meetingId,
                 SupportRequestId = Guid.NewGuid(),
-                ContactId = Guid.NewGuid(),
-                DeliveryPartnerId = Guid.NewGuid(),
+                OrganisationContactId = Guid.NewGuid(),
+                DeliveryPartnerContactId = Guid.NewGuid(),
                 MeetingType = MeetingType.FaceToFace
 
             });
