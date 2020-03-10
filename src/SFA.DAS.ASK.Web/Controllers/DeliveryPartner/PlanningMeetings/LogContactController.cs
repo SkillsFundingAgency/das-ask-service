@@ -10,24 +10,26 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
 
     public class LogContactController : Controller
     {
-        [HttpGet("delivery-partner/planning-meeting/log-contact/{meetingId}")]
-        public IActionResult Index(Guid meetingId)
+        [HttpGet("delivery-partner/planning-meeting/log-contact/{requestId}")]
+        public IActionResult Index(Guid requestId)
         {
-            // get planning meeting
+            // get request
 
 
-            var viewModel = new LogContactViewModel();
+            var viewModel = new LogContactViewModel(requestId);
 
             return View("~/Views/DeliveryPartner/PlanningMeetings/Logcontact.cshtml", viewModel);
         }
 
-        [HttpPost("log-contact")]
+        [HttpPost("delivery-partner/planning-meeting/log-contact")]
         public IActionResult Index(LogContactViewModel viewModel)
         {
             // handler to update
+
+
             if (viewModel.SchedulePlanningMeeting == true)
             {
-                return RedirectToAction();
+                return RedirectToAction("Index", "SchedulePlanningMeeting");
             }
 
             return RedirectToAction();

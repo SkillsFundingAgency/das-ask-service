@@ -7,11 +7,16 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 {
     public class LogContactViewModel
     {
+        public Guid RequestId { get; set; }
         public int Hours { get; set; }
         public int Minutes { get; set; }
         public bool Telephone { get; set; }
         public bool Email { get; set; }
         public bool SchedulePlanningMeeting { get; set; }
 
+        public LogContactViewModel(Guid requestId)
+        {
+            RequestId = requestId;
+        }
     }
 }
