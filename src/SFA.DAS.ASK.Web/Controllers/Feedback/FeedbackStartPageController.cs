@@ -22,7 +22,6 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
         public async Task<IActionResult> Index(Guid feedbackId)
         {
             var visitFeedback = await _mediator.Send(new GetVisitFeedbackRequest(feedbackId, true));
-           
             if (visitFeedback is null)
             {
                 throw new SecurityException($"Feedback ID {feedbackId} is not valid.");
@@ -33,7 +32,7 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
                 return RedirectToAction("Index", "FeedbackComplete", new {feedbackId});
             }
 
-            return View("~/Views/Feedback/Start.cshtml", feedbackId);
+            return await StartFeedback(feedbackId);
         }
 
         [HttpPost("feedback/start/{feedbackId}")]
