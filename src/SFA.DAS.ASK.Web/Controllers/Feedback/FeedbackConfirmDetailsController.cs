@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.Feedback.AddAmmendmentComment;
 using SFA.DAS.ASK.Application.Handlers.Feedback.GetVisitFeedback;
+using SFA.DAS.ASK.Data.Entities;
 using SFA.DAS.ASK.Web.ViewModels.Feedback;
 
 namespace SFA.DAS.ASK.Web.Controllers.Feedback
@@ -23,6 +25,16 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
         public async Task<IActionResult> Index(Guid feedbackId)
         {
             var details = await _mediator.Send(new GetVisitFeedbackRequest(feedbackId, true));
+
+            if (details is null)
+            {
+                throw new SecurityException($"Feedback ID {feedbackId} is not valid.");
+            }
+
+            if (details.Status == FeedbackStatus.Complete)
+            {
+                return RedirectToAction("Index", "FeedbackComplete", new { feedbackId });
+            }
 
             var vm = new ConfirmDetailsViewModel(details);
 
