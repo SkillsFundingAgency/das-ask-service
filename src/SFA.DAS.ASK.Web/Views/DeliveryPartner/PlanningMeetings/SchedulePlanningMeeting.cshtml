@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewData["Title"] = "Schedule planning meeting";
+}
+
+<main class="govuk-main-wrapper" id="main-content" role="main">
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <partial name="_ErrorSummary" />
+
+            <h1 class="govuk-heading-xl">
+                Schedule a planning meeting
+                <span class="govuk-caption-xl"> School Name  </span>
+            </h1>
+
+            <form method="post">
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                            <h1 class="govuk-fieldset__heading">
+                                Time of the planning meeting
+                            </h1>
+                        </legend>
+                        <span id="passport-issued-hint" class="govuk-hint">
+                            For example, 09 30
+                        </span>
+                        <div class="govuk-date-input">
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <div class="govuk-label govuk-date-input__label"> Hours </div>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" type="text" pattern="[0-9]*" inputmode="numeric">
+                                </div>
+                            </div>
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <div class="govuk-label govuk-date-input__label"> Minutes </div>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" type="text" pattern="[0-9]*" inputmode="numeric">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" aria-describedby="meeting-type-hint">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                            <h1 class="govuk-fieldset__heading">
+                                How will the planning meeting take place?
+                            </h1>
+                        </legend>
+                        <div class="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="changed-name" name="changed-name" type="radio" value="yes">
+                                <label class="govuk-label govuk-radios__label" for="changed-name">
+                                    A face-to-face meeting
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="changed-name-2" name="changed-name" type="radio" value="no">
+                                <label class="govuk-label govuk-radios__label" for="changed-name-2">
+                                    A telephone conversation
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <button class="govuk-button" type="submit">Continue</button>
+                <a class="das-button--link">Cancel</a>
+            </form>
+
+        </div>
+    </div>
+</main>

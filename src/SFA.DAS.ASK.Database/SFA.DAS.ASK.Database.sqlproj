@@ -68,6 +68,7 @@
     <Build Include="Tables\TempSupportRequests.sql" />
     <Build Include="Tables\SupportRequests.sql" />
     <Build Include="Tables\SupportRequestEventLogs.sql" />
+    <Build Include="Tables\PlanningMeetings.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />

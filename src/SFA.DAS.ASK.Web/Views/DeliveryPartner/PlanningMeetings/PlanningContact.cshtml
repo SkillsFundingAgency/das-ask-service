@@ -1,0 +1,44 @@
+﻿@model SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings.PlanningContactViewModel
+@{
+    ViewData["Title"] = "PlanningContact";
+}
+
+
+<main class="govuk-main-wrapper" id="main-content" role="main">
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">
+                Planned contact at @Model.OrganisationName
+            </h1>
+
+            <form method="post">
+
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <div class="govuk-radios">
+                            <div class="govuk-radios__item">
+
+                            </div>
+                            @*<div class="govuk-radios__item">
+                                <input class="govuk-radios__input"  id="organisationType_other" value="@OrganisationType.Other" data-aria-controls="conditional_organisationType_other" />
+                                <label class="govuk-label govuk-radios__label" for="organisationType_other"></label>
+                            </div>
+
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional_organisationType_other">
+                                <div class="govuk-form-group" sfa-gds-error-class-for="Other">
+                                    <label class="govuk-label" for="organisationType_other_details"> Please specify </label>
+                                    <span sfa-gds-error-message-for="Other"></span>
+                                    <input class="govuk-input govuk-!-width-one-third" id="organisationType_other_details" asp-for="Other">
+                                </div>
+                            </div>*@
+                        </div>
+                    </fieldset>
+                </div>
+
+                <button class="govuk-button" type="submit">Continue</button>
+                <a class="das-button--link">Cancel</a>
+            </form>
+        </div>
+    </div>
+</main>

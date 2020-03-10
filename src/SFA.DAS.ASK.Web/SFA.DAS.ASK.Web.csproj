@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Views\DeliveryPartner\Visits\" />
-    <Folder Include="Views\DeliveryPartner\PlanningMeetings\" />
     <Folder Include="Views\DeliveryPartner\SupportRequests\" />
   </ItemGroup>
 
