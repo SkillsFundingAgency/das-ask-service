@@ -1,0 +1,86 @@
+@model SFA.DAS.ASK.Web.Controllers.Feedback.ViewModels.Section6ViewModel  
+
+@{
+    ViewBag.Title = "title";
+}
+
+<a asp-action="Index" asp-controller="FeedbackSection5" asp-route-feedbackId="@Model.FeedbackId" class="govuk-back-link">Back</a>
+
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">
+                Would you recommend ASK visits to other schools or educational establishments?
+                <span class="govuk-caption-xl">Section 6 of 7</span>
+            </h1>
+        </div>
+    </div>
+
+    <partial name="_ErrorSummary"/>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form method="post">
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            What type of support would you like to receive in the future?
+                        </legend>
+                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" asp-for="SupportForStudents" type="checkbox">
+                                <label class="govuk-label govuk-checkboxes__label" for="future-support-type">
+                                    Support for students making applications
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" asp-for="ContactWithTrainingProviders" type="checkbox">
+                                <label class="govuk-label govuk-checkboxes__label" for="future-support-type-2">
+                                    Contact with local training providers
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" asp-for="GuestSpeakers" type="checkbox">
+                                <label class="govuk-label govuk-checkboxes__label" for="future-support-type-3">
+                                    Guest speakers (employers or apprentices)
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" asp-for="StaffCpd" type="checkbox">
+                                <label class="govuk-label govuk-checkboxes__label" for="future-support-type-4">
+                                    Staff CPD
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" asp-for="Resources" type="checkbox">
+                                <label class="govuk-label govuk-checkboxes__label" for="future-support-type-5">
+                                    Resources
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" asp-for="Other" type="checkbox" aria-controls="conditional-future-support-type-6" aria-expanded="false">
+                                <label class="govuk-label govuk-checkboxes__label" for="future-support-type-6">
+                                    Other
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-future-support-type-6" sfa-gds-show-conditional-if-error-for="OtherDetails" show-conditional-if-model="Other" show-conditional-if-model-value="True">
+                                <div class="govuk-form-group" sfa-gds-error-class-for-name="OtherDetails">
+                                    <span id="has-sign-in-error" sfa-gds-error-message-for-name="OtherDetails"></span>
+                                    <label class="govuk-label" for="other-support">
+                                        Please give details of the support you’d like.
+                                    </label>
+                                    <textarea class="govuk-textarea" asp-for="OtherDetails" type="checkbox" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+
+                <a href="/feedback-form/index" class="das-button--link">Cancel</a>
+            </form>
+            <p class="govuk-hint">If you experience any difficulties in completing the form, please call for assistance on <a href="tel:01462 341191">01462 341191</a>.</p>
+        </div>
+    </div>
+</main>
