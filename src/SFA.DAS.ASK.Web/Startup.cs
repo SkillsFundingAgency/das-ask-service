@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Threading.Tasks;
@@ -25,6 +27,7 @@ using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Web.Controllers.RequestSupport;
 using SFA.DAS.ASK.Web.Infrastructure;
 using SFA.DAS.ASK.Web.Infrastructure.Filters;
+using SFA.DAS.ASK.Web.Infrastructure.NServiceBus;
 using SFA.DAS.Boilerplate.Configuration;
 using SFA.DAS.Boilerplate.Logging;
 
@@ -171,7 +174,8 @@ namespace SFA.DAS.ASK.Web
             services.AddOptions();
             services.Configure<ReferenceDataApiConfig>(Configuration.GetSection("ReferenceDataApiAuthentication"));
             services.Configure<DfeSignInConfig>(Configuration.GetSection("DfeSignIn"));
-            
+            services.Configure<NServiceBusConfiguration>(Configuration.GetSection("NServiceBusConfiguration"));
+
             services.AddScoped<CheckRequestFilter>();
 
             services.AddTransient<ISessionService, SessionService>();
@@ -188,8 +192,11 @@ namespace SFA.DAS.ASK.Web
             services.AddMediatR(typeof(StartTempSupportRequestHandler));
 
             //services.AddDbContext<AskContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
+            services.AddTransient<DbConnection>(provider => new SqlConnection(Configuration["SqlConnectionstring"]));
             services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionstring"]));
             services.AddMvc().AddSessionStateTempDataProvider().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            services.AddNServiceBus();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
