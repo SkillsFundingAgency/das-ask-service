@@ -29,9 +29,9 @@
             <form method="post" asp-action="Index" asp-controller="OtherDetails" asp-route-requestId="@Model.RequestId">
                 <input type="hidden" asp-for="SupportRequestType"/>
 
-                <fieldset class="govuk-fieldset">
+           
                     <div class="govuk-form-group">
-                        <label class="govuk-heading-s no-bottom-margin" asp-for="AdditionalComments">Do you have any more details to share?</label>
+                        <label class="govuk-label govuk-!-font-weight-bold" asp-for="AdditionalComments">Do you have any more details to share?</label>
                         <span id="additonal-comments-hint" class="govuk-hint">For example, the type of support you’re looking for or the approximate date.</span>
                         <textarea class="govuk-textarea" asp-for="AdditionalComments" rows="5" aria-describedby="more-detail-hint"></textarea>
                     </div>
@@ -52,7 +52,7 @@
                     {
                         <input type="hidden" asp-for="Agree"/>
                     }
-                </fieldset>
+        
 
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Request support

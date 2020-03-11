@@ -12,12 +12,15 @@
 
             <partial name="_ErrorSummary" />
 
-            <form method="post" asp-action="Search" asp-controller="OrganisationSearch" asp-route-requestId="@Model.RequestId" sfa-gds-error-class-for="Search">
-                <h1 class="govuk-heading-xl">
-                    Search for @Model.OrganisationType
-                </h1>
+            <h1 class="govuk-heading-xl">
+                Search for @Model.OrganisationType
+            </h1>
 
-                <div class="govuk-form-group" >
+            <form method="post" asp-action="Search" asp-controller="OrganisationSearch" asp-route-requestId="@Model.RequestId" sfa-gds-error-class-for="Search">
+
+
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="Search">Search term</label>
                     <span id="organisation-search-error" sfa-gds-error-message-for="Search"></span>
                     <input class="govuk-input" asp-for="Search" type="text" aria-describedby="organisation-search-error">
                 </div>
@@ -25,6 +28,7 @@
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Search
                 </button>
+
                 <a asp-action="Index" asp-controller="CancelSupportRequest" asp-route-requestId="@Model.RequestId" asp-route-returnAction="Index" asp-route-returnController="OrganisationSearch" class="das-button--link">Cancel</a>
 
             </form>
