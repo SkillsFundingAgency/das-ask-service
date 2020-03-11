@@ -8,12 +8,19 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 {
     public class CheckAnswersViewModel
     {
-        public string OrganisationName { get; set; }
-        // public Address OrganisationAddress {get;set;}
+        public Organisation Organisation { get; set; }
         public DateTime MeetingDateAndTime { get; set; }
         public MeetingType MeetingType { get; set; }
-
-        //public Contact OrganisationContact { get; set; }
+        public OrganisationContact OrganisationContact { get; set; }
         //public Contact DeliveryPartnerContact { get; set; }
+
+        public CheckAnswersViewModel(SupportRequest request, PlanningMeeting meeting, OrganisationContact contact)
+        {
+            Organisation = request.Organisation;
+
+            MeetingDateAndTime = meeting.MeetingTimeAndDate.Value;
+            MeetingType = meeting.MeetingType.Value;
+            OrganisationContact = contact;
+        }
     }
 }

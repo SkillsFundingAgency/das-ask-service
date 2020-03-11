@@ -10,6 +10,7 @@ using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.Shared.CreateOrganisationContact;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data.Entities;
+using SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer;
 using SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings;
 
 namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
@@ -26,6 +27,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
         }
 
         [HttpGet("delivery-partner/planning-meeting/planning-contact/{supportId}")]
+        [ImportModelState]
         public async Task<IActionResult> Index(Guid supportId)
         {
             var supportRequest = await _mediator.Send(new GetSupportRequest(supportId));
@@ -40,6 +42,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
         }
 
         [HttpPost("delivery-partner/planning-meeting/planning-contact/{supportId}")]
+        [ExportModelState]
         public async Task<IActionResult> Index(Guid supportId, PlanningContactViewModel vm)
         {
             if (vm.SelectedContact == Guid.Empty)
@@ -71,7 +74,8 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
                 }
             }
 
-            return View("~/Views/DeliveryPartner/PlanningMeetings/PlanningContact.cshtml", vm);
+            return RedirectToAction("Index", "DeliveryPartnerContact", new { supportId = supportId });
+                 
         }
 
         private void ValidateNewContact(PlanningContactViewModel vm)

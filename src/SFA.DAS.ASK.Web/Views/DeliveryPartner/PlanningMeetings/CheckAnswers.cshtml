@@ -15,7 +15,7 @@
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key"> Name </dt>
-                    <dd class="govuk-summary-list__value"> @Model.OrganisationName </dd>
+                    <dd class="govuk-summary-list__value"> @Model.Organisation.OrganisationName</dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link">Change</a></dd>
                 </div>
                 <div class="govuk-summary-list__row">
@@ -28,17 +28,17 @@
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key"> Date and time </dt>
-                    <dd class="govuk-summary-list__value"> @Model.OrganisationName </dd>
+                    <dd class="govuk-summary-list__value"> @Model.MeetingDateAndTime.ToLongDateString(), @Model.MeetingDateAndTime.ToShortTimeString() </dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link">Change</a></dd>
                 </div>
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key"> How will the meeting be held? </dt>
-                    <dd class="govuk-summary-list__value"> </dd>
+                    <dd class="govuk-summary-list__value"> @Model.MeetingType.ToString() </dd>
                     <dd class="govuk-summary-list__actions"> <a class="govuk-link">Change</a></dd>
                 </div>
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key"> Organisation contact </dt>
-                    <dd class="govuk-summary-list__value"> @Model.OrganisationName </dd>
+                    <dd class="govuk-summary-list__value"> @Model.OrganisationContact.FirstName @Model.OrganisationContact.LastName</dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link">Change</a></dd>
                 </div>
                 <div class="govuk-summary-list__row">
