@@ -21,6 +21,7 @@ using SFA.DAS.ASK.Application.ExternalServices.DfeSignInApi;
 using SFA.DAS.ASK.Application.ExternalServices.ReferenceDataApi;
 using SFA.DAS.ASK.Application.Services.DfeApi;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
+using SFA.DAS.ASK.Application.Services.Email;
 using SFA.DAS.ASK.Application.Services.ReferenceData;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
@@ -155,7 +156,6 @@ namespace SFA.DAS.ASK.Web
                     };
                 });
 
-
             if (!_environment.IsDevelopment())
             {
                 services.AddDistributedRedisCache(options =>
@@ -179,19 +179,16 @@ namespace SFA.DAS.ASK.Web
             services.AddScoped<CheckRequestFilter>();
 
             services.AddTransient<ISessionService, SessionService>();
-
+            services.AddTransient<IEmailService, EmailService>();
             services.AddHttpClient<IReferenceDataApiClient, ReferenceDataApiClient>();
             services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>();
             
             services.AddAuthorization();
-            
 
             services.AddHealthChecks();
 
-
             services.AddMediatR(typeof(StartTempSupportRequestHandler));
-
-            //services.AddDbContext<AskContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
+            
             services.AddTransient<DbConnection>(provider => new SqlConnection(Configuration["SqlConnectionstring"]));
             services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionstring"]));
             services.AddMvc().AddSessionStateTempDataProvider().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

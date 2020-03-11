@@ -6,14 +6,17 @@ using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using NServiceBus;
 using NSubstitute;
 using NUnit.Framework;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisation;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisationContact;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest;
+using SFA.DAS.ASK.Application.Services.Email;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Data.Entities;
+using SFA.DAS.Notifications.Messages.Commands;
 
 namespace SFA.DAS.ASK.Application.UnitTests.Handlers.RequestSupport.SubmitSupportRequestTests
 {
@@ -22,6 +25,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.RequestSupport.SubmitSuppor
     {
         private AskContext _context;
         private Guid _midlandsDpId;
+        private IEmailService _emailService;
 
         [SetUp]
         public async Task SetUp()
@@ -68,10 +72,12 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.RequestSupport.SubmitSuppor
             var mediator = Substitute.For<IMediator>();
 
             mediator.Send(Arg.Any<GetOrCreateOrganisationRequest>()).Returns(new Organisation(){Id = Guid.NewGuid()});
-            mediator.Send(Arg.Any<GetOrCreateOrganisationContactRequest>()).Returns(new OrganisationContact{Id = Guid.NewGuid()});
-            
-            var handler = new SubmitSupportRequestHandler(_context, Substitute.For<ILogger<SubmitSupportRequestHandler>>(), mediator, Substitute.For<ISessionService>());
-            await handler.Handle(new SubmitSupportRequest(new TempSupportRequest() {Id = tempSupportRequestId}, "dave@email.com"), CancellationToken.None);
+            mediator.Send(Arg.Any<GetOrCreateOrganisationContactRequest>()).Returns(new OrganisationContact{Id = Guid.NewGuid(), FirstName = "Dave", Email = "dave@email.com"});
+
+            _emailService = Substitute.For<IEmailService>();
+
+            var handler = new SubmitSupportRequestHandler(_context, Substitute.For<ILogger<SubmitSupportRequestHandler>>(), mediator, Substitute.For<ISessionService>(), _emailService);
+            await handler.Handle(new SubmitSupportRequest(new TempSupportRequest() {Id = tempSupportRequestId}), CancellationToken.None);
         }
         
         [Test]
@@ -85,6 +91,15 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.RequestSupport.SubmitSuppor
         {
             var supportRequest = await _context.SupportRequests.SingleAsync();
             supportRequest.DeliveryPartnerId.Should().Be(_midlandsDpId);
+        }
+
+        [Test]
+        public async Task ThenAnEmailMessageIsSent()
+        {
+            await _emailService.Received().SendFeedbackSubmitted("dave@email.com", "Dave");
+            // await _messageSession.Received().Send(Arg.Is<SendEmailCommand>(c => 
+            //     c.RecipientsAddress == "dave@gmail.com" && 
+            //     c.TemplateId == "e9383b85-c378-47f5-bc8c-269d44c586e9"));
         }
     }
 }
