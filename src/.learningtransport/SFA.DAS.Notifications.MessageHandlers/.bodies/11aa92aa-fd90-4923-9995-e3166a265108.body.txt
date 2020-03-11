@@ -1,1 +1,0 @@
-﻿{"TemplateId":"e9383b85-c378-47f5-bc8c-269d44c586e9","RecipientsAddress":"davegouge@gmail.com","Tokens":{"$type":"System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[System.String, System.Private.CoreLib]], System.Private.CoreLib","Name":"Dave"}}
