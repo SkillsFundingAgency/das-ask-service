@@ -9,8 +9,6 @@ using SFA.DAS.NServiceBus.Configuration.AzureServiceBus;
 using SFA.DAS.NServiceBus.Configuration.NewtonsoftJsonSerializer;
 using SFA.DAS.NServiceBus.Configuration.NLog;
 using SFA.DAS.NServiceBus.Hosting;
-using SFA.DAS.NServiceBus.SqlServer.Configuration;
-using SFA.DAS.UnitOfWork.NServiceBus.Configuration;
 
 namespace SFA.DAS.ASK.Web.Infrastructure.NServiceBus
 {
@@ -25,31 +23,27 @@ namespace SFA.DAS.ASK.Web.Infrastructure.NServiceBus
                 {
                     var sp = services.BuildServiceProvider();
                     var configuration = sp.GetService<IOptions<NServiceBusConfiguration>>().Value;
-                    
+
                     var hostingEnvironment = p.GetService<IHostingEnvironment>();
-                    //
-                    // var runInDevelopmentMode = hostingEnvironment.IsDevelopment() || hostingEnvironment.EnvironmentName == Domain.Constants.IntegrationTestEnvironment;
 
                     var endpointConfiguration = new EndpointConfiguration(EndpointName)
                         .UseErrorQueue($"{EndpointName}-errors")
-                        .UseInstallers()
                         .UseLicense(configuration.NServiceBusLicense)
                         .UseMessageConventions()
                         .UseNewtonsoftJsonSerializer()
-                        .UseNLogFactory()
-                        .UseOutbox()
-                        .UseSqlServerPersistence(() => sp.GetService<DbConnection>())
-                        .UseUnitOfWork();
+                        .UseNLogFactory();
 
-                    // if (runInDevelopmentMode)
-                    // {
-                    //     endpointConfiguration.UseLearningTransport(s => s.AddRouting());
-                    // }
-                    // else
-                    // {
+                    endpointConfiguration.SendOnly();
+
+                    if (hostingEnvironment.IsDevelopment())
+                    {
+                        endpointConfiguration.UseLearningTransport(s => s.AddRouting());
+                    }
+                    else
+                    {
                         endpointConfiguration.UseAzureServiceBusTransport(configuration.SharedServiceBusEndpointUrl, s => s.AddRouting());
-                    //}
-                    
+                    }
+
                     var endpoint = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
 
                     return endpoint;
@@ -58,7 +52,7 @@ namespace SFA.DAS.ASK.Web.Infrastructure.NServiceBus
                 .AddHostedService<NServiceBusHostedService>();
         }
     }
-    
+
     public static class RoutingSettingsExtensions
     {
         private const string NotificationsMessageHandler = "SFA.DAS.Notifications.MessageHandlers";

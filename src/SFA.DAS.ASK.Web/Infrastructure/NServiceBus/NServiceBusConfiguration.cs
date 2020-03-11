@@ -2,7 +2,6 @@ namespace SFA.DAS.ASK.Web.Infrastructure.NServiceBus
 {
     public class NServiceBusConfiguration
     {
-        public string ServiceBusConnectionString { get; set; }
         public string SharedServiceBusEndpointUrl { get; set; }
         public string NServiceBusLicense
         {

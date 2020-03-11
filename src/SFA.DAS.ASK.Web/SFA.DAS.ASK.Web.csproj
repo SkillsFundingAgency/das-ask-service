@@ -15,8 +15,7 @@
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.7" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
     <PackageReference Include="SFA.DAS.Notifications.Messages" Version="3.0.0" />
-    <PackageReference Include="SFA.DAS.NServiceBus.SqlServer" Version="16.0.2" />
-    <PackageReference Include="SFA.DAS.UnitOfWork.NServiceBus" Version="9.0.13" />
+    <PackageReference Include="SFA.DAS.NServiceBus" Version="16.0.2" />
     <PackageReference Include="WebEssentials.AspNetCore.CdnTagHelpers" Version="1.0.16" />
   </ItemGroup>
 
