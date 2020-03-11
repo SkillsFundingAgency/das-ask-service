@@ -16,22 +16,50 @@
 
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
-                        <div class="govuk-radios">
-                            <div class="govuk-radios__item">
+                        <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
 
-                            </div>
-                            @*<div class="govuk-radios__item">
-                                <input class="govuk-radios__input"  id="organisationType_other" value="@OrganisationType.Other" data-aria-controls="conditional_organisationType_other" />
-                                <label class="govuk-label govuk-radios__label" for="organisationType_other"></label>
+                            <input type="hidden" asp-for="OrganisationName" />
+                            <input type="hidden" asp-for="OrganisationId" />
+
+                            @foreach (var contact in Model.Contacts)
+                            {
+                                <div class="govuk-radios__item">
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" type="radio" asp-for="SelectedContact" value="@contact.Id" data-aria-controls="" />
+                                        <label class="govuk-label govuk-radios__label" for="organisationType_other">@contact.FirstName @contact.LastName</label>
+                                        <span class="govuk-hint govuk-radios__hint"> @contact.PhoneNumber</span>
+                                        <span class="govuk-hint govuk-radios__hint"> @contact.Email</span>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" asp-for="SelectedContact" id="organisationType_other" value="null" data-aria-controls="conditional_organisationType_other" />
+                                <label class="govuk-label govuk-radios__label" for="organisationType_other"> New contact</label>
                             </div>
 
                             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional_organisationType_other">
-                                <div class="govuk-form-group" sfa-gds-error-class-for="Other">
-                                    <label class="govuk-label" for="organisationType_other_details"> Please specify </label>
-                                    <span sfa-gds-error-message-for="Other"></span>
-                                    <input class="govuk-input govuk-!-width-one-third" id="organisationType_other_details" asp-for="Other">
+                                <div class="govuk-form-group" sfa-gds-error-class-for="NewFirstName">
+                                    <label class="govuk-label" for="organisationType_other_details"> First name </label>
+                                    <span sfa-gds-error-message-for="NewFirstName"></span>
+                                    <input class="govuk-input govuk-!-width-one-third" id="organisationType_other_details" asp-for="NewFirstName">
                                 </div>
-                            </div>*@
+                                <div class="govuk-form-group" sfa-gds-error-class-for="NewLastName">
+                                    <label class="govuk-label" for="organisationType_other_details"> Last name </label>
+                                    <span sfa-gds-error-message-for="NewLastName"></span>
+                                    <input class="govuk-input govuk-!-width-one-third" id="organisationType_other_details" asp-for="NewLastName">
+                                </div>
+                                <div class="govuk-form-group" sfa-gds-error-class-for="NewPhoneNumber">
+                                    <label class="govuk-label" for="organisationType_other_details"> Telephone </label>
+                                    <span sfa-gds-error-message-for="NewPhoneNumber"></span>
+                                    <input class="govuk-input govuk-!-width-one-third" id="organisationType_other_details" asp-for="NewPhoneNumber">
+                                </div>
+                                <div class="govuk-form-group" sfa-gds-error-class-for="NewEmail">
+                                    <label class="govuk-label" for="organisationType_other_details"> Email </label>
+                                    <span sfa-gds-error-message-for="NewEmail"></span>
+                                    <input class="govuk-input govuk-!-width-one-third" id="organisationType_other_details" asp-for="NewEmail">
+                                </div>
+                            </div>
                         </div>
                     </fieldset>
                 </div>

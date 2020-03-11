@@ -8,11 +8,11 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetO
 {
     public class GetPlanningMeetingRequest : IRequest<PlanningMeeting>
     {
-        public Guid MeetingId { get; set; }
+        public Guid RequestId { get; set; }
 
-        public GetPlanningMeetingRequest(Guid meetingId)
+        public GetPlanningMeetingRequest(Guid requestId)
         {
-            MeetingId = meetingId;
+            RequestId = requestId;
         }
     }
 }

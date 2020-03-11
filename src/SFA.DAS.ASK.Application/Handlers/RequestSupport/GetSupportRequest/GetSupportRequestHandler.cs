@@ -21,9 +21,13 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest
 
         public async Task<SupportRequest> Handle(GetSupportRequest request, CancellationToken cancellationToken)
         {
-            return await _askContext
+            var supportRequest = await _askContext
                 .SupportRequests
                 .FirstOrDefaultAsync(sr => sr.Id == request.RequestId, cancellationToken: cancellationToken);
+
+            supportRequest.Organisation = await _askContext.Organisations.FirstOrDefaultAsync(o => o.Id == supportRequest.OrganisationId);
+            
+            return supportRequest;
         }
     }
 }
