@@ -7,7 +7,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
 {
     public class CheckYourDetailsViewModel
     {
-        public CheckYourDetailsViewModel(TempSupportRequest tempSupportRequest, string numberOfOrgs)
+        public CheckYourDetailsViewModel(TempSupportRequest tempSupportRequest, string numberOfOrgs, string searchTerm)
         {
             RequestId = tempSupportRequest.Id;
             Name = $"{tempSupportRequest.FirstName} {tempSupportRequest.LastName}";
@@ -26,6 +26,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
             {
                 NumberOfOrgs = (DfeOrganisationCheckResult) int.Parse(numberOfOrgs);
             }
+            SearchTerm = searchTerm;
         }
 
         public Guid RequestId { get; set; }
@@ -42,5 +43,6 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         public string Postcode { get; set; }
         public SupportRequestType SupportRequestType { get; set; }
         public DfeOrganisationCheckResult NumberOfOrgs { get; set; }
+        public string SearchTerm { get; set; }
     }
 }

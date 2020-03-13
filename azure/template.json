@@ -14,6 +14,9 @@
         "sharedStorageAccountConnectionString": {
             "type": "securestring"
         },
+        "sharedServiceBusName": {
+            "type": "string"
+        },
         "ipSecurityRestrictions": {
             "type": "array",
             "defaultValue": [
@@ -453,6 +456,34 @@
                         "value": "[parameters('logAnalyticsWorkspaceName')]"
                     }
                 }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[concat('role-assignments-', copyIndex())]",
+            "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[parameters('sharedEnvResourceGroup')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('deploymentUrlBase'),'role-assignment.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "principalId": {
+                        "value": "[createArray(reference('ui-app-service').outputs.managedServiceIdentityId.value, reference('ui-app-service').outputs.stagingManagedServiceIdentityId.value)[copyIndex()]]"
+                    },
+                    "assignmentType": {
+                        "value": "ServiceBusSender"
+                    },
+                    "resourceName": {
+                        "value": "[parameters('sharedServiceBusName')]"
+                    }
+                }
+            },
+            "copy": {
+                "name": "role-assignments",
+                "count": 2
             }
         }
     ],

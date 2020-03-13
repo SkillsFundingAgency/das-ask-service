@@ -29,7 +29,9 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         {
             var tempSupportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             var numberOfOrgs = _sessionService.Get("NumberOfOrgs");
-            var vm = new CheckYourDetailsViewModel(tempSupportRequest, numberOfOrgs);
+            var searchTerms = _sessionService.Get($"Searchstring-{requestId}");
+
+            var vm = new CheckYourDetailsViewModel(tempSupportRequest, numberOfOrgs, searchTerms);
 
             return View("~/Views/RequestSupport/CheckYourDetails.cshtml", vm);
         }

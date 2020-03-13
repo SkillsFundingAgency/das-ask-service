@@ -15,7 +15,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
     public class CancelSupportRequestController : Controller
     {
         private readonly IMediator _mediator;
-
+        
         public CancelSupportRequestController(IMediator mediator)
         {
             _mediator = mediator;

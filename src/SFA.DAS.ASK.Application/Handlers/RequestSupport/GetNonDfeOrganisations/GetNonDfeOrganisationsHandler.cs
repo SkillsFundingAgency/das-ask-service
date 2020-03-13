@@ -24,9 +24,11 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations
 
         public async Task<IEnumerable<ReferenceDataSearchResult>> Handle(GetNonDfeOrganisationsRequest request, CancellationToken cancellationToken)
         {
+            var searchTerm = _sessionService.Get($"Searchstring-{request.SearchTerm}");
+
             List<ReferenceDataSearchResult> results;
 
-            if (request.FromCache)
+            if (searchTerm == request.SearchTerm)
             {
                 return _sessionService.Get<List<ReferenceDataSearchResult>>($"Searchresults-{request.RequestId}");
             }
@@ -39,7 +41,6 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetNonDfeOrganisations
                 results.ForEach(o => o.Id = Guid.NewGuid());
 
                 _sessionService.Set($"Searchresults-{request.RequestId}", JsonConvert.SerializeObject(results));
-
             }
 
             return results;

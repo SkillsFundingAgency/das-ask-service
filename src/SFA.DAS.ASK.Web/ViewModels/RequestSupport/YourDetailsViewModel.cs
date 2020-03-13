@@ -42,7 +42,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.RequestSupport
         [Compare("Email", ErrorMessage = "Email addresses must match")]
         public string ConfirmEmail { get; set; }
 
-        public TempSupportRequest ToTempSupportRequest(TempSupportRequest supportRequest)
+        public TempSupportRequest UpdateTempSupportRequest(TempSupportRequest supportRequest)
         {
             supportRequest.FirstName = FirstName;
             supportRequest.LastName = LastName;

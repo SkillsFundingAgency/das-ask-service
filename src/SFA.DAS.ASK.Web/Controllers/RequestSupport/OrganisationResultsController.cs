@@ -32,20 +32,8 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         public async Task<IActionResult> Index(Guid requestId, string search, bool edit)
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
-            var fromCache = false;
-            
-            if (HttpContext.Request.QueryString.Value.ToLower().Contains("edit"))
-            {
-                search = _sessionService.Get($"Searchstring-{requestId}");
-                fromCache = true;
 
-                if (string.IsNullOrWhiteSpace(search))
-                {
-                    return RedirectToAction("Index", "OrganisationSearch", new { requestId = requestId });
-                }
-            }
-
-            var results = (await _mediator.Send(new GetNonDfeOrganisationsRequest(search, requestId, fromCache), default(CancellationToken))).ToList();
+            var results = (await _mediator.Send(new GetNonDfeOrganisationsRequest(search, requestId), default(CancellationToken))).ToList();
 
             var viewModel = new OrganisationResultsViewModel(results, requestId, search, edit, supportRequest.ReferenceId);
 
@@ -59,7 +47,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 
             await _mediator.Send(new AddNonDfESignInInformationCommand(selectedResult, requestId));
 
-            return RedirectToAction("Index", "CheckYourDetails", new { requestId });
+            return RedirectToAction("Index", "CheckYourDetails", new { requestId = requestId, search = viewModel.Search });
         }
 
     }
