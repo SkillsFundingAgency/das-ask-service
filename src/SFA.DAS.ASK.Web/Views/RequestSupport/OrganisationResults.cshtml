@@ -23,6 +23,7 @@ else
             <form method="get" asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId">
 
                 <div class="govuk-form-group">
+                    <label class="govuk-label" for="Search">Search term</label>
                     @if (Model.Edit)
                     {
                         <input type="hidden" asp-for="Edit" value="true" />
@@ -45,7 +46,7 @@ else
 
             </form>
 
-            <hr />
+            <hr class="govuk-section-break govuk-section-break--visible" />
 
             <p> @resultsCount</p>
 
