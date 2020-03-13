@@ -12,6 +12,7 @@ using SFA.DAS.ASK.Application.Services.Session;
 using Newtonsoft.Json;
 using SFA.DAS.ASK.Application.Services.ReferenceData;
 using System.Threading;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.CheckOrganisationLocation;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSelectedOrganisationSearchResult;
 
@@ -45,6 +46,11 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         {
             var selectedResult = await _mediator.Send(new GetSelectedOrganisationSearchResultRequest(viewModel.SelectedResult, requestId));
 
+            if (string.IsNullOrWhiteSpace(selectedResult.Address.Postcode) || !(await _mediator.Send(new CheckOrganisationLocationRequest(selectedResult.Address.Postcode))))
+            {
+                return RedirectToAction("Index", "InvalidLocation", new {requestId});
+            }
+            
             await _mediator.Send(new AddNonDfESignInInformationCommand(selectedResult, requestId));
 
             return RedirectToAction("Index", "CheckYourDetails", new { requestId = requestId, search = viewModel.Search });

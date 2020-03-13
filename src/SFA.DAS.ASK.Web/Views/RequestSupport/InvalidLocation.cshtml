@@ -1,0 +1,23 @@
+@model Guid
+
+@{
+    ViewBag.Title = "ASK support is not available outside England";
+}
+<a asp-action="Index" asp-controller="OrganisationSearch" asp-route-requestId="@Model" class="govuk-back-link">Back</a>
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h3 class="govuk-heading-m">Sorry, ASK support is not available outside England</h3>
+            <p class="govuk-body">ASK support visits can only be arranged for schools and establishments in England. Visit the apprenticeships website for your area to find information and support that’s tailored to you.</p>
+            
+            <h4 class="govuk-heading-s">Where are you based?</h4>
+            
+            <p><a asp-action="Index" asp-controller="OrganisationSearch" asp-route-requestId="@Model">England - enter my details again</a></p>
+            <p><a href="https://www.apprenticeships.scot">Scotland</a></p>
+            <p><a href="https://www.nidirect.gov.uk/apprenticeships">Northern Ireland</a></p>
+            <p><a href="https://gov.wales/apprenticeships-skills-and-training">Wales</a></p>
+            
+        </div>
+    </div>
+</main>
