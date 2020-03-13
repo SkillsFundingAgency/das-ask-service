@@ -13,8 +13,8 @@ namespace SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer
                 .Select(kvp => new ModelStateTransferValue
                 {
                     Key = kvp.Key,
-                    AttemptedValue = kvp.Value.AttemptedValue,
-                    RawValue = kvp.Value.RawValue,
+                    AttemptedValue = kvp.Value.AttemptedValue == "true,false" ? kvp.Value.AttemptedValue.Split(',')[0] : kvp.Value.AttemptedValue,
+                    RawValue = kvp.Value.RawValue is string[] ? ((string[])kvp.Value.RawValue)[0] == "true" ? (object)((string[])kvp.Value.RawValue)[0]: (string[])kvp.Value.RawValue : kvp.Value.RawValue,
                     ErrorMessages = kvp.Value.Errors.Select(err => err.ErrorMessage).ToList(),
                 });
 
