@@ -96,7 +96,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.RequestSupport.SubmitSuppor
         [Test]
         public async Task ThenAnEmailMessageIsSent()
         {
-            await _emailService.Received().SendFeedbackSubmitted("dave@email.com", "Dave");
+            await _emailService.Received().SendSupportRequestSubmitted("dave@email.com", "Dave");
             // await _messageSession.Received().Send(Arg.Is<SendEmailCommand>(c => 
             //     c.RecipientsAddress == "dave@gmail.com" && 
             //     c.TemplateId == "e9383b85-c378-47f5-bc8c-269d44c586e9"));

@@ -14,9 +14,28 @@ namespace SFA.DAS.ASK.Application.Services.Email
             _messageSession = messageSession;
         }
         
-        public async Task SendFeedbackSubmitted(string email, string name)
+        public async Task SendSupportRequestSubmitted(string email, string name)
         {
-            await _messageSession.Send(new SendEmailCommand("e9383b85-c378-47f5-bc8c-269d44c586e9", email, new Dictionary<string, string>() {{"Name", name}}));
+            await _messageSession.Send(
+                    new SendEmailCommand(
+                        "e9383b85-c378-47f5-bc8c-269d44c586e9", 
+                        email, 
+                        new Dictionary<string, string>() {{"Name", name}}))
+                .ConfigureAwait(false);
+        }
+
+        public async Task SendFeedbackSubmitted(string email, string name, string organisationName)
+        {
+            await _messageSession.Send(
+                    new SendEmailCommand(
+                        "29240998-5865-4817-a314-4c7b0b730c3f", 
+                        email, 
+                        new Dictionary<string, string>()
+                        {
+                            {"Name", name},
+                            {"OrganisationName", organisationName}
+                        }))
+                .ConfigureAwait(false);
         }
     }
 }

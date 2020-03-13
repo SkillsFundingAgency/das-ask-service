@@ -86,7 +86,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
             _sessionService.Remove($"Searchstring-{request.TempSupportRequest.Id}");
             _sessionService.Remove($"Searchresults-{request.TempSupportRequest.Id}");
 
-            await _emailService.SendFeedbackSubmitted(contact.Email, contact.FirstName);
+            await _emailService.SendSupportRequestSubmitted(contact.Email, contact.FirstName);
             
             return Unit.Value;
         }

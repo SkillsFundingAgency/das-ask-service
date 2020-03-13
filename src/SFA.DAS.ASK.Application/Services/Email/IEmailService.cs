@@ -4,6 +4,7 @@ namespace SFA.DAS.ASK.Application.Services.Email
 {
     public interface IEmailService
     {
-        Task SendFeedbackSubmitted(string email, string name);
+        Task SendSupportRequestSubmitted(string email, string name);
+        Task SendFeedbackSubmitted(string email, string name, string organisationName);
     }
 }
