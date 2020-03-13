@@ -24,6 +24,7 @@ using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Web.Controllers.RequestSupport;
 using SFA.DAS.ASK.Web.Infrastructure;
+using SFA.DAS.ASK.Web.Infrastructure.Authentication;
 using SFA.DAS.ASK.Web.Infrastructure.Filters;
 using SFA.DAS.Boilerplate.Configuration;
 using SFA.DAS.Boilerplate.Logging;
@@ -66,92 +67,19 @@ namespace SFA.DAS.ASK.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            //services.AddDbContext<AskContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
+            services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionstring"]));
+            services.AddMediatR(typeof(StartTempSupportRequestHandler));
+            
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+            
+            services.AddDfeAuthentication(_environment, Configuration);
 
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                })
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-                {
-                    options.Cookie.Name = ".Ask.Cookies";
-                    options.Cookie.HttpOnly = true;
-
-                    if (!_environment.IsDevelopment())
-                    {
-                        options.Cookie.Domain = ".apprenticeships.education.gov.uk";
-                    }
-
-                    options.SlidingExpiration = true;
-                    options.ExpireTimeSpan = TimeSpan.FromHours(1);
-                })
-                .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
-                {
-
-                    options.SignInScheme = "Cookies";
-                    options.Authority = Configuration["DfeSignIn:MetadataAddress"];
-                    options.RequireHttpsMetadata = false;
-                    options.ClientId = Configuration["DfeSignIn:ClientId"];
-                    options.ClientSecret = Configuration["DfeSignIn:ClientSecret"];
-                    options.ResponseType = OpenIdConnectResponseType.Code;
-                    options.GetClaimsFromUserInfoEndpoint = true;
-                    
-                    
-                    options.Scope.Clear();
-                    options.Scope.Add("openid");
-                    options.Scope.Add("email");
-                    options.Scope.Add("profile");
-
-                    options.SaveTokens = true;
-                    options.UseTokenLifetime = true;
-                    
-                    options.SecurityTokenValidator = new JwtSecurityTokenHandler
-                    {
-                        InboundClaimTypeMap = new Dictionary<string, string>(),
-                        TokenLifetimeInMinutes = 20,
-                        SetDefaultTimesOnTokenCreation = true,
-                    };
-                    options.ProtocolValidator = new OpenIdConnectProtocolValidator
-                    {
-                        RequireSub = true,
-                        RequireStateValidation = false,
-                        NonceLifetime = TimeSpan.FromMinutes(15)
-                    };
-                    
-                    options.DisableTelemetry = true;
-                    options.Events = new OpenIdConnectEvents
-                    {
-                        OnMessageReceived = context =>
-                        {
-                            var isSpuriousAuthCbRequest =
-                                context.Request.Path == options.CallbackPath &&
-                                context.Request.Method == "GET" &&
-                                !context.Request.Query.ContainsKey("code");
-
-                            if (isSpuriousAuthCbRequest)
-                            {
-                                context.HandleResponse();
-                                context.Response.StatusCode = 302;
-                                context.Response.Headers["Location"] = "/";
-                            }
-
-                            return Task.CompletedTask;
-                        },
-
-                        OnRemoteFailure = ctx =>
-                        {
-                            return Task.FromResult(0);
-                        },
-
-                        OnTokenValidated = context =>
-                        {
-                            var a = context;
-                            return Task.CompletedTask;
-                        }
-                    };
-                });
-
+            services.AddAuthorization();
 
             if (!_environment.IsDevelopment())
             {
@@ -162,11 +90,7 @@ namespace SFA.DAS.ASK.Web
                 });
             }
 
-            services.AddSession(options =>
-            {
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
+            
 
             services.AddOptions();
             services.Configure<ReferenceDataApiConfig>(Configuration.GetSection("ReferenceDataApiAuthentication"));
@@ -179,16 +103,10 @@ namespace SFA.DAS.ASK.Web
             services.AddHttpClient<IReferenceDataApiClient, ReferenceDataApiClient>();
             services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>();
             
-            services.AddAuthorization();
             
-
+            
             services.AddHealthChecks();
 
-
-            services.AddMediatR(typeof(StartTempSupportRequestHandler));
-
-            //services.AddDbContext<AskContext>(options => options.UseInMemoryDatabase("SFA.DAS.ASK.Web"));
-            services.AddDbContext<AskContext>(options => options.UseSqlServer(Configuration["SqlConnectionstring"]));
             services.AddMvc().AddSessionStateTempDataProvider().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -209,8 +127,8 @@ namespace SFA.DAS.ASK.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseAuthentication();
             app.UseSession();
+            app.UseAuthentication();
             
             app.UseMvc(routes =>
             {
