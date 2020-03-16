@@ -2,6 +2,16 @@
 @using SFA.DAS.ASK.Data.Entities;
 @{
     ViewData["Title"] = "Schedule planning meeting";
+    var ConfirmButtonText = (Model.Edit) ? "Save" : "Continue";
+}
+
+@if (Model.Edit)
+{
+    <a class="govuk-back-link" asp-action="Index" asp-controller="CheckAnswers">Back</a>
+}
+else
+{
+    <a class="govuk-back-link" asp-action="Index" asp-controller="Home">Back</a>
 }
 
 <main class="govuk-main-wrapper" id="main-content" role="main">
@@ -17,6 +27,48 @@
             </h1>
 
             <form method="post">
+                <div class="govuk-form-group" sfa-gds-error-class-for="DateOfMeeting">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="planning-meeting-date-hint">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                            <h1 class="govuk-fieldset__heading">
+                                Date of the planning meeting?
+                            </h1>
+                        </legend>
+                        <span id="planning-meeting-date-hint" class="govuk-hint">
+                            Enter or select the correct date
+                        </span>
+                        <span sfa-gds-error-message-for="DateOfMeeting"></span>
+                        <span sfa-gds-error-message-for="Day"></span>
+                        <span sfa-gds-error-message-for="Month"></span>
+                        <span sfa-gds-error-message-for="Year"></span>
+                        <div class="govuk-date-input">
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group" sfa-gds-error-class-for="Day">
+                                    <label class="govuk-label govuk-date-input__label" id="planning-meeting-date-day">
+                                        Day
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Day" type="number">
+                                </div>
+                            </div>
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" id="planning-meeting-date-month">
+                                        Month
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Month" type="number" sfa-gds-error-class-for="Month">
+                                </div>
+                            </div>
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group" sfa-gds-error-class-for="Year">
+                                    <label class="govuk-label govuk-date-input__label" id="planning-meeting-date-year">
+                                        Year
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="Year" type="number">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">

@@ -23,24 +23,34 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
         [Range(0,23,ErrorMessage = "Must be between 0 and 23")]
         public int Hours { get; set; }
 
+        
+        public int Day { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
+
+        public bool Edit { get; set; }
         public SchedulePlanningMeetingViewModel()
         {
 
         }
-        public SchedulePlanningMeetingViewModel(PlanningMeeting meeting, SupportRequest supportRequest)
+        public SchedulePlanningMeetingViewModel(PlanningMeeting meeting, SupportRequest supportRequest, bool edit)
         {
             MeetingId = meeting.Id;
             OrganisationName = supportRequest.Organisation.OrganisationName;
             Type = (MeetingType)meeting.MeetingType;
             Minutes = meeting.MeetingTimeAndDate.Value.Minute;
             Hours = meeting.MeetingTimeAndDate.Value.Hour;
+            Day = meeting.MeetingTimeAndDate.Value.Day;
+            Month = meeting.MeetingTimeAndDate.Value.Month;
+            Year = meeting.MeetingTimeAndDate.Value.Year;
+
+            Edit = edit;
         }
 
         public PlanningMeeting UpdatePlanningMeeting(PlanningMeeting planningMeeting)
         {
             planningMeeting.MeetingType = Type;
-            planningMeeting.MeetingTimeAndDate = new DateTime(2020, 12, 12, Hours, Minutes, 0);
-            
+            planningMeeting.MeetingTimeAndDate = new DateTime(Year, Month, Day, Hours, Minutes, 0);
 
             return planningMeeting;
         }

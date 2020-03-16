@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetOrCreatePlanningMeeting;
 using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetOrganisationContacts;
+using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.UpdatePlanningMeeeting;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Handlers.Shared.CreateOrganisationContact;
 using SFA.DAS.ASK.Application.Services.Session;
@@ -39,6 +40,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
             var vm = new PlanningContactViewModel(supportRequest, planningMeeting, contacts) ;
 
             return View("~/Views/DeliveryPartner/PlanningMeetings/PlanningContact.cshtml", vm);
+        
         }
 
         [HttpPost("delivery-partner/planning-meeting/planning-contact/{supportId}")]
@@ -73,6 +75,11 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
                     return RedirectToAction("Index", "DeliveryPartnerContact", new { supportId = supportId });
                 }
             }
+            var planningMeeting = await _mediator.Send(new GetPlanningMeetingRequest(supportId));
+
+            vm.UpdatePlanningMeeting(planningMeeting);
+
+            await _mediator.Send(new UpdatePlanningMeetingCommand());
 
             return RedirectToAction("Index", "DeliveryPartnerContact", new { supportId = supportId });
                  

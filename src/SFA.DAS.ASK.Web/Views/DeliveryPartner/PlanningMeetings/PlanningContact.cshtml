@@ -1,6 +1,6 @@
 ﻿@model SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings.PlanningContactViewModel
 @{
-    ViewData["Title"] = "PlanningContact";
+    ViewData["Title"] = "Organisation contact";
 }
 
 
@@ -24,18 +24,17 @@
                             @foreach (var contact in Model.Contacts)
                             {
                                 <div class="govuk-radios__item">
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" type="radio" asp-for="SelectedContact" value="@contact.Id" />
-                                        <label class="govuk-label govuk-radios__label" for="organisationType_other">@contact.FirstName @contact.LastName</label>
-                                        <span class="govuk-hint govuk-radios__hint"> @contact.PhoneNumber</span>
-                                        <span class="govuk-hint govuk-radios__hint"> @contact.Email</span>
-                                    </div>
+                                    <input class="govuk-radios__input" type="radio" asp-for="SelectedContact" value="@contact.Id" />
+                                    <label class="govuk-label govuk-radios__label" for="organisationType_other">@contact.FirstName @contact.LastName</label>
+                                    <span class="govuk-hint govuk-radios__hint"> @contact.PhoneNumber</span>
+                                    <span class="govuk-hint govuk-radios__hint"> @contact.Email</span>
                                 </div>
+                                
                             }
 
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" type="radio" asp-for="SelectedContact" id="organisationType_other" value="null" data-aria-controls="conditional_organisationType_other" />
-                                <label class="govuk-label govuk-radios__label" for="organisationType_other"> New contact</label>
+                                <label class="govuk-label govuk-radios__label" for="organisationType_other"> Other contact</label>
                             </div>
 
                             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional_organisationType_other">

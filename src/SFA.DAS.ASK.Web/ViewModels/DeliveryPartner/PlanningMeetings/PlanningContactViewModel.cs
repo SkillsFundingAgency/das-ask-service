@@ -28,8 +28,14 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
             OrganisationId = supportRequest.OrganisationId;
 
             Contacts = contacts;
-            SelectedContact = Contacts.Where(contact => contact.Id == supportRequest.OrganisationContactId).FirstOrDefault().Id;
-            
+            SelectedContact = planningMeeting.OrganisationContactId.GetValueOrDefault();
+        }
+
+        public PlanningMeeting UpdatePlanningMeeting(PlanningMeeting planningMeeting)
+        {
+            planningMeeting.OrganisationContactId = SelectedContact;
+
+            return planningMeeting;
         }
     }
 
