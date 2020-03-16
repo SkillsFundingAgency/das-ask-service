@@ -19,7 +19,6 @@ resources:
     ref: refs/heads/master
     endpoint: "GitHub (SFA)"
       
-
 jobs:
   - job: 'CodeBuild'
     pool:
