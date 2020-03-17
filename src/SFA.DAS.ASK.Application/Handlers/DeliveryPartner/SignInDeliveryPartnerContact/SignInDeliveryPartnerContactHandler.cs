@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -35,13 +37,52 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.SignInDeliveryPartner
             // else
             //     set session and return true
 
-            _sessionService.Set("SignedInContact", new SignedInContact()
+            if (contact!=null)
             {
-                DisplayName = contact.DisplayName,
-                DeliveryPartnerName = contact.DeliveryPartner.Name
-            });
+                _sessionService.Set("SignedInContact", new SignedInContact()
+                {
+                    DisplayName = contact.DisplayName,
+                    DeliveryPartnerName = contact.DeliveryPartner.Name
+                });
 
-            return new SignInDeliveryPartnerContactResponse {Success = true};
+                return new SignInDeliveryPartnerContactResponse {Success = true};    
+            }
+            else
+            {
+                var dfeOrgUkPrns = (await _dfeSignInApiClient.GetOrganisations(request.SignInId)).Select(org => org.UkPrn.GetValueOrDefault());
+                var deliveryPartnerOrgs = await _dbContext.DeliveryPartners.ToListAsync(cancellationToken: cancellationToken);
+                var deliveryPartnerUkPrns = deliveryPartnerOrgs.Select(org => org.UkPrn);
+                var matchingUkPrn = dfeOrgUkPrns.Intersect(deliveryPartnerUkPrns).ToList();
+                if (matchingUkPrn.Any())
+                {
+                    var usersDeliveryPartner = deliveryPartnerOrgs.Single(dp => dp.UkPrn == matchingUkPrn.Single());
+
+                    var deliveryPartnerContact = new DeliveryPartnerContact()
+                    {
+                        DeliveryPartnerId = usersDeliveryPartner.Id,
+                        DisplayName = request.Name,
+                        Id = Guid.NewGuid(),
+                        SignInId = request.SignInId
+                    };
+
+                    await _dbContext.DeliveryPartnerContacts.AddAsync(deliveryPartnerContact, cancellationToken);
+                    await _dbContext.SaveChangesAsync(cancellationToken);
+                    
+                    _sessionService.Set("SignedInContact", new SignedInContact()
+                    {
+                        DisplayName = deliveryPartnerContact.DisplayName,
+                        DeliveryPartnerName = usersDeliveryPartner.Name
+                    });
+
+                    return new SignInDeliveryPartnerContactResponse {Success = true};    
+                }
+                else
+                {
+                    return new SignInDeliveryPartnerContactResponse {Success = false};        
+                }
+            }
+            
+            return new SignInDeliveryPartnerContactResponse {Success = false};
         }
     }
 

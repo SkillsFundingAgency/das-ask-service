@@ -48,7 +48,7 @@ namespace SFA.DAS.ASK.Web.Infrastructure.Authentication
                     options.ClientSecret = configuration["DfeSignIn:ClientSecret"];
                     options.ResponseType = OpenIdConnectResponseType.Code;
                     options.GetClaimsFromUserInfoEndpoint = true;
-                    
+                    options.SignedOutRedirectUri = "/signed-out";
                     
                     options.Scope.Clear();
                     options.Scope.Add("openid");
@@ -101,7 +101,16 @@ namespace SFA.DAS.ASK.Web.Infrastructure.Authentication
                             var sp = services.BuildServiceProvider();
                             var mediator = sp.GetService<IMediator>();
 
-                            mediator.Send(new SignInDeliveryPartnerContactRequest(Guid.Parse(context.Principal.FindFirst("sub").Value)), CancellationToken.None).Wait();
+                            var signInId = Guid.Parse(context.Principal.FindFirst("sub").Value);
+                            var givenName = context.Principal.FindFirst("given_name").Value;
+                            var familyName = context.Principal.FindFirst("family_name").Value;
+                            var signInResponse = mediator.Send(new SignInDeliveryPartnerContactRequest(signInId, $"{givenName} {familyName}"), CancellationToken.None).Result;
+
+                            if (!signInResponse.Success)
+                            {
+                                // redirect to a "You're not a DP" page.
+                                context.Response.Redirect("/notadeliverypartner");
+                            }
                             
                             return Task.CompletedTask;
                         }

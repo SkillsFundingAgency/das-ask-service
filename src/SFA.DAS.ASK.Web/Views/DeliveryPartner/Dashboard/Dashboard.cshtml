@@ -1,6 +1,27 @@
-
+@using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.SignInDeliveryPartnerContact
+@using SFA.DAS.ASK.Application.Services.Session
+@inject ISessionService SessionService
 
 @{
     ViewBag.Title = "Delivery Partner Dashboard";
     Layout = "_DeliveryPartnerLayout";
 }
+
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing admin-page" id="main-content" role="main">
+
+
+    <div class="govuk-grid-row" id="delivery-partner-dashboard">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-xl">
+                Welcome, @(SessionService.Get<SignedInContact>("SignedInContact").DisplayName)
+                <span class="govuk-caption-xl">Delivery partner dashboard</span>
+            </h1>
+
+            <div class="main-task-list">
+                <a href="/delivery-partner/1-support-requests" class="govuk-!-font-size-27"><span class="govuk-!-font-size-80 dashboard-stat-request-support">16</span>support requests</a>
+                <a href="/delivery-partner/2-planning-meetings" class="govuk-!-font-size-27 secondary"><span class="govuk-!-font-size-80 dashboard-stat-planning-sessions">8</span>planning meetings</a>
+                <a href="/delivery-partner/3-planned-visits" class="govuk-!-font-size-27 secondary"><span class="govuk-!-font-size-80 dashboard-stat-planned-visits">12</span>ASK visits</a>
+            </div>
+        </div>
+    </div>
+</main>
