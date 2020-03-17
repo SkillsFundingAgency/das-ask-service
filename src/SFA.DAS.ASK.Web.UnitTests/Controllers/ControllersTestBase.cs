@@ -14,6 +14,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
     {
         protected const string FIRST_NAME = "FirstName";
         protected Guid REQUEST_ID = Guid.NewGuid();
+        protected Guid SUPPORT_ID = Guid.NewGuid();
 
         protected IMediator Mediator;
         protected ISessionService SessionService;

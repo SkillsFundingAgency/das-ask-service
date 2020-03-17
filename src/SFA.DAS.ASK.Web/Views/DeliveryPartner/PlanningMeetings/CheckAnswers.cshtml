@@ -1,9 +1,11 @@
 ﻿@model SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings.CheckAnswersViewModel
+
+@using SFA.DAS.ASK.Application.Utils;
 @{
     ViewData["Title"] = "Check Answers";
 }
 
-<a asp-action="Index" asp-controller="DeliveryPartnerContact" asp-route-supportId="@Model.SupportId"class="govuk-back-link">Back</a>
+<a asp-action="Index" asp-controller="DeliveryPartnerContact" asp-route-supportId="@Model.SupportId" class="govuk-back-link">Back</a>
 
 <main class="govuk-main-wrapper" id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -30,7 +32,7 @@
                         @Html.PartialAsync("_addressLine", Model.Organisation.County).Result
                         @Html.PartialAsync("_addressLine", Model.Organisation.Postcode).Result
                     </dd>
-                    <dd class="govuk-summary-list__actions"> <a class="govuk-link">Change</a></dd>
+                    <dd class="govuk-summary-list__actions"> </dd>
                 </div>
             </dl>
             <h2 class="govuk-heading-m">Meeting details</h2>
@@ -39,18 +41,22 @@
                     <dt class="govuk-summary-list__key"> Date and time </dt>
                     <dd class="govuk-summary-list__value"> @Model.MeetingDateAndTime.ToLongDateString(), @Model.MeetingDateAndTime.ToShortTimeString() </dd>
                     <dd class="govuk-summary-list__actions">
-                        <a asp-action="Index" asp-controller="SchedulePlanningMeeting" asp-route-supportId="@Model.SupportId" asp-route-edit="true"class="govuk-link">Change</a>
+                        <a asp-action="Index" asp-controller="SchedulePlanningMeeting" asp-route-supportId="@Model.SupportId" asp-route-edit="true" class="govuk-link">Change</a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key"> How will the meeting be held? </dt>
-                    <dd class="govuk-summary-list__value"> @Model.MeetingType.ToString() </dd>
-                    <dd class="govuk-summary-list__actions"> <a class="govuk-link">Change</a></dd>
+                    <dd class="govuk-summary-list__value"> @EnumHelper.GetEnumDescription(Model.MeetingType)</dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a asp-action="Index" asp-controller="SchedulePlanningMeeting" asp-route-supportId="@Model.SupportId" asp-route-edit="true" class="govuk-link">Change</a>
+                    </dd>
                 </div>
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key"> Organisation contact </dt>
                     <dd class="govuk-summary-list__value"> @Model.OrganisationContact.FirstName @Model.OrganisationContact.LastName</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link">Change</a></dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a asp-action="Index" asp-controller="PlanningContact" asp-route-supportId="@Model.SupportId" asp-route-edit="true" class="govuk-link">Change</a>
+                    </dd>
                 </div>
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key"> Delivery partner contact </dt>
@@ -58,12 +64,15 @@
                         @if (Model.MyId == Model.DeliveryPartnerContact.Id)
                         {
                             <p> Myself</p>
-                        } else
+                        }
+                        else
                         {
                             <p> @Model.DeliveryPartnerContact.FirstName @Model.DeliveryPartnerContact.LastName</p>
                         }
                     </dd>
-                    <dd class="govuk-summary-list__actions"> <a class="govuk-link">Change</a></dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a asp-action="Index" asp-controller="DeliveryPartnerContact" asp-route-supportId="@Model.SupportId" asp-route-edit="true" class="govuk-link">Change</a>
+                    </dd>
                 </div>
             </dl>
 

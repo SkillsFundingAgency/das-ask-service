@@ -29,6 +29,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
         public int Year { get; set; }
 
         public bool Edit { get; set; }
+        public Guid SupportId { get; set; }
         public SchedulePlanningMeetingViewModel()
         {
 
@@ -44,6 +45,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
             Month = meeting.MeetingTimeAndDate.Value.Month;
             Year = meeting.MeetingTimeAndDate.Value.Year;
 
+            SupportId = meeting.SupportRequestId;
             Edit = edit;
         }
 

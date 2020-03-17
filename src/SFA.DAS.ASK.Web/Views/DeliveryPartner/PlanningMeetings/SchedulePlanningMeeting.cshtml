@@ -2,12 +2,12 @@
 @using SFA.DAS.ASK.Data.Entities;
 @{
     ViewData["Title"] = "Schedule planning meeting";
-    var ConfirmButtonText = (Model.Edit) ? "Save" : "Continue";
+    var confirmButtonText = (Model.Edit) ? "Save" : "Continue";
 }
 
 @if (Model.Edit)
 {
-    <a class="govuk-back-link" asp-action="Index" asp-controller="CheckAnswers">Back</a>
+    <a class="govuk-back-link" asp-action="Index" asp-controller="CheckAnswers" asp-route-supportId="@Model.SupportId">Back</a>
 }
 else
 {
@@ -119,8 +119,12 @@ else
                     </fieldset>
                 </div>
 
-                <button class="govuk-button" type="submit">Continue</button>
-                <a class="das-button--link">Cancel</a>
+                <button class="govuk-button" type="submit">@confirmButtonText</button>
+                @if (Model.Edit)
+                {
+                    <a asp-action="Index" asp-controller="CheckAnswers" asp-route-supportId="@Model.SupportId" class="das-button--link">Cancel</a>
+                }
+
             </form>
 
         </div>

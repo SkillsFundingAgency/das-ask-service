@@ -23,7 +23,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
 
         [HttpGet("delivery-partner/planning-meeting/delivery-partner-contact/{supportId}")]
         [ImportModelState]
-        public async Task<IActionResult> Index(Guid supportId)
+        public async Task<IActionResult> Index(Guid supportId, bool edit)
         {
             //This will be retrieved from the sign in service or session service
             var myId = Guid.Parse("CAC458E1-C88E-4E1D-9523-2FD1BB0F9EED");
@@ -33,7 +33,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
             var meeting = await _mediator.Send(new GetPlanningMeetingRequest(supportId));
 
 
-            var viewModel = new DeliveryPartnerContactViewModel(myId, contacts, meeting);
+            var viewModel = new DeliveryPartnerContactViewModel(myId, contacts, meeting, edit);
 
             return View("~/Views/DeliveryPartner/PlanningMeetings/DeliveryPartnerContact.cshtml", viewModel);
         }
@@ -43,9 +43,10 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
         public async Task<IActionResult> Submit(Guid supportId, DeliveryPartnerContactViewModel viewModel)
         {
             //check model state
-            if (!ModelState.IsValid)
+            if (viewModel.SelectedDeliveryPartnerContactId == Guid.Empty)
             {
-                return View("~/Views.DeliveryPartner/DeliveryPArtnerContact.cshtml", viewModel);
+                ModelState.AddModelError("SelectedDeliveryPartnerContactId", "Select an option");
+                return View("~/Views/DeliveryPartner/DeliveryPartnerContact.cshtml", viewModel);
             }
 
             var planningMeeting = await _mediator.Send(new GetPlanningMeetingRequest(supportId));
@@ -53,6 +54,11 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
             viewModel.UpdatePlanningMeeting(planningMeeting);
 
             await _mediator.Send(new UpdatePlanningMeetingCommand());
+
+            if (viewModel.Edit)
+            {
+                return RedirectToAction("Index", "CheckAnswers", new { supportId });
+            }
 
             return RedirectToAction("Index", "CheckAnswers", new { supportId });
         }

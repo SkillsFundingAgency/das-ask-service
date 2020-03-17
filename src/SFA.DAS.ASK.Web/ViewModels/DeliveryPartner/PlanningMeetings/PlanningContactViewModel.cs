@@ -19,16 +19,21 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
         public string NewPhoneNumber { get; set; }
         public string NewEmail { get; set; }
 
+        public bool Edit { get; set; }
+        public Guid SupportId { get; set; }
         public PlanningContactViewModel()
         {
         }
-        public PlanningContactViewModel(SupportRequest supportRequest, PlanningMeeting planningMeeting, List<OrganisationContact> contacts)
+        public PlanningContactViewModel(SupportRequest supportRequest, PlanningMeeting planningMeeting, List<OrganisationContact> contacts, bool edit)
         {
             OrganisationName = supportRequest.Organisation.OrganisationName;
             OrganisationId = supportRequest.OrganisationId;
 
             Contacts = contacts;
             SelectedContact = planningMeeting.OrganisationContactId.GetValueOrDefault();
+
+            SupportId = supportRequest.Id;
+            Edit = edit;
         }
 
         public PlanningMeeting UpdatePlanningMeeting(PlanningMeeting planningMeeting)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace SFA.DAS.ASK.Data.Entities
@@ -16,8 +17,9 @@ namespace SFA.DAS.ASK.Data.Entities
 
     public enum MeetingType
     {
-        // Enum descriptions
+        [Description("Face to face")]
         FaceToFace,
+        [Description("Telephone")]
         Telephone
     }
 }

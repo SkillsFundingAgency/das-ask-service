@@ -29,7 +29,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
 
         [HttpGet("delivery-partner/planning-meeting/planning-contact/{supportId}")]
         [ImportModelState]
-        public async Task<IActionResult> Index(Guid supportId)
+        public async Task<IActionResult> Index(Guid supportId, bool edit)
         {
             var supportRequest = await _mediator.Send(new GetSupportRequest(supportId));
             var planningMeeting = await _mediator.Send(new GetPlanningMeetingRequest(supportId));
@@ -37,7 +37,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
 
             _sessionService.Set<List<OrganisationContact>>($"contacts-{supportId}", contacts);
 
-            var vm = new PlanningContactViewModel(supportRequest, planningMeeting, contacts) ;
+            var vm = new PlanningContactViewModel(supportRequest, planningMeeting, contacts, edit) ;
 
             return View("~/Views/DeliveryPartner/PlanningMeetings/PlanningContact.cshtml", vm);
         
@@ -81,8 +81,12 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
 
             await _mediator.Send(new UpdatePlanningMeetingCommand());
 
+            if (vm.Edit)
+            {
+                return RedirectToAction("Index", "CheckAnswers", new { supportId });
+            }
+
             return RedirectToAction("Index", "DeliveryPartnerContact", new { supportId = supportId });
-                 
         }
 
         private void ValidateNewContact(PlanningContactViewModel vm)

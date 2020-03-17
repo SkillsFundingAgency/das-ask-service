@@ -58,6 +58,11 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
 
             await _mediator.Send(new UpdatePlanningMeetingCommand());
 
+            if (viewModel.Edit)
+            {
+                return RedirectToAction("Index", "CheckAnswers", new { supportId });
+            }
+
             return RedirectToAction("Index", "PlanningContact", new { supportId });
         }
     }
