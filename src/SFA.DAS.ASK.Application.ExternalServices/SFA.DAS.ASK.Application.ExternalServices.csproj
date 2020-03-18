@@ -8,4 +8,8 @@
       <ProjectReference Include="..\SFA.DAS.ASK.Application\SFA.DAS.ASK.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.7" />
+    </ItemGroup>
+
 </Project>

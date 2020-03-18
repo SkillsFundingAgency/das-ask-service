@@ -39,15 +39,11 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index", requestId);
-                //return View("~/Views/RequestSupport/OtherDetails.cshtml", viewModel);
             }
 
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
-
-            //var email = User.FindFirst(ClaimTypes.Email).Value;
-            var email = "davegouge@gmail.com";
             
-            await _mediator.Send(new SubmitSupportRequest(viewModel.ToTempSupportRequest(supportRequest), email));
+            await _mediator.Send(new SubmitSupportRequest(viewModel.ToTempSupportRequest(supportRequest)));
             
             return RedirectToAction("Index", "ApplicationComplete", new{requestId});
         }
