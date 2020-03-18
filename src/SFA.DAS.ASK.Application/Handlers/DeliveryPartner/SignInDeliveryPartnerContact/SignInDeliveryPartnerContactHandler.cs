@@ -30,13 +30,6 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.SignInDeliveryPartner
                 .Include(dpc => dpc.DeliveryPartner)
                 .SingleOrDefaultAsync(dpc => dpc.SignInId == request.SignInId, cancellationToken: cancellationToken);
             
-            // if contact is null
-            //     call dfe signIn to get all orgs for user
-            //     if one of those orgs ukprn matches our DPs, create new contact and return true.
-            //    else, return false.
-            // else
-            //     set session and return true
-
             if (contact!=null)
             {
                 _sessionService.Set("SignedInContact", new SignedInContact()
@@ -47,41 +40,35 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.SignInDeliveryPartner
 
                 return new SignInDeliveryPartnerContactResponse {Success = true};    
             }
-            else
+
+            var dfeOrgUkPrns = (await _dfeSignInApiClient.GetOrganisations(request.SignInId)).Select(org => org.UkPrn.GetValueOrDefault());
+            var deliveryPartnerOrgs = await _dbContext.DeliveryPartners.ToListAsync(cancellationToken: cancellationToken);
+            var deliveryPartnerUkPrns = deliveryPartnerOrgs.Select(org => org.UkPrn);
+            var matchingUkPrn = dfeOrgUkPrns.Intersect(deliveryPartnerUkPrns).ToList();
+            if (matchingUkPrn.Any())
             {
-                var dfeOrgUkPrns = (await _dfeSignInApiClient.GetOrganisations(request.SignInId)).Select(org => org.UkPrn.GetValueOrDefault());
-                var deliveryPartnerOrgs = await _dbContext.DeliveryPartners.ToListAsync(cancellationToken: cancellationToken);
-                var deliveryPartnerUkPrns = deliveryPartnerOrgs.Select(org => org.UkPrn);
-                var matchingUkPrn = dfeOrgUkPrns.Intersect(deliveryPartnerUkPrns).ToList();
-                if (matchingUkPrn.Any())
+                var usersDeliveryPartner = deliveryPartnerOrgs.Single(dp => dp.UkPrn == matchingUkPrn.Single());
+
+                var deliveryPartnerContact = new DeliveryPartnerContact()
                 {
-                    var usersDeliveryPartner = deliveryPartnerOrgs.Single(dp => dp.UkPrn == matchingUkPrn.Single());
+                    DeliveryPartnerId = usersDeliveryPartner.Id,
+                    DisplayName = request.Name,
+                    Id = Guid.NewGuid(),
+                    SignInId = request.SignInId
+                };
 
-                    var deliveryPartnerContact = new DeliveryPartnerContact()
-                    {
-                        DeliveryPartnerId = usersDeliveryPartner.Id,
-                        DisplayName = request.Name,
-                        Id = Guid.NewGuid(),
-                        SignInId = request.SignInId
-                    };
-
-                    await _dbContext.DeliveryPartnerContacts.AddAsync(deliveryPartnerContact, cancellationToken);
-                    await _dbContext.SaveChangesAsync(cancellationToken);
+                await _dbContext.DeliveryPartnerContacts.AddAsync(deliveryPartnerContact, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
                     
-                    _sessionService.Set("SignedInContact", new SignedInContact()
-                    {
-                        DisplayName = deliveryPartnerContact.DisplayName,
-                        DeliveryPartnerName = usersDeliveryPartner.Name
-                    });
-
-                    return new SignInDeliveryPartnerContactResponse {Success = true};    
-                }
-                else
+                _sessionService.Set("SignedInContact", new SignedInContact()
                 {
-                    return new SignInDeliveryPartnerContactResponse {Success = false};        
-                }
+                    DisplayName = deliveryPartnerContact.DisplayName,
+                    DeliveryPartnerName = usersDeliveryPartner.Name
+                });
+
+                return new SignInDeliveryPartnerContactResponse {Success = true};    
             }
-            
+
             return new SignInDeliveryPartnerContactResponse {Success = false};
         }
     }
