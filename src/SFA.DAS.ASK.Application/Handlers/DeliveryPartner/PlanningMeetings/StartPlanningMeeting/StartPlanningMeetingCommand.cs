@@ -8,5 +8,11 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.Star
 {
     public class StartPlanningMeetingCommand : IRequest<StartPlanningMeetingResponse>
     {
+        public Guid RequestId { get; set; }
+
+        public StartPlanningMeetingCommand(Guid requestId)
+        {
+            RequestId = requestId;
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace SFA.DAS.ASK.Data.Entities
         public Guid? DeliveryPartnerContactId { get; set; }
         public MeetingType? MeetingType { get; set; }
         public DateTime? MeetingTimeAndDate { get; set; }
+        public PlanningStatus Status { get; set; }
     }
 
     public enum MeetingType
@@ -21,5 +22,12 @@ namespace SFA.DAS.ASK.Data.Entities
         FaceToFace,
         [Description("Telephone")]
         Telephone
+    }
+
+    public enum PlanningStatus
+    {
+        Draft,
+        Confirmed,
+        Cancelled
     }
 }

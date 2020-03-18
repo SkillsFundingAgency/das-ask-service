@@ -1,4 +1,4 @@
- using System;
+using System;
 using MediatR;
 using SFA.DAS.ASK.Data.Entities;
 

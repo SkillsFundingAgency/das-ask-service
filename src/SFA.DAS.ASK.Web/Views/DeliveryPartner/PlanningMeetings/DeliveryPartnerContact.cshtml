@@ -17,13 +17,19 @@ else
 <main class="govuk-main-wrapper" id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
+
+            <partial name="_ErrorSummary" />
+
             <h1 class="govuk-heading-xl">
                 ASK delivery partner contact
             </h1>
 
             <form method="post">
-                <div class="govuk-form-group">
+                <input type="hidden" asp-for="MyId" value="@Model.MyId" />
+                
+                <div class="govuk-form-group" sfa-gds-error-class-for="SelectedDeliveryPartnerContactId">
                     <div class="govuk-fieldset">
+                        <span id="organisation-type-error" sfa-gds-error-message-for="SelectedDeliveryPartnerContactId"></span>
                         <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" type="radio" asp-for="SelectedDeliveryPartnerContactId" value="@Model.MyId" />

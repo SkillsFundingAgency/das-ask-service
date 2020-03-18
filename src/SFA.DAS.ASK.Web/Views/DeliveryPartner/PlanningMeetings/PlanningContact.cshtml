@@ -23,8 +23,10 @@ else
 
             <form method="post">
 
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" sfa-gds-error-class-for="SelectedContact">
                     <fieldset class="govuk-fieldset">
+                        <span id="organisation-type-error" sfa-gds-error-message-for="SelectedContact"></span>
+
                         <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
 
                             <input type="hidden" asp-for="OrganisationName" />

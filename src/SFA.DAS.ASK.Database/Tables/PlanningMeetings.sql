@@ -5,5 +5,6 @@
     [OrganisationContactId] UNIQUEIDENTIFIER NULL, 
     [DeliveryPartnerContactId] UNIQUEIDENTIFIER NULL, 
     [MeetingType] INT NULL, 
-    [MeetingTimeAndDate] DATETIME NULL
+    [MeetingTimeAndDate] DATETIME NULL, 
+    [Status] INT NULL
 )

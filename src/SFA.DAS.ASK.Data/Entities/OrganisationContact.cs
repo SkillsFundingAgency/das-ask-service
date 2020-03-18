@@ -4,8 +4,6 @@ namespace SFA.DAS.ASK.Data.Entities
 {
     public class OrganisationContact
     {
-
-        
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,8 +16,6 @@ namespace SFA.DAS.ASK.Data.Entities
         {
 
         }
-
-        
 
     }
 }

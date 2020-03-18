@@ -28,7 +28,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
             Mediator.Send(Arg.Any<GetPlanningMeetingRequest>()).Returns(GetPlanningMeeting());
 
 
-            sut = new DeliveryPartnerContactController(Mediator);
+            sut = new DeliveryPartnerContactController(Mediator, SessionService);
         }
 
         [Test]

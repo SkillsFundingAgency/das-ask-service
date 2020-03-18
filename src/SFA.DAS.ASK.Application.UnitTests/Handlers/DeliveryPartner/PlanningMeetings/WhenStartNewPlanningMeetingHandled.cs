@@ -12,8 +12,10 @@ using System.Threading.Tasks;
 namespace SFA.DAS.ASK.Application.UnitTests.Handlers.DeliveryPartner.PlanningMeetings
 {
     [TestFixture]
-    public class WhenStartNewPlanningMeetingHandled
+    public class WhenStartNewPlanningMeetingHandled 
     {
+        private Guid REQUEST_ID = Guid.NewGuid();
+
         [Test]
         public async Task ThenANewPlanningMeetingIsCreated()
         {
@@ -25,7 +27,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.DeliveryPartner.PlanningMee
 
             var handler = new StartPlanningMeetingHandler(context);
 
-            var result = await handler.Handle(new StartPlanningMeetingCommand(), CancellationToken.None);
+            var result = await handler.Handle(new StartPlanningMeetingCommand(REQUEST_ID), CancellationToken.None);
 
             (await context.PlanningMeetings.CountAsync()).Should().Be(1);
         }

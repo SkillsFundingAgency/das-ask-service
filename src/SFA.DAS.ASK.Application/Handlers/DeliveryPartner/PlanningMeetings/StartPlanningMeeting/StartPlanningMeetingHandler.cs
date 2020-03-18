@@ -22,11 +22,11 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.Star
             _askContext.PlanningMeetings.Add(new PlanningMeeting()
             {
                 Id = meetingId,
-                SupportRequestId = Guid.NewGuid(),
-                OrganisationContactId = Guid.NewGuid(),
-                DeliveryPartnerContactId = Guid.NewGuid(),
-                MeetingType = MeetingType.FaceToFace
-
+                SupportRequestId = request.RequestId,
+                OrganisationContactId = Guid.Empty,
+                DeliveryPartnerContactId = Guid.Empty,
+                MeetingType = null,
+                Status = PlanningStatus.Draft
             });
 
             await _askContext.SaveChangesAsync(cancellationToken);

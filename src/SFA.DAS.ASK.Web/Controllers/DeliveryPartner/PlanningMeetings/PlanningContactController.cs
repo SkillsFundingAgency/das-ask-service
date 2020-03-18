@@ -54,7 +54,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
                 if (ModelState.ErrorCount > 1)
                 {
                     vm.Contacts = _sessionService.Get<List<OrganisationContact>>($"contacts-{supportId}");
-
+                    ModelState.AddModelError("SelectedContact", "Select an option");
                     return View("~/Views/DeliveryPartner/PlanningMeetings/PlanningContact.cshtml", vm);
                 }
                 else

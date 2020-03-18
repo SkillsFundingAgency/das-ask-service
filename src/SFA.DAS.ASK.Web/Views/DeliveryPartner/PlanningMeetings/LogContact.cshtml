@@ -13,81 +13,87 @@
 
             <h1 class="govuk-heading-xl">
                 Log Contact
-                <span class="govuk-caption-xl"> School Name  </span>
+                <span class="govuk-caption-xl"> @Model.EstablishmentName  </span>
             </h1>
 
-            <form method="post">
-                <fieldset class="govuk-fieldset">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        <h1 class="govuk-fieldset__heading"> When did you contact this establishment?</h1>
-                    </legend>
-
-                    <div class="govuk-form-group" >
-                        <label class="govuk-label" for="">
-                            Date
-                        </label>
-                    </div>
-
-                    <div class="govuk-form-group">
-                        <fieldset class="govuk-fieldset">
+            @if (Model.Status != SFA.DAS.ASK.Data.Entities.Status.ContactConfirmed)
+            {
+                <form method="post">
+                    <div class="govuk-form-group" sfa-gds-error-class-for="ContactedDate"  >
+                        <fieldset class="govuk-fieldset" >
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                                <h1 class="govuk-fieldset__heading"> When did you contact this establishment?</h1>
+                            </legend>
                             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                                 <h1 class="govuk-fieldset__heading">
-                                    Time
+                                    Date
                                 </h1>
                             </legend>
-                            <span id="passport-issued-hint" class="govuk-hint">
-                                For example, 09 30
+                            <span id="contacted-date-hint" class="govuk-hint">
+                                Select or enter the correct date
                             </span>
-                            <div class="govuk-date-input">
+                            <span sfa-gds-error-message-for="ContactedDate"></span>
+                            <div class="govuk-date-input" >
                                 <div class="govuk-date-input__item">
-                                    <div class="govuk-form-group">
-                                        <div class="govuk-label govuk-date-input__label"> Hours </div>
-                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Hours" type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <div class="govuk-form-group" >
+                                        <div class="govuk-label govuk-date-input__label"> Day </div>
+                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Day" type="number" />
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
                                     <div class="govuk-form-group">
-                                        <div class="govuk-label govuk-date-input__label"> Minutes </div>
-                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Minutes" type="text" pattern="[0-9]*" inputmode="numeric">
+                                        <div class="govuk-label govuk-date-input__label"> Month </div>
+                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Month" type="number">
                                     </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <div class="govuk-label govuk-date-input__label"> Year </div>
+                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Year" type="number">
+                                    </div>
+                                </div>
+                                </div>
+                        </fieldset>
+                    </div>
+                    <div class="govuk-form-group" sfa-gds-error-class-for="SelectedContactMethod">
+                        <fieldset class="govuk-fieldset" >
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                                <h2 class="govuk-fieldset__heading"> How did you contact them?</h2>
+                            </legend>
+                            <span sfa-gds-error-message-for="SelectedContactMethod"></span>
+                            <div class="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" asp-for="Telephone" type="checkbox">
+                                    <label class="govuk-label govuk-checkboxes__label"> Telephone</label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" asp-for="Email" type="checkbox">
+                                    <label class="govuk-label govuk-checkboxes__label"> Email</label>
                                 </div>
                             </div>
                         </fieldset>
                     </div>
-                </fieldset>
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                            <h2 class="govuk-fieldset__heading"> How did you contact them?</h2>
-                        </legend>
-                        <div class="govuk-checkboxes">
-                            <div class="govuk-checkboxes__item">
-                                <input class="govuk-checkboxes__input" asp-for="Telephone" type="checkbox">
-                                <label class="govuk-label govuk-checkboxes__label" > Telephone</label>
-                            </div>
-                            <div class="govuk-checkboxes__item">
-                                <input class="govuk-checkboxes__input" asp-for="Email" type="checkbox" >
-                                <label class="govuk-label govuk-checkboxes__label"> Email</label>
-                            </div>
+
+                    <hr />
+
+                    <div class="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" asp-for="SchedulePlanningMeeting" type="checkbox">
+                            <label class="govuk-label govuk-checkboxes__label"> Schedule the planning meeting</label>
                         </div>
-                    </fieldset>
-                </div>
-
-                <hr />
-
-                <div class="govuk-checkboxes">
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" asp-for="SchedulePlanningMeeting" type="checkbox" >
-                        <label class="govuk-label govuk-checkboxes__label"> Schedule the planning meeting</label>
                     </div>
-                </div>
 
-                <hr />
-                <button class="govuk-button" type="submit">Log contact</button>
-                <a class="das-button--link">Cancel</a>
+                    <hr />
+                    <button class="govuk-button" type="submit">Log contact</button>
+                    <a class="das-button--link">Cancel</a>
 
-            </form>
-       
+                </form>
+            }
+            else
+            {
+                <button class="govuk-button" asp-controller="Dashboard" asp-action="Index">Back to dashboard</button>
+            }
+
         </div>
     </div>
 </main>

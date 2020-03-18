@@ -38,12 +38,12 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
         {
             MeetingId = meeting.Id;
             OrganisationName = supportRequest.Organisation.OrganisationName;
-            Type = (MeetingType)meeting.MeetingType;
-            Minutes = meeting.MeetingTimeAndDate.Value.Minute;
-            Hours = meeting.MeetingTimeAndDate.Value.Hour;
-            Day = meeting.MeetingTimeAndDate.Value.Day;
-            Month = meeting.MeetingTimeAndDate.Value.Month;
-            Year = meeting.MeetingTimeAndDate.Value.Year;
+            Type = (MeetingType)meeting.MeetingType.GetValueOrDefault();
+            Minutes = meeting.MeetingTimeAndDate.GetValueOrDefault().Minute;
+            Hours = meeting.MeetingTimeAndDate.GetValueOrDefault().Hour;
+            Day = meeting.MeetingTimeAndDate.GetValueOrDefault().Day;
+            Month = meeting.MeetingTimeAndDate.GetValueOrDefault().Month;
+            Year = meeting.MeetingTimeAndDate.GetValueOrDefault().Year;
 
             SupportId = meeting.SupportRequestId;
             Edit = edit;
