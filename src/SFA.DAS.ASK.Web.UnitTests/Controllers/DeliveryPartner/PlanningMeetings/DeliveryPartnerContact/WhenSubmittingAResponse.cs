@@ -59,7 +59,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
             var result = await sut.Submit(SUPPORT_ID, GetInvalidDeliveryPartnerContactViewModel());
 
             result.Should().BeOfType<ViewResult>();
-            result.As<ViewResult>().ViewName.Should().Be("~/Views/DeliveryPartner/DeliveryPartnerContact.cshtml");
+            result.As<ViewResult>().ViewName.Should().Be("~/Views/DeliveryPartner/PlanningMeetings/DeliveryPartnerContact.cshtml");
         }
 
         private DeliveryPartnerContactViewModel GetDeliveryPartnerContactViewModel()
