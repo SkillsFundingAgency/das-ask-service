@@ -18,10 +18,9 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.GetTempSupportRequestTests
             var dbContext = ContextHelper.GetInMemoryContext();
             var requiredSupportRequestId = Guid.NewGuid();
             var requestedSupportRequest = new TempSupportRequest {Id = requiredSupportRequestId, OrganisationName = "Org 2"};
-            
+
             await dbContext.TempSupportRequests.AddRangeAsync(new List<TempSupportRequest>
             {
-                new TempSupportRequest {Id = Guid.NewGuid(), OrganisationName = "Org 1"},
                 requestedSupportRequest,
                 new TempSupportRequest {Id = Guid.NewGuid(), OrganisationName = "Org 3"},
             });
