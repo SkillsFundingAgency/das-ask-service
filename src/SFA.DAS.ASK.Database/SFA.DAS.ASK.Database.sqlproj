@@ -65,6 +65,7 @@
     <Build Include="Tables\EmailTemplates.sql" />
     <Build Include="Tables\DeliveryAreas.sql" />
     <Build Include="Tables\DeliveryPartners.sql" />
+    <Build Include="Tables\DeliveryPartnerContacts.sql" />
     <Build Include="Tables\TempSupportRequests.sql" />
     <Build Include="Tables\SupportRequests.sql" />
     <Build Include="Tables\SupportRequestEventLogs.sql" />
