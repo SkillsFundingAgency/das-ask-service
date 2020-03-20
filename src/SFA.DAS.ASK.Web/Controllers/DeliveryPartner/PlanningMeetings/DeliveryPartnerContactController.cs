@@ -36,9 +36,6 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
             var contacts = await _mediator.Send(new GetDeliveryPartnerContactsRequest(myOrgId));
             var meeting = await _mediator.Send(new GetPlanningMeetingRequest(supportId));
 
-            _sessionService.Set<List<DeliveryPartnerContact>>($"delivery-contacts-{supportId}", contacts);
-
-
             var viewModel = new DeliveryPartnerContactViewModel(myId, contacts, meeting, edit);
 
             return View("~/Views/DeliveryPartner/PlanningMeetings/DeliveryPartnerContact.cshtml", viewModel);
@@ -48,13 +45,11 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
         [ExportModelState]
         public async Task<IActionResult> Submit(Guid supportId, DeliveryPartnerContactViewModel viewModel)
         {
-            //check model state
             if (viewModel.SelectedDeliveryPartnerContactId == Guid.Empty)
             {
                 ModelState.AddModelError("SelectedDeliveryPartnerContactId", "Select an option");
-                viewModel.DeliveryPartnerContacts = _sessionService.Get<List<DeliveryPartnerContact>>($"delivery-contacts-{supportId}");
-
-                return View("~/Views/DeliveryPartner/PlanningMeetings/DeliveryPartnerContact.cshtml", viewModel);
+              
+                return RedirectToAction("Index", "DeliveryPartnerContact", new { supportId });
             }
 
             var planningMeeting = await _mediator.Send(new GetPlanningMeetingRequest(supportId));

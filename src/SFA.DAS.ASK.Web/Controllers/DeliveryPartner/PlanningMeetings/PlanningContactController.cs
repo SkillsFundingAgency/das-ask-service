@@ -51,6 +51,9 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
             {
                 ValidateNewContact(vm);
 
+                var errors = vm.ValidateNewContact(vm, ModelState);
+                //ModelState = ModelState.;
+
                 if (ModelState.ErrorCount > 1)
                 {
                     vm.Contacts = _sessionService.Get<List<OrganisationContact>>($"contacts-{supportId}");
@@ -59,18 +62,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
                 }
                 else
                 {
-                    var newcontact = new OrganisationContact()
-                    {
-                        Id = Guid.NewGuid(),
-                        FirstName = vm.NewFirstName,
-                        LastName = vm.NewLastName,
-                        PhoneNumber = vm.NewPhoneNumber,
-                        Email = vm.NewEmail,
-                        OrganisationId = vm.OrganisationId,
-                        JobRole = "Not Specified"
-                    };
-
-                    await _mediator.Send(new CreateOrganisationContactCommand(newcontact));
+                    await _mediator.Send(new CreateOrganisationContactCommand(Guid.NewGuid(), vm.NewFirstName, vm.NewLastName, vm.NewPhoneNumber,vm.NewEmail, vm.OrganisationId, "Not specified"));
 
                     return RedirectToAction("Index", "DeliveryPartnerContact", new { supportId = supportId });
                 }

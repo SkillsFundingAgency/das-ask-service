@@ -1,11 +1,14 @@
 ﻿using SFA.DAS.ASK.Data.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 {
+    [AtLeastOneProperty("Email","Telephone",ErrorMessage = "Select how you made contact")]
     public class LogContactViewModel
     {
         public Guid RequestId { get; set; }
@@ -42,5 +45,42 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
         }
 
         
+
+        
+    }
+
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class AtLeastOnePropertyAttribute : ValidationAttribute
+    {
+        private string[] PropertyList { get; set; }
+
+        public AtLeastOnePropertyAttribute(params string[] propertyList)
+        {
+            this.PropertyList = propertyList;
+        }
+
+        public override object TypeId
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        public override bool IsValid(object value)
+        {
+            PropertyInfo propertyInfo;
+            foreach (string propertyName in PropertyList)
+            {
+                propertyInfo = value.GetType().GetProperty(propertyName);
+
+                if (propertyInfo.GetValue(value).Equals(true))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

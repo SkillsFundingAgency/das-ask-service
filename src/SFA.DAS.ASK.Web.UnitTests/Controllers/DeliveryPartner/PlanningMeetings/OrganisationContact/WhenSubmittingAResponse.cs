@@ -35,15 +35,15 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
         {
             var result = await sut.Index(SUPPORT_ID, new PlanningContactViewModel()
             {
-                OrganisationId = ORGANISATION_ID,
+                OrganisationId = OrganisationId,
                 Contacts = new List<Data.Entities.OrganisationContact>()
                 {
                     new Data.Entities.OrganisationContact()
                     { 
-                        Id = ORGANISATION_CONTACT_ID_1
+                        Id = OrganisationContactId1
                     }
                 },
-                SelectedContact = ORGANISATION_CONTACT_ID_1
+                SelectedContact = OrganisationContactId1
             });
 
             result.Should().BeOfType<RedirectToActionResult>();
@@ -56,12 +56,12 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
         {
             var result = await sut.Index(SUPPORT_ID, new PlanningContactViewModel()
             {
-                OrganisationId = ORGANISATION_ID,
+                OrganisationId = OrganisationId,
                 Contacts = new List<Data.Entities.OrganisationContact>()
                 {
                     new Data.Entities.OrganisationContact()
                     {
-                        Id = ORGANISATION_CONTACT_ID_1
+                        Id = OrganisationContactId1
                     }
                 },
                 
@@ -76,12 +76,12 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
         {
             var result = await sut.Index(SUPPORT_ID, new PlanningContactViewModel()
             {
-                OrganisationId = ORGANISATION_ID,
+                OrganisationId = OrganisationId,
                 Contacts = new List<Data.Entities.OrganisationContact>()
                 {
                     new Data.Entities.OrganisationContact()
                     {
-                        Id = ORGANISATION_CONTACT_ID_1
+                        Id = OrganisationContactId1
                     }
                 },
                 SelectedContact = Guid.Empty,
@@ -103,12 +103,12 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
         {
             var result = await sut.Index(SUPPORT_ID, new PlanningContactViewModel()
             {
-                OrganisationId = ORGANISATION_ID,
+                OrganisationId = OrganisationId,
                 Contacts = new List<Data.Entities.OrganisationContact>()
                 {
                     new Data.Entities.OrganisationContact()
                     {
-                        Id = ORGANISATION_CONTACT_ID_1
+                        Id = OrganisationContactId1
                     }
                 },
                 SelectedContact = Guid.Empty

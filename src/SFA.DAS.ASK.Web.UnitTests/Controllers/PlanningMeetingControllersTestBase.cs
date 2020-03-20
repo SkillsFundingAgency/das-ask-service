@@ -7,26 +7,26 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
 {
     public class PlanningMeetingControllersTestBase : ControllersTestBase
     {
-        protected Guid MY_ID = Guid.NewGuid();
-        protected Guid DELIVERY_PARTNER_ID_1 = Guid.NewGuid();
-        protected Guid DELIVERY_PARTNER_ID_2 = Guid.NewGuid();
-        protected Guid DP_ORGANISATION_ID = Guid.NewGuid();
-        protected Guid PLANNING_MEETING_ID = Guid.NewGuid();
-        protected Guid ORGANISATION_ID = Guid.NewGuid();
-        protected Guid ORGANISATION_CONTACT_ID_1 = Guid.NewGuid();
-        protected Guid ORGANISATION_CONTACT_ID_2 = Guid.NewGuid();
-        protected DateTime MEETING_TIME_AND_DATE = new DateTime(2020, 1, 1, 12, 0, 0);
+        protected Guid MyId = Guid.NewGuid();
+        protected Guid DeliveryPartnerId1 = Guid.NewGuid();
+        protected Guid DeliveryPartnerId2 = Guid.NewGuid();
+        protected Guid DpOrganisationId = Guid.NewGuid();
+        protected Guid PlanningMeetingId = Guid.NewGuid();
+        protected Guid OrganisationId = Guid.NewGuid();
+        protected Guid OrganisationContactId1 = Guid.NewGuid();
+        protected Guid OrganisationContactId2 = Guid.NewGuid();
+        protected DateTime MeetingTimeAndDate = new DateTime(2020, 1, 1, 12, 0, 0);
 
         protected PlanningMeeting GetPlanningMeeting()
         {
             return new PlanningMeeting()
             {
-                Id = PLANNING_MEETING_ID,
+                Id = PlanningMeetingId,
                 SupportRequestId = SUPPORT_ID,
-                DeliveryPartnerContactId = DELIVERY_PARTNER_ID_1,
-                OrganisationContactId = ORGANISATION_CONTACT_ID_1,
+                DeliveryPartnerContactId = DeliveryPartnerId1,
+                OrganisationContactId = OrganisationContactId1,
                 MeetingType = MeetingType.FaceToFace,
-                MeetingTimeAndDate = MEETING_TIME_AND_DATE
+                MeetingTimeAndDate = MeetingTimeAndDate
             };
         }
         protected List<Data.Entities.DeliveryPartnerContact> GetDeliveryPartnerContacts()
@@ -35,8 +35,8 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
             {
                 new Data.Entities.DeliveryPartnerContact()
                 {
-                    Id = DELIVERY_PARTNER_ID_1,
-                    DeliveryPartnerOrganisationId = DP_ORGANISATION_ID,
+                    Id = DeliveryPartnerId1,
+                    DeliveryPartnerOrganisationId = DpOrganisationId,
                     FirstName = "Test1",
                     LastName = "Partner1",
                     Email = "Test1@DeliveryPartners.com",
@@ -44,8 +44,8 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
                 },
                 new Data.Entities.DeliveryPartnerContact()
                 {
-                    Id = DELIVERY_PARTNER_ID_2,
-                    DeliveryPartnerOrganisationId = DP_ORGANISATION_ID,
+                    Id = DeliveryPartnerId2,
+                    DeliveryPartnerOrganisationId = DpOrganisationId,
                     FirstName = "Test2",
                     LastName = "Partner2",
                     Email = "Test2@DeliveryPartners.com",
@@ -64,8 +64,8 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
                     LastName = "Contact1",
                     Email = "Test1@organisation.com",
                     PhoneNumber = "07222222222",
-                    Id = ORGANISATION_CONTACT_ID_1,
-                    OrganisationId = ORGANISATION_ID
+                    Id = OrganisationContactId1,
+                    OrganisationId = OrganisationId
                 },
                 new OrganisationContact()
                 {
@@ -73,8 +73,8 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
                     LastName = "Contact2",
                     Email = "Test2@organisation.com",
                     PhoneNumber = "07222222222",
-                    Id = ORGANISATION_CONTACT_ID_2,
-                    OrganisationId = ORGANISATION_ID
+                    Id = OrganisationContactId2,
+                    OrganisationId = OrganisationId
                 }
             };
         }
@@ -82,7 +82,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
         {
             return new SupportRequest()
             {
-                OrganisationId = ORGANISATION_ID,
+                OrganisationId = OrganisationId,
                 Organisation = new Organisation() { OrganisationName = "Test Organisation" }
             };
         }

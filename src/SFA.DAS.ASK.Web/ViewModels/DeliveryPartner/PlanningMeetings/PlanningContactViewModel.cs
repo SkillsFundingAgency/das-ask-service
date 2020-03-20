@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 {
@@ -21,6 +22,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 
         public bool Edit { get; set; }
         public Guid SupportId { get; set; }
+
         public PlanningContactViewModel()
         {
         }
@@ -41,6 +43,28 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
             planningMeeting.OrganisationContactId = SelectedContact;
 
             return planningMeeting;
+        }
+
+        public ModelStateDictionary ValidateNewContact(PlanningContactViewModel vm, ModelStateDictionary modelState)
+        {
+            if (string.IsNullOrWhiteSpace(vm.NewFirstName))
+            {
+                modelState.AddModelError("NewFirstName", "Please enter a first name");
+            }
+            if (string.IsNullOrWhiteSpace(vm.NewLastName))
+            {
+                modelState.AddModelError("NewLastName", "Please enter a last name");
+            }
+            if (string.IsNullOrWhiteSpace(vm.NewPhoneNumber))
+            {
+                modelState.AddModelError("NewPhoneNumber", "Please enter a phone number");
+            }
+            if (string.IsNullOrWhiteSpace(vm.NewEmail))
+            {
+                modelState.AddModelError("NewEmail", "Please enter an email");
+            }
+
+            return modelState;
         }
     }
 

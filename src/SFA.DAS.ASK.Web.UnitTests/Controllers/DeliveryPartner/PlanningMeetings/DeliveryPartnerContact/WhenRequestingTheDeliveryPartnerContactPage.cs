@@ -56,7 +56,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
             var result = await sut.Index(SUPPORT_ID, false);
 
             var model = result.As<ViewResult>().Model.As<DeliveryPartnerContactViewModel>();
-            model.SelectedDeliveryPartnerContactId.Should().Be(DELIVERY_PARTNER_ID_1);
+            model.SelectedDeliveryPartnerContactId.Should().Be(DeliveryPartnerId1);
         
         }
 

@@ -67,9 +67,9 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
             return new DeliveryPartnerContactViewModel()
             {
                 DeliveryPartnerContacts = GetDeliveryPartnerContacts(),
-                SelectedDeliveryPartnerContactId = DELIVERY_PARTNER_ID_1,
+                SelectedDeliveryPartnerContactId = DeliveryPartnerId1,
                 SupportId = SUPPORT_ID,
-                MyId = MY_ID,
+                MyId = MyId,
                 Edit = false
             };
         }
@@ -80,7 +80,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
                 DeliveryPartnerContacts = GetDeliveryPartnerContacts(),
                 SelectedDeliveryPartnerContactId = Guid.Empty,
                 SupportId = SUPPORT_ID,
-                MyId = MY_ID,
+                MyId = MyId,
                 Edit = false
             };
         }

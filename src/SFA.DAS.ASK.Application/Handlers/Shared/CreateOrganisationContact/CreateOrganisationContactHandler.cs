@@ -23,11 +23,22 @@ namespace SFA.DAS.ASK.Application.Handlers.Shared.CreateOrganisationContact
         {
             var contacts = _askContext.OrganisationContacts;
 
-            contacts.Add(request.Contact);
+            var contact = new OrganisationContact()
+            {
+                Id = request.Id,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                PhoneNumber = request.PhoneNumber,
+                Email = request.Email,
+                OrganisationId = request.OrganisationId,
+                JobRole = request.JobRole
+            };
+
+            contacts.Add(contact);
 
             await _askContext.SaveChangesAsync(cancellationToken);
 
-            return request.Contact;
+            return contact;
         }
     }
 }

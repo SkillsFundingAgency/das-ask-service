@@ -37,26 +37,24 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
         public async Task<IActionResult> Index(Guid supportId, LogContactViewModel viewModel)
         {
             var supportRequest = await _mediator.Send(new GetSupportRequest(supportId));
-            try
-            {
-                viewModel.UpdateSupportRequest(supportRequest);
-            }
-            catch
-            {
+            DateTime date;
+            bool dateParsed = DateTime.TryParseExact($"{viewModel.Day}/{viewModel.Month}/{viewModel.Year}", "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date);
+            
+            if (!dateParsed)
+            { 
                 ModelState.AddModelError("ContactedDate", "Enter a real date");
             }
-            if (viewModel.Email == false && viewModel.Telephone == false)
-            {
-                ModelState.AddModelError("SelectedContactMethod", "Enter a contact method");
-            }
+           
             if (!ModelState.IsValid)
             {
                 return View("~/Views/DeliveryPartner/PlanningMeetings/LogContact.cshtml", viewModel);
             }
+            
+            viewModel.UpdateSupportRequest(supportRequest);
 
             await _mediator.Send(new SaveTempSupportRequest());
 
-            await _mediator.Send(new StartPlanningMeetingCommand(supportId));
+            //await _mediator.Send(new StartPlanningMeetingCommand(supportId));
 
             if (viewModel.SchedulePlanningMeeting == true)
             {
