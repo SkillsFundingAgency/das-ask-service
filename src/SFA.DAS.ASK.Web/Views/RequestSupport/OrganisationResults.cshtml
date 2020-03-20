@@ -20,9 +20,10 @@ else
                 Search results for @Model.Search
             </h1>
 
-            <form method="get" asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId" >
+            <form method="get" asp-action="Index" asp-controller="OrganisationResults" asp-route-requestId="@Model.RequestId">
 
                 <div class="govuk-form-group">
+                    <label class="govuk-label" for="Search">Search term</label>
                     @if (Model.Edit)
                     {
                         <input type="hidden" asp-for="Edit" value="true" />
@@ -45,40 +46,30 @@ else
 
             </form>
 
-            <hr />
+            <hr class="govuk-section-break govuk-section-break--visible" />
 
             <p> @resultsCount</p>
 
             @if (Model.Results.Count > 0)
             {
-
-                @foreach (var result in Model.Results)
-                {
-
-                    
-                    @*<a class="govuk-heading-m govuk-link" asp-controller="OrganisationResults" asp-action="Select" asp-route-requestId="@Model.RequestId" asp-route-selectedSchool="@result.Id"> @result.Name</a>
-                    <p> @result.GetAddressString(result.Address)</p>
-
-                    <hr />*@
-
-                    <form method="post" asp-controller="OrganisationResults" asp-action="Index">
-                         <input type="hidden" asp-for="SelectedResult" value="@result.Id" />
-                        
-                         <span>
-                             @if (result.Code == Model.SelectedReferenceId)
-                             {
-                                 <strong class="govuk-tag">
-                                     Selected
-                                 </strong>
-                             }
-                             <button class="das-button--link" type="submit"> @result.Name</button>
-                         </span>
-                       
-                        <p> @result.GetAddressString()</p>
-
-                        <hr />
-                    </form>
-                }
+                <ol class="das-search-results">
+                    @foreach (var result in Model.Results)
+                    {
+                        <li class="das-search-results__list-item">
+                            <form method="post" asp-controller="OrganisationResults" asp-action="Index">
+                                <input type="hidden" asp-for="SelectedResult" value="@result.Id" />
+                                @if (result.Code == Model.SelectedReferenceId)
+                                {
+                                    <strong class="govuk-tag">
+                                        Selected
+                                    </strong>
+                                }
+                                <h2 class="govuk-heading-m das-search-results__heading"><button type="submit" class="das-button--inline-link">@result.Name</button></h2>
+                            </form>
+                            <p class="das-search-results__content"> @result.GetAddressString()</p>
+                        </li>
+                    }
+                </ol>
             }
         </div>
     </div>

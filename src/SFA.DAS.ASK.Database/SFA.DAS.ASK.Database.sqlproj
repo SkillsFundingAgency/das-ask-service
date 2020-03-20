@@ -65,16 +65,15 @@
     <Build Include="Tables\EmailTemplates.sql" />
     <Build Include="Tables\DeliveryAreas.sql" />
     <Build Include="Tables\DeliveryPartners.sql" />
+    <Build Include="Tables\DeliveryPartnerContacts.sql" />
     <Build Include="Tables\TempSupportRequests.sql" />
     <Build Include="Tables\SupportRequests.sql" />
     <Build Include="Tables\SupportRequestEventLogs.sql" />
-    <Build Include="Tables\PlanningMeetings.sql" />
-    <Build Include="Tables\DeliveryPartnerContacts.sql" />
+    <Build Include="Tables\VisitActivities.sql" />
+    <Build Include="Tables\VisitFeedback.sql" />
+    <Build Include="Tables\Visits.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="SFA.DAS.ASK.Database.refactorlog" />
   </ItemGroup>
 </Project>
