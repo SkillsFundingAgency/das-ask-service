@@ -36,7 +36,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 
         public SupportRequest UpdateSupportRequest(SupportRequest supportRequest)
         {
-            supportRequest.CurrentStatus = Status.ContactConfirmed;
+            supportRequest.CurrentStatus = Status.Contacted;
             supportRequest.ContactedDate = new DateTime(Year, Month, Day);
 
             return supportRequest;

@@ -29,7 +29,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
         {
             var supportRequest = await _mediator.Send(new GetSupportRequest(supportId));
             
-            if (supportRequest.CurrentStatus == Status.Submitted)
+            if (supportRequest.CurrentStatus == Status.NewRequest)
             {
                 var viewModel = new LogContactViewModel(supportRequest);
 

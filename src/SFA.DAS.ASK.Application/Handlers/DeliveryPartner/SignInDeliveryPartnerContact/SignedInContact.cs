@@ -7,5 +7,6 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.SignInDeliveryPartner
         public string DisplayName { get; set; }
         public string DeliveryPartnerName { get; set; }
         public Guid DeliveryPartnerId { get; set; }
+        public Guid DeliveryPartnerContactId { get; set; }
     }
 }
