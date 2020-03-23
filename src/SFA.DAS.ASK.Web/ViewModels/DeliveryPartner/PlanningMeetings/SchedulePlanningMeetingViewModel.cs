@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 {
-    [ValidateDate("Day","Month","Year", ErrorMessage = "Whack date")]
+    [ValidateDate("Day","Month","Year", ErrorMessage = "Enter a real date")]
     public class SchedulePlanningMeetingViewModel
     {
         public Guid MeetingId { get; set; }

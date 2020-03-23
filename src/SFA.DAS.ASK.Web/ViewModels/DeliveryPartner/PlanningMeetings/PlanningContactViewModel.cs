@@ -46,27 +46,6 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
             return planningMeeting;
         }
 
-        public ModelStateDictionary ValidateNewContact(PlanningContactViewModel vm, ModelStateDictionary modelState)
-        {
-            if (string.IsNullOrWhiteSpace(vm.NewFirstName))
-            {
-                modelState.AddModelError("NewFirstName", "Please enter a first name");
-            }
-            if (string.IsNullOrWhiteSpace(vm.NewLastName))
-            {
-                modelState.AddModelError("NewLastName", "Please enter a last name");
-            }
-            if (string.IsNullOrWhiteSpace(vm.NewPhoneNumber))
-            {
-                modelState.AddModelError("NewPhoneNumber", "Please enter a phone number");
-            }
-            if (string.IsNullOrWhiteSpace(vm.NewEmail))
-            {
-                modelState.AddModelError("NewEmail", "Please enter an email");
-            }
-
-            return modelState;
-        }
     }
 
 }

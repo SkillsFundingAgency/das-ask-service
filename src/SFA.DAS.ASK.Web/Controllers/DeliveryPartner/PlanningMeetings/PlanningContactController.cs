@@ -51,8 +51,6 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
             {
                 ValidateNewContact(vm);
 
-                var errors = vm.ValidateNewContact(vm, ModelState);
-
                 if (ModelState.ErrorCount > 1)
                 {
                     vm.Contacts = _sessionService.Get<List<OrganisationContact>>($"contacts-{supportId}");
