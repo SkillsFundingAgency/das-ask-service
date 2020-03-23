@@ -22,6 +22,7 @@ namespace SFA.DAS.ASK.Data.Entities
 
         public DeliveryPartner DeliveryPartner { get; set; }
         public Guid DeliveryPartnerId { get; set; }
+        public DateTime? ContactedDate { get; set; }
     }
 
     public enum Status

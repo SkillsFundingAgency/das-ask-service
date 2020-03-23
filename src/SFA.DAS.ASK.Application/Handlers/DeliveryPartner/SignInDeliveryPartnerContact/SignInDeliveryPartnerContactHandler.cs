@@ -65,7 +65,8 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.SignInDeliveryPartner
                 {
                     DisplayName = deliveryPartnerContact.DisplayName,
                     DeliveryPartnerName = usersDeliveryPartner.Name,
-                    DeliveryPartnerId = usersDeliveryPartner.Id
+                    DeliveryPartnerId = deliveryPartnerContact.DeliveryPartnerId,
+                    DeliveryPartnerContactId = deliveryPartnerContact.Id
                 });
 
                 return new SignInDeliveryPartnerContactResponse {Success = true};    

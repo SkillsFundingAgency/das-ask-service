@@ -20,6 +20,7 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
         
         [HttpGet("organisation-type/{requestId}")]
         public async Task<IActionResult> Index(Guid requestId)
+        
         {
             var supportRequest = await _mediator.Send(new GetTempSupportRequest(requestId));
             

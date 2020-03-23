@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="c127c613-eda6-49f2-b98b-e25b9e98dea8" ChangeDateTime="03/10/2020 15:05:40">
+    <Property Name="ElementName" Value="[dbo].[PlanningMeetings].[ContactId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PlanningMeetings]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OrganisationContactId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cf3bd20c-3a19-4b0d-a8ed-78c6ca13b76b" ChangeDateTime="03/10/2020 15:05:44">
+    <Property Name="ElementName" Value="[dbo].[PlanningMeetings].[DeliveryPartnerId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PlanningMeetings]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DeliveryPartnerContactId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e00ababa-2584-4a0b-9a72-0abc2e76b3d8" ChangeDateTime="03/23/2020 13:42:25">
+    <Property Name="ElementName" Value="[dbo].[DeliveryPartnerContacts].[Phonenumber]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DeliveryPartnerContacts]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PhoneNumber" />
+  </Operation>
+</Operations>
