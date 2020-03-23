@@ -35,7 +35,8 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.SignInDeliveryPartner
                 _sessionService.Set("SignedInContact", new SignedInContact()
                 {
                     DisplayName = contact.DisplayName,
-                    DeliveryPartnerName = contact.DeliveryPartner.Name
+                    DeliveryPartnerName = contact.DeliveryPartner.Name,
+                    DeliveryPartnerId = contact.DeliveryPartner.Id
                 });
 
                 return new SignInDeliveryPartnerContactResponse {Success = true};    
@@ -63,7 +64,8 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.SignInDeliveryPartner
                 _sessionService.Set("SignedInContact", new SignedInContact()
                 {
                     DisplayName = deliveryPartnerContact.DisplayName,
-                    DeliveryPartnerName = usersDeliveryPartner.Name
+                    DeliveryPartnerName = usersDeliveryPartner.Name,
+                    DeliveryPartnerId = usersDeliveryPartner.Id
                 });
 
                 return new SignInDeliveryPartnerContactResponse {Success = true};    
@@ -72,11 +74,4 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.SignInDeliveryPartner
             return new SignInDeliveryPartnerContactResponse {Success = false};
         }
     }
-
-    public class SignedInContact
-    {
-        public string DisplayName { get; set; }
-        public string DeliveryPartnerName { get; set; }
-    }
-    
 }

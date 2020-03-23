@@ -41,11 +41,12 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
 
             var postcodeRegion = await _context.PostcodeRegions.SingleOrDefaultAsync(pr => pr.PostcodePrefix == Regex.Replace(tempSupportRequest.Postcode, @"(\p{L}+).*", "$1"), cancellationToken: cancellationToken);
             var deliveryArea = await _context.DeliveryAreas.SingleOrDefaultAsync(da => da.Id == postcodeRegion.DeliveryAreaId, cancellationToken: cancellationToken);
-            
+
+            var submittedDate = DateTime.UtcNow;
             var supportRequest = new SupportRequest()
             {
                 AdditionalComments = tempSupportRequest.AdditionalComments,
-                CurrentStatus = Status.Submitted,
+                CurrentStatus = Status.NewRequest,
                 Id = tempSupportRequest.Id,
                 EventLogs = new List<SupportRequestEventLog>()
                 {
@@ -61,8 +62,8 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
                     {
                         Id = Guid.NewGuid(),
                         SupportRequestId = request.TempSupportRequest.Id, 
-                        Status = Status.Submitted,
-                        EventDate = DateTime.UtcNow,
+                        Status = Status.NewRequest,
+                        EventDate = submittedDate,
                         Email = request.Email
                     }
                 },

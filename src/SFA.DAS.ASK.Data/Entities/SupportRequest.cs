@@ -27,7 +27,7 @@ namespace SFA.DAS.ASK.Data.Entities
     public enum Status
     {
         Draft,
-        Submitted,
-        ContactConfirmed
+        NewRequest,
+        Contacted
     }
 }
