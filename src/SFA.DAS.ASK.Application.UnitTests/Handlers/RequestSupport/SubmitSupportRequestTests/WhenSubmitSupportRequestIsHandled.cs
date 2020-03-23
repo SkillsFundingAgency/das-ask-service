@@ -40,11 +40,11 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.RequestSupport.SubmitSuppor
             });
 
             _midlandsDpId = Guid.NewGuid();
-            var deliveryPartners = new List<DeliveryPartner>
+            var deliveryPartners = new List<Data.Entities.DeliveryPartner>
             {
-                new DeliveryPartner{Id = Guid.NewGuid(), Name = "London DP"},
-                new DeliveryPartner{Id = _midlandsDpId, Name = "A Midlands DP"},
-                new DeliveryPartner{Id = Guid.NewGuid(), Name = "South DP"}
+                new Data.Entities.DeliveryPartner{Id = Guid.NewGuid(), Name = "London DP"},
+                new Data.Entities.DeliveryPartner{Id = _midlandsDpId, Name = "A Midlands DP"},
+                new Data.Entities.DeliveryPartner{Id = Guid.NewGuid(), Name = "South DP"}
             };
             await _context.DeliveryPartners.AddRangeAsync(deliveryPartners);
 

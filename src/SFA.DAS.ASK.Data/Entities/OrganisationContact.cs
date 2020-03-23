@@ -11,5 +11,11 @@ namespace SFA.DAS.ASK.Data.Entities
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public Guid OrganisationId { get; set; }
+
+        public OrganisationContact()
+        {
+
+        }
+
     }
 }

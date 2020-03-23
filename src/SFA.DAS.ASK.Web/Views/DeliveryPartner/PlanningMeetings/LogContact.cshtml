@@ -1,0 +1,94 @@
+﻿@model SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings.LogContactViewModel
+@{
+    ViewData["Title"] = "Log Contact";
+}
+
+
+<main class="govuk-main-wrapper" id="main-content" role="main">
+    <div class="govuk-grid-row">
+        
+        <div class="govuk-grid-column-two-thirds">
+
+            <partial name="_ErrorSummary" />
+
+            <h1 class="govuk-heading-xl">
+                Log Contact
+                <span class="govuk-caption-xl"> @Model.EstablishmentName  </span>
+            </h1>
+
+            
+                <form method="post">
+                    <div class="govuk-form-group" sfa-gds-error-class-for="ContactedDate"  >
+                        <fieldset class="govuk-fieldset" >
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                                <h1 class="govuk-fieldset__heading"> When did you contact this establishment?</h1>
+                            </legend>
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                <h1 class="govuk-fieldset__heading">
+                                    Date
+                                </h1>
+                            </legend>
+                            <span id="contacted-date-hint" class="govuk-hint">
+                                Select or enter the correct date
+                            </span>
+                            <span sfa-gds-error-message-for="ContactedDate"></span>
+                            <div class="govuk-date-input" >
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group" >
+                                        <div class="govuk-label govuk-date-input__label"> Day </div>
+                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Day" type="number" />
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <div class="govuk-label govuk-date-input__label"> Month </div>
+                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Month" type="number">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <div class="govuk-label govuk-date-input__label"> Year </div>
+                                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Year" type="number">
+                                    </div>
+                                </div>
+                                </div>
+                        </fieldset>
+                    </div>
+                    <div class="govuk-form-group" sfa-gds-error-class-for="SelectedContactMethod">
+                        <fieldset class="govuk-fieldset" >
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                                <h2 class="govuk-fieldset__heading"> How did you contact them?</h2>
+                            </legend>
+                            <span sfa-gds-error-message-for="SelectedContactMethod"></span>
+                            <div class="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" asp-for="Telephone" type="checkbox">
+                                    <label class="govuk-label govuk-checkboxes__label"> Telephone</label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" asp-for="Email" type="checkbox">
+                                    <label class="govuk-label govuk-checkboxes__label"> Email</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <hr />
+
+                    <div class="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" asp-for="SchedulePlanningMeeting" type="checkbox">
+                            <label class="govuk-label govuk-checkboxes__label"> Schedule the planning meeting</label>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <button class="govuk-button" type="submit">Log contact</button>
+                    <a class="das-button--link">Cancel</a>
+
+                </form>
+           
+
+        </div>
+    </div>
+</main>
