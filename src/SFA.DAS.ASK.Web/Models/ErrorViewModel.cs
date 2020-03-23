@@ -1,5 +1,3 @@
-using System;
-
 namespace SFA.DAS.ASK.Web.Models
 {
     public class ErrorViewModel
