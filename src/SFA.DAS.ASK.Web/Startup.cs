@@ -100,8 +100,6 @@ namespace SFA.DAS.ASK.Web
 
             
             services.AddTransient<IEmailService, EmailService>();
-            services.AddHttpClient<IReferenceDataApiClient, ReferenceDataApiClient>();
-            services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>();
             
             services.AddScoped<CheckRequestFilter>()
                 .AddTransient<ISessionService, SessionService>();
