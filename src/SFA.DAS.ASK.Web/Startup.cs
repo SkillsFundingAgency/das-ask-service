@@ -1,4 +1,11 @@
-﻿using System.IO;
+﻿using System.Data.Common;
+using System.Data.SqlClient;
+using System.IO;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,10 +17,14 @@ using Microsoft.Extensions.DependencyInjection;
 using SFA.DAS.ASK.Application.ExternalServices.DfeSignInApi;
 using SFA.DAS.ASK.Application.ExternalServices.ReferenceDataApi;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
+using SFA.DAS.ASK.Application.Services.DfeApi;
+using SFA.DAS.ASK.Application.Services.Email;
+using SFA.DAS.ASK.Application.Services.ReferenceData;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Web.Infrastructure;
 using SFA.DAS.ASK.Web.Infrastructure.Filters;
+using SFA.DAS.ASK.Web.Infrastructure.NServiceBus;
 using SFA.DAS.Boilerplate.Configuration;
 using SFA.DAS.Boilerplate.Logging;
 
@@ -76,16 +87,38 @@ namespace SFA.DAS.ASK.Web
             services.AddOptions()
                 .Configure<ReferenceDataApiConfig>(Configuration.GetSection("ReferenceDataApiAuthentication"))
                 .Configure<DfeSignInConfig>(Configuration.GetSection("DfeSignIn"));
+
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            
+            
+            services.Configure<NServiceBusConfiguration>(Configuration.GetSection("NServiceBusConfiguration"));
+
+            
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddHttpClient<IReferenceDataApiClient, ReferenceDataApiClient>();
+            services.AddHttpClient<IDfeSignInApiClient, DfeSignInApiClient>();
             
             services.AddScoped<CheckRequestFilter>()
                 .AddTransient<ISessionService, SessionService>();
             
             services.AddHttpClients();
+            services.AddAuthorization();
+
             services.AddHealthChecks();
 
             services.AddMvc()
                 .AddSessionStateTempDataProvider()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            services.AddTransient<DbConnection>(provider => new SqlConnection(Configuration["SqlConnectionstring"]));
+            
+            
+            services.AddNServiceBus();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

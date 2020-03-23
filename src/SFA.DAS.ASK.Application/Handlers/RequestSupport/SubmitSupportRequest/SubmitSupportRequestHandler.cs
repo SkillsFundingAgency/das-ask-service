@@ -8,12 +8,15 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using NServiceBus;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisation;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetOrCreateOrganisationContact;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.StartTempSupportRequest;
+using SFA.DAS.ASK.Application.Services.Email;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data;
 using SFA.DAS.ASK.Data.Entities;
+using SFA.DAS.Notifications.Messages.Commands;
 
 namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
 {
@@ -23,13 +26,15 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
         private readonly ILogger<SubmitSupportRequestHandler> _logger;
         private readonly IMediator _mediator;
         private readonly ISessionService _sessionService;
+        private readonly IEmailService _emailService;
 
-        public SubmitSupportRequestHandler(AskContext context, ILogger<SubmitSupportRequestHandler> logger, IMediator mediator, ISessionService sessionService)
+        public SubmitSupportRequestHandler(AskContext context, ILogger<SubmitSupportRequestHandler> logger, IMediator mediator, ISessionService sessionService, IEmailService emailService)
         {
             _context = context;
             _logger = logger;
             _mediator = mediator;
             _sessionService = sessionService;
+            _emailService = emailService;
         }
         
         public async Task<Unit> Handle(SubmitSupportRequest request, CancellationToken cancellationToken)
@@ -37,7 +42,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
             var tempSupportRequest = await _context.TempSupportRequests.SingleAsync(tsr => tsr.Id == request.TempSupportRequest.Id, cancellationToken: cancellationToken);
 
             var organisation = await _mediator.Send(new GetOrCreateOrganisationRequest(tempSupportRequest), cancellationToken);
-            var contact = await _mediator.Send(new GetOrCreateOrganisationContactRequest(tempSupportRequest, organisation.Id));
+            var contact = await _mediator.Send(new GetOrCreateOrganisationContactRequest(tempSupportRequest, organisation.Id), cancellationToken);
 
             var postcodeRegion = await _context.PostcodeRegions.SingleOrDefaultAsync(pr => pr.PostcodePrefix == Regex.Replace(tempSupportRequest.Postcode, @"(\p{L}+).*", "$1"), cancellationToken: cancellationToken);
             var deliveryArea = await _context.DeliveryAreas.SingleOrDefaultAsync(da => da.Id == postcodeRegion.DeliveryAreaId, cancellationToken: cancellationToken);
@@ -55,7 +60,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
                         SupportRequestId = request.TempSupportRequest.Id, 
                         Status = Status.Draft,
                         EventDate = tempSupportRequest.StartDate,
-                        Email = request.Email
+                        Email = contact.Email
                     },
                     new SupportRequestEventLog
                     {
@@ -63,7 +68,7 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
                         SupportRequestId = request.TempSupportRequest.Id, 
                         Status = Status.Submitted,
                         EventDate = DateTime.UtcNow,
-                        Email = request.Email
+                        Email = contact.Email
                     }
                 },
                 Organisation = organisation,
@@ -80,8 +85,8 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
             _sessionService.Remove("TempSupportRequestId");
             _sessionService.Remove($"Searchstring-{request.TempSupportRequest.Id}");
             _sessionService.Remove($"Searchresults-{request.TempSupportRequest.Id}");
-            
-            // Send email(s).
+
+            await _emailService.SendSupportRequestSubmitted(contact.Email, contact.FirstName);
             
             return Unit.Value;
         }

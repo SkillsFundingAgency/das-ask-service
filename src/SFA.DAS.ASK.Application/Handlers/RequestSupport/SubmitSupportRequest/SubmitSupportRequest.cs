@@ -6,12 +6,10 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.SubmitSupportRequest
     public class SubmitSupportRequest : IRequest
     {
         public TempSupportRequest TempSupportRequest { get; }
-        public string Email { get; set; }
 
-        public SubmitSupportRequest(TempSupportRequest tempSupportRequest, string email)
+        public SubmitSupportRequest(TempSupportRequest tempSupportRequest)
         {
             TempSupportRequest = tempSupportRequest;
-            Email = email;
         }
     }
 }
