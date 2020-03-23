@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.StartPlanningMeeting;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
-using SFA.DAS.ASK.Application.Handlers.RequestSupport.SaveSupportRequest;
+using SFA.DAS.ASK.Application.Handlers.Shared.UpdateSupportRequest;
+using SFA.DAS.ASK.Application.Services.Session;
+using SFA.DAS.ASK.Data.Entities;
 using SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer;
 using SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings;
 
@@ -15,21 +14,29 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
     public class LogContactController : Controller
     {
         private IMediator _mediator { get; set; }
+        private ISessionService _sessionService { get; set; }
 
-        public LogContactController(IMediator mediator)
+        public LogContactController(IMediator mediator, ISessionService sessionService)
         {
             _mediator = mediator;
+            _sessionService = sessionService;
         }
 
         [HttpGet("delivery-partner/planning-meeting/log-contact/{supportId}")]
         [ImportModelState]
         public async Task<IActionResult> Index(Guid supportId)
+        
         {
             var supportRequest = await _mediator.Send(new GetSupportRequest(supportId));
             
-            var viewModel = new LogContactViewModel(supportRequest);
+            if (supportRequest.CurrentStatus == Status.Submitted)
+            {
+                var viewModel = new LogContactViewModel(supportRequest);
 
-            return View("~/Views/DeliveryPartner/PlanningMeetings/Logcontact.cshtml", viewModel);
+                return View("~/Views/DeliveryPartner/PlanningMeetings/Logcontact.cshtml", viewModel);
+            }
+
+            return RedirectToAction("Index", "DeliveryPartnerDashboard");
         }
 
         [HttpPost("delivery-partner/planning-meeting/log-contact/{supportId}")]
@@ -38,7 +45,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
         {
             var supportRequest = await _mediator.Send(new GetSupportRequest(supportId));
             DateTime date;
-            bool dateParsed = DateTime.TryParseExact($"{viewModel.Day}/{viewModel.Month}/{viewModel.Year}", "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date);
+            bool dateParsed = DateTime.TryParse($"{viewModel.Day}/{viewModel.Month}/{viewModel.Year}", out date);
             
             if (!dateParsed)
             { 
@@ -52,9 +59,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
             
             viewModel.UpdateSupportRequest(supportRequest);
 
-            await _mediator.Send(new SaveTempSupportRequest());
-
-            //await _mediator.Send(new StartPlanningMeetingCommand(supportId));
+            await _mediator.Send(new UpdateSupportRequestCommand());
 
             if (viewModel.SchedulePlanningMeeting == true)
             {

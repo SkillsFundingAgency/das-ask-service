@@ -12,6 +12,7 @@ using SFA.DAS.ASK.Data.Entities;
 using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetOrCreatePlanningMeeting;
 using SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings;
 using Microsoft.AspNetCore.Mvc;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 
 namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings.DeliveryPartnerContact
 {
@@ -26,7 +27,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
         {
             Mediator.Send(Arg.Any<GetDeliveryPartnerContactsRequest>()).Returns(GetDeliveryPartnerContacts());
             Mediator.Send(Arg.Any<GetPlanningMeetingRequest>()).Returns(GetPlanningMeeting());
-
+            Mediator.Send(Arg.Any<GetSupportRequest>()).Returns(GetSupportRequest());
 
             sut = new DeliveryPartnerContactController(Mediator, SessionService);
         }

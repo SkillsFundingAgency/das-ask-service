@@ -32,5 +32,6 @@ namespace SFA.DAS.ASK.Data
         public DbSet<VisitFeedback> VisitFeedback { get; set; }
         public DbSet<Visit> Visits { get; set; }
         public DbSet<VisitActivity> VisitActivities { get; set; }
+        public DbSet<PlanningMeeting> PlanningMeetings { get; set; }
     }
 }

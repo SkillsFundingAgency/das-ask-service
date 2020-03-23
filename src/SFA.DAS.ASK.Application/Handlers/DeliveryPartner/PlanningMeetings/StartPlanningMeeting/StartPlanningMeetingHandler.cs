@@ -24,14 +24,16 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.Star
                 Id = meetingId,
                 SupportRequestId = request.RequestId,
                 OrganisationContactId = Guid.Empty,
-                DeliveryPartnerContactId = Guid.Empty,
-                MeetingType = null,
+                DeliveryPartnerContactId = request.DeliveryPartnerId,
+                MeetingTimeAndDate = new DateTime(request.Year, request.Month, request.Day, request.Hours, request.Minutes, 0),
+                MeetingType = request.MeetingType,
                 Status = PlanningStatus.Draft
-            });
+            }); ;
 
             await _askContext.SaveChangesAsync(cancellationToken);
 
             return new StartPlanningMeetingResponse(meetingId);
         }
+
     }
 }

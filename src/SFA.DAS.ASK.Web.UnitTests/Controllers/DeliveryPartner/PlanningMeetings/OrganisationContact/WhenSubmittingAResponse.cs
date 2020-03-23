@@ -67,8 +67,8 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
                 
             });
 
-            result.Should().BeOfType<ViewResult>();
-            result.As<ViewResult>().ViewName.Should().Be("~/Views/DeliveryPartner/PlanningMeetings/PlanningContact.cshtml");
+            result.Should().BeOfType<RedirectToActionResult>();
+            result.As<RedirectToActionResult>().ControllerName.Should().Be("PlanningContact");
         }
 
         [Test]
@@ -116,8 +116,8 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
 
             Mediator.Received(0).Send(Arg.Any<CreateOrganisationContactCommand>());
 
-            result.Should().BeOfType<ViewResult>();
-            result.As<ViewResult>().ViewName.Should().Be("~/Views/DeliveryPartner/PlanningMeetings/PlanningContact.cshtml");
+            result.Should().BeOfType<RedirectToActionResult>();
+            result.As<RedirectToActionResult>().ControllerName.Should().Be("PlanningContact");
         }
     }
 }

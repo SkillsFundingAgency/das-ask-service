@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetDeliveryPartnerContacts;
 using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetOrCreatePlanningMeeting;
 using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.UpdatePlanningMeeeting;
+using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data.Entities;
 using SFA.DAS.ASK.Web.Infrastructure.ModelStateTransfer;
@@ -30,13 +31,22 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
         public async Task<IActionResult> Index(Guid supportId, bool edit)
         {
             //This will be retrieved from the sign in service or session service
-            var myId = Guid.Parse("CAC458E1-C88E-4E1D-9523-2FD1BB0F9EED");
-            var myOrgId = Guid.Parse("BB2D2212-7DA2-4DD9-9208-1C6715FB6216");
+            //var myId = Guid.Parse("CAC458E1-C88E-4E1D-9523-2FD1BB0F9EED");
+            //var myOrgId = Guid.Parse("BB2D2212-7DA2-4DD9-9208-1C6715FB6216");
+           
+            //var signedInUser = _sessionService.Get<DeliveryPartnerContact>("SignedInContact");
 
-            var contacts = await _mediator.Send(new GetDeliveryPartnerContactsRequest(myOrgId));
+            var supportRequest = await _mediator.Send(new GetSupportRequest(supportId));
+
+            //if (supportRequest.DeliveryPartnerId != myOrgId)
+            //{
+            //    return RedirectToAction("Index", "DeliveryPartnerDashboard");
+            //}
+
+            var contacts = await _mediator.Send(new GetDeliveryPartnerContactsRequest(supportRequest.DeliveryPartnerId));
             var meeting = await _mediator.Send(new GetPlanningMeetingRequest(supportId));
-
-            var viewModel = new DeliveryPartnerContactViewModel(myId, contacts, meeting, edit);
+           
+            var viewModel = new DeliveryPartnerContactViewModel(contacts, meeting, supportRequest.DeliveryPartnerId, edit);
 
             return View("~/Views/DeliveryPartner/PlanningMeetings/DeliveryPartnerContact.cshtml", viewModel);
         }

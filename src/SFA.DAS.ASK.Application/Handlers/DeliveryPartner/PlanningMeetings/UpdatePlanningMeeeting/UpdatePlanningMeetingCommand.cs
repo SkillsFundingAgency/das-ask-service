@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SFA.DAS.ASK.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -14,7 +14,8 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.DeliveryPartner.PlanningMee
     [TestFixture]
     public class WhenStartNewPlanningMeetingHandled 
     {
-        private Guid REQUEST_ID = Guid.NewGuid();
+        private Guid RequestId = Guid.NewGuid();
+        private Guid DeliveryPartnerId = Guid.NewGuid();
 
         [Test]
         public async Task ThenANewPlanningMeetingIsCreated()
@@ -27,7 +28,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.DeliveryPartner.PlanningMee
 
             var handler = new StartPlanningMeetingHandler(context);
 
-            var result = await handler.Handle(new StartPlanningMeetingCommand(REQUEST_ID), CancellationToken.None);
+            var result = await handler.Handle(new StartPlanningMeetingCommand(RequestId, DeliveryPartnerId, 1,1,2020,12,0,0), CancellationToken.None);
 
             (await context.PlanningMeetings.CountAsync()).Should().Be(1);
         }

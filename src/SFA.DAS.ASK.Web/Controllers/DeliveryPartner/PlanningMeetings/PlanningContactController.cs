@@ -52,13 +52,12 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
                 ValidateNewContact(vm);
 
                 var errors = vm.ValidateNewContact(vm, ModelState);
-                //ModelState = ModelState.;
 
                 if (ModelState.ErrorCount > 1)
                 {
                     vm.Contacts = _sessionService.Get<List<OrganisationContact>>($"contacts-{supportId}");
                     ModelState.AddModelError("SelectedContact", "Select an option");
-                    return View("~/Views/DeliveryPartner/PlanningMeetings/PlanningContact.cshtml", vm);
+                    return RedirectToAction("Index", "PlanningContact", new { supportId });
                 }
                 else
                 {

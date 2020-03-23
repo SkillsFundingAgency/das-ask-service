@@ -17,7 +17,9 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetO
         }
         public async Task<PlanningMeeting> Handle(GetPlanningMeetingRequest request, CancellationToken cancellationToken)
         {
-            return await _askContext.PlanningMeetings.FirstOrDefaultAsync(pm => pm.SupportRequestId == request.RequestId, cancellationToken: cancellationToken);
+            var planningMeetings = await _askContext.PlanningMeetings.FirstOrDefaultAsync(pm => pm.SupportRequestId == request.RequestId, cancellationToken: cancellationToken);
+
+            return planningMeetings;
         }
     }
 

@@ -17,9 +17,8 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 
         public DeliveryPartnerContact DeliveryPartnerContact { get; set; }
 
-        public CheckAnswersViewModel(SupportRequest request, PlanningMeeting meeting, OrganisationContact contact, Guid myId, DeliveryPartnerContact deliveryPartnerContact)
+        public CheckAnswersViewModel(SupportRequest request, PlanningMeeting meeting, OrganisationContact contact, DeliveryPartnerContact deliveryPartnerContact)
         {
-            MyId = myId;
             Organisation = request.Organisation;
 
             MeetingDateAndTime = meeting.MeetingTimeAndDate.Value;

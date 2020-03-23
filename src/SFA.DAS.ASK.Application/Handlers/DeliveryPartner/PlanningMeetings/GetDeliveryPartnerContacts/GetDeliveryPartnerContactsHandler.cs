@@ -21,7 +21,7 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetD
 
         public async Task<List<DeliveryPartnerContact>> Handle(GetDeliveryPartnerContactsRequest request, CancellationToken cancellationToken)
         {
-            return _askContext.DeliveryPartnerContacts.Where(x => x.DeliveryPartnerOrganisationId == request.DeliveryPartnerOrganisationId).ToList();
+            return _askContext.DeliveryPartnerContacts.Where(x => x.DeliveryPartnerId == request.DeliveryPartnerOrganisationId).ToList();
         }
     }
 }

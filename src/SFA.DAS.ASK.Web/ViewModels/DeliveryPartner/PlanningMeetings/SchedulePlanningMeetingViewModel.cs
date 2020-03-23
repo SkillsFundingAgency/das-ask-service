@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 {
+    [ValidateDate("Day","Month","Year", ErrorMessage = "Whack date")]
     public class SchedulePlanningMeetingViewModel
     {
         public Guid MeetingId { get; set; }
@@ -14,7 +16,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
         public string OrganisationName { get; set; }
         public DateTime DateOfMeeting { get; set; }
         public DateTime TimeOfMeeting { get; set; }
-        public MeetingType Type { get; set; }
+        public MeetingType? Type { get; set; }
 
         [Required(ErrorMessage = "Please enter a value for minutes")]
         [Range(0,60)]
@@ -39,6 +41,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
             MeetingId = meeting.Id;
             OrganisationName = supportRequest.Organisation.OrganisationName;
             Type = (MeetingType)meeting.MeetingType.GetValueOrDefault();
+
             Minutes = meeting.MeetingTimeAndDate.GetValueOrDefault().Minute;
             Hours = meeting.MeetingTimeAndDate.GetValueOrDefault().Hour;
             Day = meeting.MeetingTimeAndDate.GetValueOrDefault().Day;
@@ -58,5 +61,23 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
         }
     }
 
-    
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class ValidateDate : ValidationAttribute
+    {
+        public ValidateDate(params string[] propertyList)
+        {
+        }
+
+        public override bool IsValid(object value)
+        {
+            
+            DateTime date;
+            var vm = (SchedulePlanningMeetingViewModel)value;
+            var Day = vm.Day;
+            var Month = vm.Month;
+            var Year = vm.Year;
+
+            return DateTime.TryParse($"{Day}/{Month}/{Year}", out date);
+        }
+    }
 }

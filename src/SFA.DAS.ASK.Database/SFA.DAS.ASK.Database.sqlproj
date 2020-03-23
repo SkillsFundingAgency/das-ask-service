@@ -72,8 +72,12 @@
     <Build Include="Tables\VisitActivities.sql" />
     <Build Include="Tables\VisitFeedback.sql" />
     <Build Include="Tables\Visits.sql" />
+    <Build Include="Tables\PlanningMeetings_1.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="SFA.DAS.ASK.Database.refactorlog" />
   </ItemGroup>
 </Project>

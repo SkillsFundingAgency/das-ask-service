@@ -61,14 +61,14 @@
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key"> Delivery partner contact </dt>
                     <dd class="govuk-summary-list__value">
-                        @if (Model.MyId == Model.DeliveryPartnerContact.Id)
+                        @*@if (Model.MyId == Model.DeliveryPartnerContact.Id)
                         {
                             <p> Myself</p>
                         }
                         else
-                        {
+                        {*@
                             <p> @Model.DeliveryPartnerContact.FirstName @Model.DeliveryPartnerContact.LastName</p>
-                        }
+                        @* } *@
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a asp-action="Index" asp-controller="DeliveryPartnerContact" asp-route-supportId="@Model.SupportId" asp-route-edit="true" class="govuk-link">Change</a>

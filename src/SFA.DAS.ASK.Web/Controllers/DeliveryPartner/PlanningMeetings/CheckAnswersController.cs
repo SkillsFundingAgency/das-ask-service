@@ -28,8 +28,8 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
         [ImportModelState]
         public async Task<IActionResult> Index(Guid supportId)
         {
-            var myId = Guid.Parse("CAC458E1-C88E-4E1D-9523-2FD1BB0F9EED");
-            var myOrgId = Guid.Parse("BB2D2212-7DA2-4DD9-9208-1C6715FB6216");
+            //var myId = Guid.Parse("E9FDE3ED-8228-4A9F-9BF4-1516C06F1BD7");
+            //var myOrgId = Guid.Parse("BB2D2212-7DA2-4DD9-9208-1C6715FB6216");
 
             var supportRequest = await _mediator.Send(new GetSupportRequest(supportId));
             var planningMeeting = await _mediator.Send(new GetPlanningMeetingRequest(supportId));
@@ -37,7 +37,7 @@ namespace SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings
             var contact = contacts.Where(c => c.Id == supportRequest.OrganisationContactId).FirstOrDefault();
             var deliveryPartnerContact = await _mediator.Send(new GetDeliveryPartnerContactRequest(planningMeeting.DeliveryPartnerContactId.GetValueOrDefault()));
 
-            var vm = new CheckAnswersViewModel(supportRequest, planningMeeting, contact, myId, deliveryPartnerContact) ;
+            var vm = new CheckAnswersViewModel(supportRequest, planningMeeting, contact, deliveryPartnerContact) ;
 
             return View("~/Views/DeliveryPartner/PlanningMeetings/CheckAnswers.cshtml", vm);
         }

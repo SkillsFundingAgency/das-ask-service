@@ -36,7 +36,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
                 new Data.Entities.DeliveryPartnerContact()
                 {
                     Id = DeliveryPartnerId1,
-                    DeliveryPartnerOrganisationId = DpOrganisationId,
+                    DeliveryPartnerId = DpOrganisationId,
                     FirstName = "Test1",
                     LastName = "Partner1",
                     Email = "Test1@DeliveryPartners.com",
@@ -45,7 +45,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
                 new Data.Entities.DeliveryPartnerContact()
                 {
                     Id = DeliveryPartnerId2,
-                    DeliveryPartnerOrganisationId = DpOrganisationId,
+                    DeliveryPartnerId = DpOrganisationId,
                     FirstName = "Test2",
                     LastName = "Partner2",
                     Email = "Test2@DeliveryPartners.com",

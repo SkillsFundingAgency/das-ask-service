@@ -46,20 +46,12 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
         }
 
         [Test]
-        public async Task AndNoOptionIsSelected_ThenTheModelStateWillBeInvalid()
-        {
-            var result = await sut.Submit(SUPPORT_ID, GetInvalidDeliveryPartnerContactViewModel());
-            
-            result.As<ViewResult>().ViewData.ModelState.Should().HaveCount(1);
-        }
-
-        [Test]
         public async Task AndTheModelStateIsInValid_ThenTheUserIsRedirectedToTheCheckAnswersPage()
         {
             var result = await sut.Submit(SUPPORT_ID, GetInvalidDeliveryPartnerContactViewModel());
 
-            result.Should().BeOfType<ViewResult>();
-            result.As<ViewResult>().ViewName.Should().Be("~/Views/DeliveryPartner/PlanningMeetings/DeliveryPartnerContact.cshtml");
+            result.Should().BeOfType<RedirectToActionResult>();
+            result.As<RedirectToActionResult>().ControllerName.Should().Be("DeliveryPartnerContact");
         }
 
         private DeliveryPartnerContactViewModel GetDeliveryPartnerContactViewModel()
@@ -69,7 +61,6 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
                 DeliveryPartnerContacts = GetDeliveryPartnerContacts(),
                 SelectedDeliveryPartnerContactId = DeliveryPartnerId1,
                 SupportId = SUPPORT_ID,
-                MyId = MyId,
                 Edit = false
             };
         }
@@ -80,7 +71,6 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
                 DeliveryPartnerContacts = GetDeliveryPartnerContacts(),
                 SelectedDeliveryPartnerContactId = Guid.Empty,
                 SupportId = SUPPORT_ID,
-                MyId = MyId,
                 Edit = false
             };
         }

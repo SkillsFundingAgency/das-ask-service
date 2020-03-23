@@ -16,8 +16,7 @@
                 <span class="govuk-caption-xl"> @Model.EstablishmentName  </span>
             </h1>
 
-            @if (Model.Status != SFA.DAS.ASK.Data.Entities.Status.ContactConfirmed)
-            {
+            
                 <form method="post">
                     <div class="govuk-form-group" sfa-gds-error-class-for="ContactedDate"  >
                         <fieldset class="govuk-fieldset" >
@@ -88,11 +87,7 @@
                     <a class="das-button--link">Cancel</a>
 
                 </form>
-            }
-            else
-            {
-                <button class="govuk-button" asp-controller="Dashboard" asp-action="Index">Back to dashboard</button>
-            }
+           
 
         </div>
     </div>

@@ -9,11 +9,11 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 {
     public class DeliveryPartnerContactViewModel
     {
-        public Guid MyId { get; set; }
 
         public List<DeliveryPartnerContact> DeliveryPartnerContacts { get; set; }
 
         public Guid SelectedDeliveryPartnerContactId { get; set; }
+        public Guid DeliveryPartnerId { get; set; }
 
         public Guid SupportId { get; set; }
         public bool Edit { get; set; }
@@ -23,12 +23,12 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 
         }
 
-        public DeliveryPartnerContactViewModel(Guid myId, List<DeliveryPartnerContact> contacts, PlanningMeeting meeting, bool edit)
+        public DeliveryPartnerContactViewModel(List<DeliveryPartnerContact> contacts, PlanningMeeting meeting, Guid deliveryPartnerId, bool edit)
         {
-            MyId = myId;
             DeliveryPartnerContacts = contacts;
             SelectedDeliveryPartnerContactId = meeting.DeliveryPartnerContactId.GetValueOrDefault();
 
+            DeliveryPartnerId = deliveryPartnerId;
             SupportId = meeting.SupportRequestId;
             Edit = edit;
         }

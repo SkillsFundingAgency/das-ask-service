@@ -21,7 +21,6 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
         public bool Telephone { get; set; }
         public bool Email { get; set; }
         public bool SchedulePlanningMeeting { get; set; }
-        public Status Status { get; set; }
         public DateTime ContactedDate { get; set; }
 
         public LogContactViewModel()
@@ -31,7 +30,6 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
         public LogContactViewModel(SupportRequest supportRequest)
         {
             RequestId = supportRequest.Id;
-            Status = supportRequest.CurrentStatus;
             EstablishmentName = supportRequest.Organisation.OrganisationName;
 
         }

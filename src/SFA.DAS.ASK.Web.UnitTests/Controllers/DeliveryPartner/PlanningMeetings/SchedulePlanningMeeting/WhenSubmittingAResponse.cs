@@ -27,7 +27,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
             Mediator.Send(Arg.Any<GetOrganisationContactsRequest>()).Returns(GetOrganisationContacts());
             Mediator.Send(Arg.Any<GetSupportRequest>()).Returns(GetSupportRequest());
 
-            sut = new SchedulePlanningMeetingController(Mediator);
+            sut = new SchedulePlanningMeetingController(Mediator, SessionService);
         }
 
         [Test]
@@ -40,28 +40,6 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
             result.Should().BeOfType<RedirectToActionResult>();
             result.As<RedirectToActionResult>().ActionName.Should().Be("Index");
             result.As<RedirectToActionResult>().ControllerName.Should().Be("PlanningContact");
-        }
-
-        [Test]
-        public async Task AndTheDateDoesntExist_ThenTheUpdateHandlerisNotCalled_AndTheCorrectModelIsReturned()
-        {
-            var result = await sut.Index(SUPPORT_ID, GetSchedulePlanningMeetingViewModelWithInvalidDate());
-
-            Mediator.Received(0).Send(Arg.Any<UpdatePlanningMeetingCommand>());
-
-            result.Should().BeOfType<ViewResult>();
-            result.As<ViewResult>().ViewData.ModelState["DateOfMeeting"].Errors[0].ErrorMessage.Should().Be("Enter a real date");
-        }
-
-        [Test]
-        public async Task AndTheDateIsInThePast_ThenTheUpdateHandlerisNotCalled_AndTheCorrectModelIsReturned()
-        {
-            var result = await sut.Index(SUPPORT_ID, GetSchedulePlanningMeetingViewModelInThePast());
-
-            Mediator.Received(0).Send(Arg.Any<UpdatePlanningMeetingCommand>());
-
-            result.Should().BeOfType<ViewResult>();
-            result.As<ViewResult>().ViewData.ModelState["DateOfMeeting"].Errors[0].ErrorMessage.Should().Be("Date of planning meeting must be in the future");
         }
 
         private SchedulePlanningMeetingViewModel GetSchedulePlanningMeetingViewModel()

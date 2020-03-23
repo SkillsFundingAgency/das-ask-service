@@ -25,6 +25,7 @@ namespace SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings
 
         public PlanningContactViewModel()
         {
+               
         }
         public PlanningContactViewModel(SupportRequest supportRequest, PlanningMeeting planningMeeting, List<OrganisationContact> contacts, bool edit)
         {

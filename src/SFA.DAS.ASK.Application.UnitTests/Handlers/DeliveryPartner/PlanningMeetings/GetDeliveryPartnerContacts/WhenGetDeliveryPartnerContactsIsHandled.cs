@@ -39,17 +39,17 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.DeliveryPartner.PlanningMee
                 new DeliveryPartnerContact()
                 {
                     Id = Guid.NewGuid(),
-                    DeliveryPartnerOrganisationId = DELIVERY_PARTNER_ORGANISATION_ID
+                    DeliveryPartnerId = DELIVERY_PARTNER_ORGANISATION_ID
                 },
                 new DeliveryPartnerContact()
                 {
                     Id = Guid.NewGuid(),
-                    DeliveryPartnerOrganisationId = DELIVERY_PARTNER_ORGANISATION_ID
+                    DeliveryPartnerId = DELIVERY_PARTNER_ORGANISATION_ID
                 },
                 new DeliveryPartnerContact()
                 {
                     Id = Guid.NewGuid(),
-                    DeliveryPartnerOrganisationId = Guid.NewGuid()
+                    DeliveryPartnerId = Guid.NewGuid()
                 }
             };
         }
