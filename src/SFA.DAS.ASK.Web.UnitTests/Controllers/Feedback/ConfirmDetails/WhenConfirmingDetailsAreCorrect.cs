@@ -24,25 +24,25 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.ConfirmDetails
         }
 
         [Test]
-        public async Task AndNoAmmendmentCommentsAreMade_ThenAddAmmendmentHandlerIsNotCalled()
+        public async Task AndNoAmendmentCommentsAreMade_ThenAddAmendmentHandlerIsNotCalled()
         {
-            var result = await controller.StartFeedback(FEEDBACK_ID, new ConfirmDetailsViewModel());
+            await controller.StartFeedback(FeedbackId, new ConfirmDetailsViewModel());
 
-            Mediator.DidNotReceive().Send(Arg.Any<AddAmendmentCommentCommand>());
+            await Mediator.DidNotReceive().Send(Arg.Any<AddAmendmentCommentCommand>());
         }
 
         [Test]
-        public async Task AndaAnAmmendmentCommentsisMade_ThenAddAmmendmentHandlerIsCalledOnce()
+        public async Task AndAnAmendmentCommentsIsMade_ThenAddAmendmentHandlerIsCalledOnce()
         {
-            var result = await controller.StartFeedback(FEEDBACK_ID, new ConfirmDetailsViewModel() { IncorrectDetailsComments = "Additional Comment"});
+            await controller.StartFeedback(FeedbackId, new ConfirmDetailsViewModel() { IncorrectDetailsComments = "Additional Comment"});
 
-            Mediator.Received().Send(Arg.Any<AddAmendmentCommentCommand>());
+            await Mediator.Received().Send(Arg.Any<AddAmendmentCommentCommand>());
         }
 
         [Test]
         public async Task ThenTheUserIsRedirectedToTheFeedbackSection1()
         {
-            var result = await controller.StartFeedback(FEEDBACK_ID, new ConfirmDetailsViewModel());
+            var result = await controller.StartFeedback(FeedbackId, new ConfirmDetailsViewModel());
 
             result.As<RedirectToActionResult>().ControllerName.Should().Be("FeedbackSection1");
         }

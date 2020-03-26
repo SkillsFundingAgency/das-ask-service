@@ -2,11 +2,10 @@ CREATE TABLE [dbo].[DeliveryPartnerContacts](
 	[Id] [uniqueidentifier] NOT NULL,
 	[DeliveryPartnerId] [uniqueidentifier] NOT NULL,
 	[SignInId] [uniqueidentifier] NULL,
-	[DisplayName] [nvarchar](250) NOT NULL,
- [FirstName] NCHAR(250) NULL, 
-    [LastName] NCHAR(250) NULL, 
-    [PhoneNumber] NCHAR(250) NULL, 
-    [Email] NCHAR(250) NULL, 
+    [FirstName] nvarchar(250) NULL, 
+    [LastName] nvarchar(250) NULL, 
+    [PhoneNumber] nvarchar(250) NULL, 
+    [Email] nvarchar(250) NULL, 
     CONSTRAINT [PK_DeliveryPartnerContacts] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

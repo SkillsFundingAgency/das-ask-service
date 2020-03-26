@@ -52,9 +52,9 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.CancelRequest
         {
             sut.ModelState.AddModelError("CancelRequest", "You must select an option");
 
-            var actual = await sut.Cancel(REQUEST_ID, new CancelSupportRequestViewModel(REQUEST_ID, "TestAction", "TestController"));
+            await sut.Cancel(REQUEST_ID, new CancelSupportRequestViewModel(REQUEST_ID, "TestAction", "TestController"));
 
-            Mediator.DidNotReceive().Send(Arg.Any<CancelSupportRequestCommand>());
+            await Mediator.DidNotReceive().Send(Arg.Any<CancelSupportRequestCommand>());
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.CancelRequest
 
             await sut.Cancel(REQUEST_ID, new CancelSupportRequestViewModel() { ConfirmedCancel = true });
 
-            Mediator.Received().Send(Arg.Any<CancelSupportRequestCommand>());
+            await Mediator.Received().Send(Arg.Any<CancelSupportRequestCommand>());
         }
 
         [Test]

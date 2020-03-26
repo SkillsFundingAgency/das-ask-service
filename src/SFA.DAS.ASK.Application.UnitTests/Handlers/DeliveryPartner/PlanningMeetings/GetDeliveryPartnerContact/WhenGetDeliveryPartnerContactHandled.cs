@@ -26,14 +26,12 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.DeliveryPartner.PlanningMee
                 new DeliveryPartnerContact()
                 {  
                     Id = DELIVERY_PARTNER_CONTACT_ID_1,
-                    FirstName = "Test1",
-                    LastName = "DP1",
+                    FullName = "Test1 DP1"
                 },
                 new DeliveryPartnerContact()
                 {
                     Id = DELIVERY_PARTNER_CONTACT_ID_2,
-                    FirstName = "Test2",
-                    LastName = "DP2",
+                    FullName = "Test2 DP2"
                 },
             });
 
@@ -43,7 +41,7 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.DeliveryPartner.PlanningMee
 
             var contact = await handler.Handle(new GetDeliveryPartnerContactRequest(DELIVERY_PARTNER_CONTACT_ID_1), CancellationToken.None);
 
-            contact.FirstName.Should().Be("Test1");
+            contact.FullName.Should().Be("Test1 DP1");
 
         }
     }

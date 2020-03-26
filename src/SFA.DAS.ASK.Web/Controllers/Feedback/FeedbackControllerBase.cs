@@ -17,8 +17,6 @@ namespace SFA.DAS.ASK.Web.Controllers.Feedback
         protected string NextPageController { get; set; }
         private readonly IMediator _mediator;
 
-        //protected Action<Guid> PostSubmitAction { get; set; }
-
         protected virtual async Task PostSubmitAction(Guid feedbackId)    
         {
         }

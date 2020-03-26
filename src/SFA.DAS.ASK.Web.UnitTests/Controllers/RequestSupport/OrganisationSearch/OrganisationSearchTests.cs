@@ -36,13 +36,13 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.OrganisationSearc
         {
             await sut.Index(REQUEST_ID, null);
 
-            Mediator.Received().Send(Arg.Any<GetTempSupportRequest>());
+            await Mediator.Received().Send(Arg.Any<GetTempSupportRequest>());
         }
 
         [Test]
-        public async Task WhenSubmittingASearchRequest_ThenRedirectsToTheSearchResultsPage()
+        public void WhenSubmittingASearchRequest_ThenRedirectsToTheSearchResultsPage()
         {
-            var actual = await sut.Search(REQUEST_ID, new OrganisationSearchViewModel() { Search = "Test School" });
+            var actual = sut.Search(REQUEST_ID, new OrganisationSearchViewModel() { Search = "Test School" });
 
             var actionResult = actual as RedirectToActionResult;
             
@@ -58,18 +58,16 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.OrganisationSearc
         }
 
         [Test]
-        public async Task WhenSubmittingAnEmptySearchRequest_ThenRedirectsToTheSearchPage()
+        public void WhenSubmittingAnEmptySearchRequest_ThenRedirectsToTheSearchPage()
         {
             sut.ModelState.AddModelError("Search", "Enter a search term");
 
-            var actual = await sut.Search(REQUEST_ID, new OrganisationSearchViewModel());
+            var actual = sut.Search(REQUEST_ID, new OrganisationSearchViewModel());
 
             var viewResult = actual as RedirectToActionResult;
 
             Assert.AreEqual(viewResult.ControllerName, "OrganisationSearch");
             Assert.AreEqual(viewResult.ActionName, "Index");
-
         }
-
     }
 }

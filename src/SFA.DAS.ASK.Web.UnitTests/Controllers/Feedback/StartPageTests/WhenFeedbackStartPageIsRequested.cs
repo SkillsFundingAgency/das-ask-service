@@ -66,7 +66,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.StartPageTests
         }
         
         [Test]
-        public async Task AndFeedbackIdIsNotValid_ThenSecurityExceptionThrown()
+        public void AndFeedbackIdIsNotValid_ThenSecurityExceptionThrown()
         {
             _mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(default(VisitFeedback));
 

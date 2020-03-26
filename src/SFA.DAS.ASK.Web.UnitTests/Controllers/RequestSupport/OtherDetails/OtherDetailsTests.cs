@@ -46,9 +46,9 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.OtherDetails
         [Test]
         public async Task WhenSubmittingTheOtherDetailsForm_ThenTheSubmitSupportRequestHandlerIsCalled()
         {
-            var actual = await sut.Index(REQUEST_ID, new OtherDetailsViewModel());
+            await sut.Index(REQUEST_ID, new OtherDetailsViewModel());
 
-            Mediator.Received(1).Send(Arg.Any<SubmitSupportRequest>());
+            await Mediator.Received(1).Send(Arg.Any<SubmitSupportRequest>());
         }
 
         [Test]

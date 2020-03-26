@@ -20,7 +20,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
         protected ISessionService SessionService;
 
         [SetUp]
-        public void Arrange()
+        public void SetUp()
         {
             Mediator = Substitute.For<IMediator>();
             SessionService = Substitute.For<ISessionService>();

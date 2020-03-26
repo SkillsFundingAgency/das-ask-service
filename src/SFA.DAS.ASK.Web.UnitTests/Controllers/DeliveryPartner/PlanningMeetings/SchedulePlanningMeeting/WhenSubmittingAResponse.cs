@@ -35,7 +35,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
         {
             var result = await sut.Index(SUPPORT_ID, GetSchedulePlanningMeetingViewModel());
 
-            Mediator.Received(1).Send(Arg.Any<UpdatePlanningMeetingCommand>());
+            await Mediator.Received(1).Send(Arg.Any<UpdatePlanningMeetingCommand>());
 
             result.Should().BeOfType<RedirectToActionResult>();
             result.As<RedirectToActionResult>().ActionName.Should().Be("Index");

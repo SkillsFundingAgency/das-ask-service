@@ -32,21 +32,15 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.CheckYourDetails
         }
 
         [Test]
-        public async Task WhenNavigatingToTheCheckYourDetails_ThenDataIsLoaded()
-        {
-
-        }
-
-        [Test]
         public async Task WhenNavigatingToTheCheckYourDetails_ThenTempSupportDataIsRequested()
         {
-            var actual = await sut.Index(REQUEST_ID);
+            await sut.Index(REQUEST_ID);
 
-            Mediator.Received().Send(Arg.Any<GetTempSupportRequest>());
+            await Mediator.Received().Send(Arg.Any<GetTempSupportRequest>());
         }
 
         [Test]
-        public async Task WhenConfirmingDetails_ThenUserIsRedirectedToMoreDetailsPage()
+        public void WhenConfirmingDetails_ThenUserIsRedirectedToMoreDetailsPage()
         {
             var actual = sut.Continue(REQUEST_ID);
 

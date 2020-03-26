@@ -33,7 +33,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
         {
             var result = sut.Submit(SUPPORT_ID, GetDeliveryPartnerContactViewModel());
 
-            Mediator.Received().Send(Arg.Any<UpdatePlanningMeetingCommand>());
+            await Mediator.Received().Send(Arg.Any<UpdatePlanningMeetingCommand>());
         }
         [Test]
         public async Task AndTheModelStateIsValid_ThenTheUserIsRedirectedToTheCheckAnswersPage()

@@ -30,9 +30,9 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.RequestSupport.GetNonDfeOrg
             SessionService.Get(Arg.Any<string>()).Returns("Test School");
             SessionService.Get<List<ReferenceDataSearchResult>>(Arg.Any<string>()).Returns(GetCachedSearchResults());
 
-            (await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken))).ToList();
+            await Handler.Handle(new GetNonDfeOrganisationsRequest("Test School", Guid.NewGuid()), default(CancellationToken));
 
-            ReferenceDataApi.DidNotReceive().Search(Arg.Is("Test School"));
+            await ReferenceDataApi.DidNotReceive().Search(Arg.Is("Test School"));
         }
 
         [Test]

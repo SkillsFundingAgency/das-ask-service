@@ -11,43 +11,40 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback
 {
     public class FeedbackTestBase
     {
-        protected Guid FEEDBACK_ID = Guid.NewGuid();
-        protected Guid VISIT_ID = Guid.NewGuid();
-        protected Guid VISIT_ACTIVITY_ID = Guid.NewGuid();
-        protected DateTime TEST_DATE = new DateTime();
-        protected const string FIRST_NAME = "FirstName";
-        protected const string LAST_NAME = "LastName";
-        protected const string ORGANISATION_NAME = "Test Organisation";
-
+        protected Guid FeedbackId = Guid.NewGuid();
+        private readonly Guid _visitId = Guid.NewGuid();
+        private readonly Guid _visitActivityId = Guid.NewGuid();
+        private readonly DateTime _testDate = new DateTime();
+        private const string FirstName = "FirstName";
+        private const string LastName = "LastName";
+        private const string OrganisationName = "Test Organisation";
 
         protected IMediator Mediator;
-        protected ISessionService SessionService;
 
         [SetUp]
-        public void Arrange()
+        public void SetUp()
         {
             Mediator = Substitute.For<IMediator>();
-            SessionService = Substitute.For<ISessionService>();
         }
 
-        public VisitFeedback GetVisitFeedback()
+        protected VisitFeedback GetVisitFeedback()
         {
             return new VisitFeedback()
             {
-                Id = FEEDBACK_ID,
+                Id = FeedbackId,
                 FeedbackAnswers = new FeedbackAnswers() { },
                 Status = 0,
                 Visit = new Visit()
                 {
-                    OrganisationContact = new OrganisationContact() { FirstName = FIRST_NAME, LastName = LAST_NAME},
-                    SupportRequest = new SupportRequest() { Organisation = new Organisation() { OrganisationName = ORGANISATION_NAME } },
+                    OrganisationContact = new OrganisationContact() { FirstName = FirstName, LastName = LastName},
+                    SupportRequest = new SupportRequest() { Organisation = new Organisation() { OrganisationName = OrganisationName } },
                     Activities = new List<VisitActivity>()
                                      {
-                                        new VisitActivity() { ActivityType = ActivityType.AwarenessAssembly, Id = VISIT_ACTIVITY_ID, VisitId = VISIT_ID }
+                                        new VisitActivity() { ActivityType = ActivityType.AwarenessAssembly, Id = _visitActivityId, VisitId = _visitId }
                                      },
-                    VisitDate = TEST_DATE
+                    VisitDate = _testDate
                 },
-                VisitId = VISIT_ID
+                VisitId = _visitId
             };
         }
 

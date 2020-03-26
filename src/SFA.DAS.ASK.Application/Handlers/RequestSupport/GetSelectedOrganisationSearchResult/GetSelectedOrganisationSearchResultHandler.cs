@@ -20,11 +20,13 @@ namespace SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSelectedOrganisatio
             _sessionService = sessionService;
         }
 
+#pragma warning disable 1998
         public async Task<ReferenceDataSearchResult> Handle(GetSelectedOrganisationSearchResultRequest request, CancellationToken cancellationToken)
+#pragma warning restore 1998
         {
             var cachedResults = _sessionService.Get<List<ReferenceDataSearchResult>>($"Searchresults-{request.RequestId}");
 
-            return cachedResults.Where(r => r.Id == request.SelectedResult).FirstOrDefault();
+            return cachedResults.FirstOrDefault(r => r.Id == request.SelectedResult);
         }
     }
 }

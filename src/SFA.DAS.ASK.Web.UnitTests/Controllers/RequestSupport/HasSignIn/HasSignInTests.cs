@@ -86,9 +86,9 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.HasSignIn
             SessionService.Get(Arg.Is("TempSupportRequestId")).ReturnsNull();
             Mediator.Send(Arg.Any<StartTempSupportRequestCommand>()).Returns(new StartTempSupportRequestResponse(REQUEST_ID));
 
-            var actual = await sut.Index(new HasSignInViewModel() { HasSignInAccount = false });
+            await sut.Index(new HasSignInViewModel() { HasSignInAccount = false });
 
-            Mediator.Received(1).Send(Arg.Any<StartTempSupportRequestCommand>());
+            await Mediator.Received(1).Send(Arg.Any<StartTempSupportRequestCommand>());
         }
     }
 }

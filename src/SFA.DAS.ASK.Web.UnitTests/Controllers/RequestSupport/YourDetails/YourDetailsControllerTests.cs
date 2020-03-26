@@ -42,13 +42,12 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.YourDetails
         {
             await sut.Index(REQUEST_ID, false);
 
-            Mediator.Received().Send(Arg.Any<GetTempSupportRequest>());
+            await Mediator.Received().Send(Arg.Any<GetTempSupportRequest>());
         }
 
         [Test]
         public async Task WhenViewingTheYourDetailsPage_ThenTheModelIsPrePopulated()
         {
-
             var actual = await sut.Index(REQUEST_ID, false);
 
             var viewResult = actual as ViewResult;

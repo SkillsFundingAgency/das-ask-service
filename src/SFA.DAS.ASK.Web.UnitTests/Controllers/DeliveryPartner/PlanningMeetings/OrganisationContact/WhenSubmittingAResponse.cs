@@ -92,7 +92,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
 
             });
 
-            Mediator.Received(1).Send(Arg.Any<CreateOrganisationContactCommand>());
+            await Mediator.Received(1).Send(Arg.Any<CreateOrganisationContactCommand>());
 
             result.Should().BeOfType<RedirectToActionResult>();
             result.As<RedirectToActionResult>().ActionName.Should().Be("Index");
@@ -114,7 +114,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.DeliveryPartner.PlanningMeetings
                 SelectedContact = Guid.Empty
             });
 
-            Mediator.Received(0).Send(Arg.Any<CreateOrganisationContactCommand>());
+            await Mediator.Received(0).Send(Arg.Any<CreateOrganisationContactCommand>());
 
             result.Should().BeOfType<RedirectToActionResult>();
             result.As<RedirectToActionResult>().ControllerName.Should().Be("PlanningContact");

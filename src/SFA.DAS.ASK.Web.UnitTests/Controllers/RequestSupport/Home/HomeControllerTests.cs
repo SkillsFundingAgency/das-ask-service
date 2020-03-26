@@ -21,7 +21,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.Home
         }
 
         [Test]
-        public async Task WhenVisitingTheStartPage_ThenTheCorrectViewIsDisplayed()
+        public void WhenVisitingTheStartPage_ThenTheCorrectViewIsDisplayed()
         {
             var actual = sut.Index();
 

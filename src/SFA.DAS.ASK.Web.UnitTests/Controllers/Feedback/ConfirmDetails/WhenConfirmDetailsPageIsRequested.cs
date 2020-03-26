@@ -6,12 +6,8 @@ using NUnit.Framework;
 using SFA.DAS.ASK.Application.Handlers.Feedback.GetVisitFeedback;
 using SFA.DAS.ASK.Data.Entities;
 using SFA.DAS.ASK.Web.Controllers.Feedback;
-using System;
-using System.Collections.Generic;
 using System.Security;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 using ViewResult = Microsoft.AspNetCore.Mvc.ViewResult;
 
@@ -34,7 +30,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.ConfirmDetails
         {
             Mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(GetVisitFeedback());
 
-            var result = await _controller.Index(FEEDBACK_ID);
+            var result = await _controller.Index(FeedbackId);
 
             result.Should().BeOfType<ViewResult>();
             result.As<ViewResult>().ViewName.Should().Be("~/Views/Feedback/ConfirmDetails.cshtml");
@@ -44,7 +40,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.ConfirmDetails
         public async Task AndFeedbackIsCompleted_ThenRedirectedToCompletePage()
         {
             Mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(new VisitFeedback() { Status = FeedbackStatus.Complete });
-            var result = await _controller.Index(FEEDBACK_ID);
+            var result = await _controller.Index(FeedbackId);
 
             result.Should().BeOfType<RedirectToActionResult>();
             result.As<RedirectToActionResult>().ActionName.Should().Be("Index");
@@ -53,11 +49,11 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.ConfirmDetails
         }
 
         [Test]
-        public async Task AndFeedbackIdIsNotValid_ThenSecurityExceptionThrown()
+        public void AndFeedbackIdIsNotValid_ThenSecurityExceptionThrown()
         {
             Mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(default(VisitFeedback));
 
-            _controller.Invoking(c => c.Index(FEEDBACK_ID)).Should().Throw<SecurityException>().WithMessage($"Feedback ID {FEEDBACK_ID} is not valid.");
+            _controller.Invoking(c => c.Index(FeedbackId)).Should().Throw<SecurityException>().WithMessage($"Feedback ID {FeedbackId} is not valid.");
         }
     }
 }

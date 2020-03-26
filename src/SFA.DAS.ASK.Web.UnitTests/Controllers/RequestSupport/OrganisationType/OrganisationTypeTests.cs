@@ -58,9 +58,9 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.OrganisationType
         [Test]
         public async Task WhenSubmittingAValidForm_ThenSaveTempSupportRequestIsCalled()
         {
-            var actual = await sut.Index(REQUEST_ID, new OrganisationTypeViewModel() { SelectedOrganisationType = Data.Entities.OrganisationType.School });
+            await sut.Index(REQUEST_ID, new OrganisationTypeViewModel() { SelectedOrganisationType = Data.Entities.OrganisationType.School });
 
-            Mediator.Received(1).Send(Arg.Any<SaveTempSupportRequest>());
+            await Mediator.Received(1).Send(Arg.Any<SaveTempSupportRequest>());
         }
 
         [Test]

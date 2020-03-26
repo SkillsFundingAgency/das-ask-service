@@ -31,14 +31,11 @@ namespace SFA.DAS.ASK.Web.Controllers.RequestSupport
 
         [HttpPost("organisation-search/{requestId}")]
         [ExportModelState]
-        public async Task<IActionResult> Search(Guid requestId, OrganisationSearchViewModel viewmodel)
+        public IActionResult Search(Guid requestId, OrganisationSearchViewModel viewmodel)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index", "OrganisationSearch", new { requestId = requestId });
-            }
-
-            return RedirectToAction("Index", "OrganisationResults", new { requestId = requestId, search = viewmodel.Search });
+            return !ModelState.IsValid 
+                ? RedirectToAction("Index", "OrganisationSearch", new { requestId = requestId }) 
+                : RedirectToAction("Index", "OrganisationResults", new { requestId = requestId, search = viewmodel.Search });
         }
     }
 }

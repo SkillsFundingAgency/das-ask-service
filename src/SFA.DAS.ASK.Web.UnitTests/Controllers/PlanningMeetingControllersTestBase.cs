@@ -37,8 +37,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
                 {
                     Id = DeliveryPartnerId1,
                     DeliveryPartnerId = DpOrganisationId,
-                    FirstName = "Test1",
-                    LastName = "Partner1",
+                    FullName = "Test1 Partner1",
                     Email = "Test1@DeliveryPartners.com",
                     PhoneNumber = "07111111111"
                 },
@@ -46,8 +45,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers
                 {
                     Id = DeliveryPartnerId2,
                     DeliveryPartnerId = DpOrganisationId,
-                    FirstName = "Test2",
-                    LastName = "Partner2",
+                    FullName = "Test2 Partner2",
                     Email = "Test2@DeliveryPartners.com",
                     PhoneNumber = "07222222222"
                 }

@@ -4,18 +4,6 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.OrganisationResul
 {
     public class OrganisationResultsTests : ControllersTestBase
     {
-        private OrganisationResultsController sut;
-
-        //[SetUp]
-        //public void Arrange()
-        //{
-        //    sut = new OrganisationResultsController(Mediator, SessionService);
-        //}
-
-        //[Test]
-        //public async Task WhenVisitingTheOrganisationResultsPage_ThenTheCorrectViewIsRendered()
-        //{
-        //    var actual = sut.Index()
-        //}
+        
     }
 }

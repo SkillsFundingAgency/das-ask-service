@@ -19,7 +19,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\SFA.DAS.ASK.Application\SFA.DAS.ASK.Application.csproj" />
-      <ProjectReference Include="..\SFA.DAS.ASK.Web\SFA.DAS.ASK.Web.csproj" />
     </ItemGroup>
 
     <ItemGroup>

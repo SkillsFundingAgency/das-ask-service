@@ -37,7 +37,7 @@ else
                             {
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" type="radio" asp-for="SelectedDeliveryPartnerContactId" value="@contact.Id" />
-                                    <label class="govuk-label govuk-radios__label">@contact.FirstName @contact.LastName</label>
+                                    <label class="govuk-label govuk-radios__label">@contact.FullName</label>
                                     <span class="govuk-hint govuk-radios__hint"> @contact.PhoneNumber</span>
                                     <span class="govuk-hint govuk-radios__hint"> @contact.Email</span>
                                 </div>

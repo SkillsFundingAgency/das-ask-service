@@ -33,7 +33,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.YourCommentsTests
         {
             Mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(GetVisitFeedback());
 
-            var result = await _controller.Index(FEEDBACK_ID, new YourCommentsViewModel());
+            var result = await _controller.Index(FeedbackId, new YourCommentsViewModel());
             
             result.As<RedirectToActionResult>().ControllerName.Should().Be("FeedbackComplete");
         }
@@ -43,9 +43,9 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.YourCommentsTests
         {
             Mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(GetVisitFeedback());
 
-            await _controller.Index(FEEDBACK_ID, new YourCommentsViewModel());
+            await _controller.Index(FeedbackId, new YourCommentsViewModel());
 
-            Mediator.Received(1).Send(Arg.Any<SaveVisitFeedbackRequest>());
+            await Mediator.Received(1).Send(Arg.Any<SaveVisitFeedbackRequest>());
         }
         
         [Test]
@@ -53,10 +53,9 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.Feedback.YourCommentsTests
         {
             Mediator.Send(Arg.Any<GetVisitFeedbackRequest>()).Returns(GetVisitFeedback());
 
-            await _controller.Index(FEEDBACK_ID, new YourCommentsViewModel());
+            await _controller.Index(FeedbackId, new YourCommentsViewModel());
 
-            Mediator.Received(1).Send(Arg.Any<SetVisitFeedbackCompleteCommand>());
-            
+            await Mediator.Received(1).Send(Arg.Any<SetVisitFeedbackCompleteCommand>());
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetOrganisationContacts
 {
@@ -23,7 +24,7 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetO
 
         public async Task<List<OrganisationContact>> Handle(GetOrganisationContactsRequest request, CancellationToken cancellationToken)
         {
-            return _askContext.OrganisationContacts.Where(x => x.OrganisationId == request.OrganisationId).ToList();
+            return await _askContext.OrganisationContacts.Where(x => x.OrganisationId == request.OrganisationId).ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }

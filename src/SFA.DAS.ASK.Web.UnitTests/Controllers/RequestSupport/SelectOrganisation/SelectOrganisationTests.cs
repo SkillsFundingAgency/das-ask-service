@@ -27,7 +27,7 @@ namespace SFA.DAS.ASK.Web.UnitTests.Controllers.RequestSupport.SelectOrganisatio
         private Guid _requestId;
 
         [SetUp]
-        public async Task SetUp()
+        public void SetUp()
         {
             _mediator = Substitute.For<IMediator>();
             _selectedDfeSignInOrganisationId = Guid.NewGuid();
