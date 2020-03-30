@@ -7,12 +7,14 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.SignInDeliveryPartner
     public class SignInDeliveryPartnerContactRequest : IRequest<SignInDeliveryPartnerContactResponse>
     {
         public Guid SignInId { get; }
-        public string Name { get; set; }
+        public string Name { get; }
+        public string EmailAddress { get; }
 
-        public SignInDeliveryPartnerContactRequest(Guid signInId, string name)
+        public SignInDeliveryPartnerContactRequest(Guid signInId, string name, string emailAddress)
         {
             SignInId = signInId;
             Name = name;
+            EmailAddress = emailAddress;
         }
     }
 

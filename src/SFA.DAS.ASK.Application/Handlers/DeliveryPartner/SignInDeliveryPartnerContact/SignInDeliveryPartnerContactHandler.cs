@@ -55,7 +55,8 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.SignInDeliveryPartner
                     DeliveryPartnerId = usersDeliveryPartner.Id,
                     FullName = request.Name,
                     Id = Guid.NewGuid(),
-                    SignInId = request.SignInId
+                    SignInId = request.SignInId,
+                    Email = request.EmailAddress
                 };
 
                 await _dbContext.DeliveryPartnerContacts.AddAsync(deliveryPartnerContact, cancellationToken);

@@ -21,8 +21,4 @@
       <ProjectReference Include="..\SFA.DAS.ASK.Application\SFA.DAS.ASK.Application.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Handlers\RequestSupport" />
-    </ItemGroup>
-
 </Project>

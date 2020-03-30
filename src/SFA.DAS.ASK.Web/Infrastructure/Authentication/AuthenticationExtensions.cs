@@ -104,7 +104,8 @@ namespace SFA.DAS.ASK.Web.Infrastructure.Authentication
                             var signInId = Guid.Parse(context.Principal.FindFirst("sub").Value);
                             var givenName = context.Principal.FindFirst("given_name").Value;
                             var familyName = context.Principal.FindFirst("family_name").Value;
-                            var signInResponse = mediator.Send(new SignInDeliveryPartnerContactRequest(signInId, $"{givenName} {familyName}"), CancellationToken.None).Result;
+                            var email = context.Principal.FindFirst("email").Value;
+                            var signInResponse = mediator.Send(new SignInDeliveryPartnerContactRequest(signInId, $"{givenName} {familyName}", email), CancellationToken.None).Result;
 
                             if (!signInResponse.Success)
                             {
