@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetOrCreatePlanningMeeting;
 using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.StartPlanningMeeting;
-using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.UpdatePlanningMeeeting;
+using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.UpdatePlanningMeeting;
 using SFA.DAS.ASK.Application.Handlers.RequestSupport.GetSupportRequest;
 using SFA.DAS.ASK.Application.Services.Session;
 using SFA.DAS.ASK.Data.Entities;

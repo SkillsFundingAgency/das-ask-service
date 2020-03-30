@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.StartPlanningMeeting
 {
-    public class StartPlanningMeetingCommand : IRequest<StartPlanningMeetingResponse>
+    public class StartPlanningMeetingCommand : IRequest
     {
         public Guid RequestId { get; set; }
         public Guid DeliveryPartnerId { get; set; }

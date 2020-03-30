@@ -1,12 +1,9 @@
 ﻿using MediatR;
 using SFA.DAS.ASK.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.UpdatePlanningMeeeting
+namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.UpdatePlanningMeeting
 {
     public class UpdatePlanningMeetingHandler : IRequestHandler<UpdatePlanningMeetingCommand>
     {

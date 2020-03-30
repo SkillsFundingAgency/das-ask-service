@@ -4,7 +4,7 @@ using NSubstitute;
 using NUnit.Framework;
 using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetDeliveryPartnerContacts;
 using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.GetOrCreatePlanningMeeting;
-using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.UpdatePlanningMeeeting;
+using SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.UpdatePlanningMeeting;
 using SFA.DAS.ASK.Web.Controllers.DeliveryPartner.PlanningMeetings;
 using SFA.DAS.ASK.Web.ViewModels.DeliveryPartner.PlanningMeetings;
 using System;

@@ -65,7 +65,8 @@ namespace SFA.DAS.ASK.Application.UnitTests.Handlers.DeliveryPartner.SignInDeliv
             _sessionService.Received(1).Set("SignedInContact", Arg.Is<SignedInContact>(sic =>
                 sic.DisplayName == "DP Contact" 
                 && sic.DeliveryPartnerName == "DP" 
-                && sic.DeliveryPartnerId == _deliveryPartnerId));
+                && sic.DeliveryPartnerId == _deliveryPartnerId
+                && sic.DeliveryPartnerContactId == _existingContactId));
         }
         
         [Test]

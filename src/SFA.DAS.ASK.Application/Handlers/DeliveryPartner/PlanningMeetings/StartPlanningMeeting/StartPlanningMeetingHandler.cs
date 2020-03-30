@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.StartPlanningMeeting
 {
-    public class StartPlanningMeetingHandler : IRequestHandler<StartPlanningMeetingCommand, StartPlanningMeetingResponse>
+    public class StartPlanningMeetingHandler : IRequestHandler<StartPlanningMeetingCommand>
     {
         private readonly AskContext _askContext;
 
@@ -15,7 +15,7 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.Star
         {
             _askContext = askContext;
         }
-        public async Task<StartPlanningMeetingResponse> Handle(StartPlanningMeetingCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(StartPlanningMeetingCommand request, CancellationToken cancellationToken)
         {
             var meetingId = Guid.NewGuid();
 
@@ -32,7 +32,7 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.PlanningMeetings.Star
 
             await _askContext.SaveChangesAsync(cancellationToken);
 
-            return new StartPlanningMeetingResponse(meetingId);
+            return Unit.Value;
         }
 
     }
