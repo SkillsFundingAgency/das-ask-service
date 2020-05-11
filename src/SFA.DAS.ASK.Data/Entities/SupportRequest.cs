@@ -29,6 +29,7 @@ namespace SFA.DAS.ASK.Data.Entities
     {
         Draft,
         NewRequest,
-        Contacted
+        Contacted,
+        Rejected
     }
 }

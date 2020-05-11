@@ -39,12 +39,19 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.GetSupportRequests
                 .Where(sr => sr.CurrentStatus == Status.NewRequest)
                 .ToListAsync(cancellationToken: cancellationToken);
             
-            var contactedSupportRequests = await supportRequestsQuery.Where(sr => sr.CurrentStatus == Status.Contacted).ToListAsync(cancellationToken: cancellationToken);
+            var contactedSupportRequests = await supportRequestsQuery
+                .Where(sr => sr.CurrentStatus == Status.Contacted)
+                .ToListAsync(cancellationToken: cancellationToken);
+            
+            var rejectedSupportRequests = await supportRequestsQuery
+                .Where(sr => sr.CurrentStatus == Status.Rejected)
+                .ToListAsync(cancellationToken: cancellationToken);
             
             return new GetSupportRequestsResponse()
             {
                 NewSupportRequests = newSupportRequests,
                 ContactedSupportRequests = contactedSupportRequests,
+                RejectedSupportRequests = rejectedSupportRequests
             };
         }
     }

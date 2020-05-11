@@ -18,5 +18,6 @@ namespace SFA.DAS.ASK.Application.Handlers.DeliveryPartner.GetSupportRequests
     {
         public List<SupportRequest> NewSupportRequests { get; set; }
         public List<SupportRequest> ContactedSupportRequests { get; set; }
+        public List<SupportRequest> RejectedSupportRequests { get; set; }
     }
 }

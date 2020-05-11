@@ -1,0 +1,62 @@
+@model SFA.DAS.ASK.Web.Controllers.DeliveryPartner.SupportRequestsViewModel
+
+@{
+    ViewBag.Title = "Support requests";
+}
+
+<main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing admin-page" id="main-content" role="main">
+
+
+    <div class="govuk-grid-row" id="delivery-partner-dashboard">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-xl">
+                Support requests
+                <span class="govuk-caption-xl">Manage requests for ASK support</span>
+            </h1>
+
+            <div class="tabs request-tabs">
+                 <div class="govuk-width-container">
+                      <ul class="govuk-list">
+                          <li>
+                              <a asp-action="Index" asp-controller="SupportRequests" class="govuk-link requests-all selected"><span class="number">@Model.AllSupportRequestsCount</span> - All requests</a>
+                          </li>
+                          <li>
+                              <a asp-action="NewSupportRequests" asp-controller="SupportRequests" class="govuk-link requests-all selected"><span class="number">@Model.NewSupportRequestsCount</span> - New requests</a>
+                          </li>
+                          <li>
+                              <a asp-action="ContactedSupportRequests" asp-controller="SupportRequests" class="govuk-link requests-all selected"><span class="number">@Model.ContactedSupportRequestsCount</span> - Contacted</a>
+                          </li>
+                          
+                           <li><button class="govuk-link requests-rejected" onclick="openTab('tab-content-5')">Rejected</button></li>
+                      </ul>
+                 </div>
+            </div>
+            
+           
+
+            @if (Model.ContactedSupportRequests.Any())
+            {
+                <h2 class="govuk-heading-m sub-heading">Contacted</h2>
+                @foreach (var sr in Model.ContactedSupportRequests)
+                {
+                    <div>
+                        <div>
+                            <span class="govuk-tag new">@sr.StatusDate</span>
+                            <h2 class="govuk-heading-m">
+                                @sr.OrganisationName
+                                <span class="govuk-caption-m">
+                                    @sr.OrganisationAddress
+                                </span>
+                            </h2>
+                            <p class="govuk-body-m">
+                                <span class="icon contact"></span> @sr.ContactName
+                                <span class="icon telephone"></span> @sr.ContactTelephone
+                                <span class="icon email"></span> <a href="mailto:@sr.ContactEmail">@sr.ContactEmail</a>
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</main>
