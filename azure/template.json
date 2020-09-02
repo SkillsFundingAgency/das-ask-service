@@ -94,6 +94,10 @@
         },
         "sharedBackEndAppServicePlan": {
             "type": "string"
+        },
+        "functionsExtensionVersion": {
+            "type": "string",
+            "defaultValue": "~2.0"
         }
     },
     "variables": {
@@ -188,7 +192,7 @@
                             },
                             {
                                 "name": "FUNCTIONS_EXTENSION_VERSION",
-                                "value": "~2"
+                                "value": "[parameters('functionsExtensionVersion')]"
                             },
                             {
                                 "name": "EnvironmentName",
