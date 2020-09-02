@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "environmentName": {
@@ -94,6 +94,10 @@
         },
         "sharedBackEndAppServicePlan": {
             "type": "string"
+        },
+        "functionsExtensionVersion": {
+            "type": "string",
+            "defaultValue": "~2.0"
         }
     },
     "variables": {
@@ -188,7 +192,7 @@
                             },
                             {
                                 "name": "FUNCTIONS_EXTENSION_VERSION",
-                                "value": "~2"
+                                "value": "[parameters('functionsExtensionVersion')]"
                             },
                             {
                                 "name": "EnvironmentName",
